@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This file documents the GNU Wget utility for downloading network
+data.
+
+Copyright (C) 1996-2011, 2015, 2018 Free Software Foundation,
+Inc.
+
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with no Front-Cover Texts, and with no Back-Cover
+Texts.  A copy of the license is included in the section entitled
+"GNU Free Documentation License". -->
+<!-- Created by GNU Texinfo 6.1, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>GNU Wget 1.19.4 Manual: Exit Status</title>
+
+<meta name="description" content="GNU Wget 1.19.4 Manual: Exit Status">
+<meta name="keywords" content="GNU Wget 1.19.4 Manual: Exit Status">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Invoking.html#Invoking" rel="up" title="Invoking">
+<link href="Recursive-Download.html#Recursive-Download" rel="next" title="Recursive Download">
+<link href="Recursive-Accept_002fReject-Options.html#Recursive-Accept_002fReject-Options" rel="prev" title="Recursive Accept/Reject Options">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Exit-Status"></a>
+<div class="header">
+<p>
+Previous: <a href="Recursive-Accept_002fReject-Options.html#Recursive-Accept_002fReject-Options" accesskey="p" rel="prev">Recursive Accept/Reject Options</a>, Up: <a href="Invoking.html#Invoking" accesskey="u" rel="up">Invoking</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Exit-Status-1"></a>
+<h3 class="section">2.13 Exit Status</h3>
+                                   
+
+<p>Wget may return one of several error codes if it encounters problems.
+</p>
+
+<dl compact="compact">
+<dt>0</dt>
+<dd><p>No problems occurred.
+</p>
+</dd>
+<dt>1</dt>
+<dd><p>Generic error code.
+</p>
+</dd>
+<dt>2</dt>
+<dd><p>Parse error&mdash;for instance, when parsing command-line options, the
+&lsquo;<samp>.wgetrc</samp>&rsquo; or &lsquo;<samp>.netrc</samp>&rsquo;...
+</p>
+</dd>
+<dt>3</dt>
+<dd><p>File I/O error.
+</p>
+</dd>
+<dt>4</dt>
+<dd><p>Network failure.
+</p>
+</dd>
+<dt>5</dt>
+<dd><p>SSL verification failure.
+</p>
+</dd>
+<dt>6</dt>
+<dd><p>Username/password authentication failure.
+</p>
+</dd>
+<dt>7</dt>
+<dd><p>Protocol errors.
+</p>
+</dd>
+<dt>8</dt>
+<dd><p>Server issued an error response.
+</p></dd>
+</dl>
+
+
+<p>With the exceptions of 0 and 1, the lower-numbered exit codes take
+precedence over higher-numbered ones, when multiple types of errors
+are encountered.
+</p>
+<p>In versions of Wget prior to 1.12, Wget&rsquo;s exit status tended to be
+unhelpful and inconsistent. Recursive downloads would virtually always
+return 0 (success), regardless of any issues encountered, and
+non-recursive fetches only returned the status corresponding to the
+most recently-attempted download.
+</p>
+
+
+
+
+</body>
+</html>

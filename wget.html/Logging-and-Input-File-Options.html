@@ -1,0 +1,241 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This file documents the GNU Wget utility for downloading network
+data.
+
+Copyright (C) 1996-2011, 2015, 2018 Free Software Foundation,
+Inc.
+
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with no Front-Cover Texts, and with no Back-Cover
+Texts.  A copy of the license is included in the section entitled
+"GNU Free Documentation License". -->
+<!-- Created by GNU Texinfo 6.1, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>GNU Wget 1.19.4 Manual: Logging and Input File Options</title>
+
+<meta name="description" content="GNU Wget 1.19.4 Manual: Logging and Input File Options">
+<meta name="keywords" content="GNU Wget 1.19.4 Manual: Logging and Input File Options">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Invoking.html#Invoking" rel="up" title="Invoking">
+<link href="Download-Options.html#Download-Options" rel="next" title="Download Options">
+<link href="Basic-Startup-Options.html#Basic-Startup-Options" rel="prev" title="Basic Startup Options">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Logging-and-Input-File-Options"></a>
+<div class="header">
+<p>
+Next: <a href="Download-Options.html#Download-Options" accesskey="n" rel="next">Download Options</a>, Previous: <a href="Basic-Startup-Options.html#Basic-Startup-Options" accesskey="p" rel="prev">Basic Startup Options</a>, Up: <a href="Invoking.html#Invoking" accesskey="u" rel="up">Invoking</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Logging-and-Input-File-Options-1"></a>
+<h3 class="section">2.4 Logging and Input File Options</h3>
+
+<dl compact="compact">
+<dd><a name="index-output-file"></a>
+<a name="index-log-file"></a>
+</dd>
+<dt>&lsquo;<samp>-o <var>logfile</var></samp>&rsquo;</dt>
+<dt>&lsquo;<samp>--output-file=<var>logfile</var></samp>&rsquo;</dt>
+<dd><p>Log all messages to <var>logfile</var>.  The messages are normally reported
+to standard error.
+</p>
+<a name="index-append-to-log"></a>
+</dd>
+<dt>&lsquo;<samp>-a <var>logfile</var></samp>&rsquo;</dt>
+<dt>&lsquo;<samp>--append-output=<var>logfile</var></samp>&rsquo;</dt>
+<dd><p>Append to <var>logfile</var>.  This is the same as &lsquo;<samp>-o</samp>&rsquo;, only it appends
+to <var>logfile</var> instead of overwriting the old log file.  If
+<var>logfile</var> does not exist, a new file is created.
+</p>
+<a name="index-debug"></a>
+</dd>
+<dt>&lsquo;<samp>-d</samp>&rsquo;</dt>
+<dt>&lsquo;<samp>--debug</samp>&rsquo;</dt>
+<dd><p>Turn on debug output, meaning various information important to the
+developers of Wget if it does not work properly.  Your system
+administrator may have chosen to compile Wget without debug support, in
+which case &lsquo;<samp>-d</samp>&rsquo; will not work.  Please note that compiling with
+debug support is always safe&mdash;Wget compiled with the debug support will
+<em>not</em> print any debug info unless requested with &lsquo;<samp>-d</samp>&rsquo;.
+See <a href="Reporting-Bugs.html#Reporting-Bugs">Reporting Bugs</a>, for more information on how to use &lsquo;<samp>-d</samp>&rsquo; for
+sending bug reports.
+</p>
+<a name="index-quiet"></a>
+</dd>
+<dt>&lsquo;<samp>-q</samp>&rsquo;</dt>
+<dt>&lsquo;<samp>--quiet</samp>&rsquo;</dt>
+<dd><p>Turn off Wget&rsquo;s output.
+</p>
+<a name="index-verbose"></a>
+</dd>
+<dt>&lsquo;<samp>-v</samp>&rsquo;</dt>
+<dt>&lsquo;<samp>--verbose</samp>&rsquo;</dt>
+<dd><p>Turn on verbose output, with all the available data.  The default output
+is verbose.
+</p>
+</dd>
+<dt>&lsquo;<samp>-nv</samp>&rsquo;</dt>
+<dt>&lsquo;<samp>--no-verbose</samp>&rsquo;</dt>
+<dd><p>Turn off verbose without being completely quiet (use &lsquo;<samp>-q</samp>&rsquo; for
+that), which means that error messages and basic information still get
+printed.
+</p>
+</dd>
+<dt>&lsquo;<samp>--report-speed=<var>type</var></samp>&rsquo;</dt>
+<dd><p>Output bandwidth as <var>type</var>.  The only accepted value is &lsquo;<samp>bits</samp>&rsquo;.
+</p>
+<a name="index-input_002dfile"></a>
+</dd>
+<dt>&lsquo;<samp>-i <var>file</var></samp>&rsquo;</dt>
+<dt>&lsquo;<samp>--input-file=<var>file</var></samp>&rsquo;</dt>
+<dd><p>Read <small>URL</small>s from a local or external <var>file</var>.  If &lsquo;<samp>-</samp>&rsquo; is
+specified as <var>file</var>, <small>URL</small>s are read from the standard input.  
+(Use &lsquo;<samp>./-</samp>&rsquo; to read from a file literally named &lsquo;<samp>-</samp>&rsquo;.)
+</p>
+<p>If this function is used, no <small>URL</small>s need be present on the command
+line.  If there are <small>URL</small>s both on the command line and in an input
+file, those on the command lines will be the first ones to be
+retrieved.  If &lsquo;<samp>--force-html</samp>&rsquo; is not specified, then <var>file</var>
+should consist of a series of URLs, one per line.
+</p>
+<p>However, if you specify &lsquo;<samp>--force-html</samp>&rsquo;, the document will be
+regarded as &lsquo;<samp>html</samp>&rsquo;.  In that case you may have problems with
+relative links, which you can solve either by adding <code>&lt;base
+href=&quot;<var>url</var>&quot;&gt;</code> to the documents or by specifying
+&lsquo;<samp>--base=<var>url</var></samp>&rsquo; on the command line.
+</p>
+<p>If the <var>file</var> is an external one, the document will be automatically
+treated as &lsquo;<samp>html</samp>&rsquo; if the Content-Type matches &lsquo;<samp>text/html</samp>&rsquo;.
+Furthermore, the <var>file</var>&rsquo;s location will be implicitly used as base
+href if none was specified.
+</p>
+<a name="index-input_002dmetalink"></a>
+</dd>
+<dt>&lsquo;<samp>--input-metalink=<var>file</var></samp>&rsquo;</dt>
+<dd><p>Downloads files covered in local Metalink <var>file</var>. Metalink version 3
+and 4 are supported.
+</p>
+<a name="index-keep_002dbadhash"></a>
+</dd>
+<dt>&lsquo;<samp>--keep-badhash</samp>&rsquo;</dt>
+<dd><p>Keeps downloaded Metalink&rsquo;s files with a bad hash. It appends .badhash
+to the name of Metalink&rsquo;s files which have a checksum mismatch, except
+without overwriting existing files.
+</p>
+<a name="index-metalink_002dover_002dhttp"></a>
+</dd>
+<dt>&lsquo;<samp>--metalink-over-http</samp>&rsquo;</dt>
+<dd><p>Issues HTTP HEAD request instead of GET and extracts Metalink metadata
+from response headers. Then it switches to Metalink download.
+If no valid Metalink metadata is found, it falls back to ordinary HTTP download.
+Enables &lsquo;<samp>Content-Type: application/metalink4+xml</samp>&rsquo; files download/processing.
+</p>
+<a name="index-metalink_002dindex"></a>
+</dd>
+<dt>&lsquo;<samp>--metalink-index=<var>number</var></samp>&rsquo;</dt>
+<dd><p>Set the Metalink &lsquo;<samp>application/metalink4+xml</samp>&rsquo; metaurl ordinal
+NUMBER. From 1 to the total number of &ldquo;application/metalink4+xml&rdquo;
+available.  Specify 0 or &lsquo;<samp>inf</samp>&rsquo; to choose the first good one.
+Metaurls, such as those from a &lsquo;<samp>--metalink-over-http</samp>&rsquo;, may have
+been sorted by priority key&rsquo;s value; keep this in mind to choose the
+right NUMBER.
+</p>
+<a name="index-preferred_002dlocation"></a>
+</dd>
+<dt>&lsquo;<samp>--preferred-location</samp>&rsquo;</dt>
+<dd><p>Set preferred location for Metalink resources. This has effect if multiple
+resources with same priority are available.
+</p>
+
+<a name="index-force-html"></a>
+</dd>
+<dt>&lsquo;<samp>-F</samp>&rsquo;</dt>
+<dt>&lsquo;<samp>--force-html</samp>&rsquo;</dt>
+<dd><p>When input is read from a file, force it to be treated as an <small>HTML</small>
+file.  This enables you to retrieve relative links from existing
+<small>HTML</small> files on your local disk, by adding <code>&lt;base
+href=&quot;<var>url</var>&quot;&gt;</code> to <small>HTML</small>, or using the &lsquo;<samp>--base</samp>&rsquo; command-line
+option.
+</p>
+<a name="index-base-for-relative-links-in-input-file"></a>
+</dd>
+<dt>&lsquo;<samp>-B <var>URL</var></samp>&rsquo;</dt>
+<dt>&lsquo;<samp>--base=<var>URL</var></samp>&rsquo;</dt>
+<dd><p>Resolves relative links using <var>URL</var> as the point of reference,
+when reading links from an HTML file specified via the
+&lsquo;<samp>-i</samp>&rsquo;/&lsquo;<samp>--input-file</samp>&rsquo; option (together with
+&lsquo;<samp>--force-html</samp>&rsquo;, or when the input file was fetched remotely from
+a server describing it as <small>HTML</small>). This is equivalent to the
+presence of a <code>BASE</code> tag in the <small>HTML</small> input file, with
+<var>URL</var> as the value for the <code>href</code> attribute.
+</p>
+<p>For instance, if you specify &lsquo;<samp>http://foo/bar/a.html</samp>&rsquo; for
+<var>URL</var>, and Wget reads &lsquo;<samp>../baz/b.html</samp>&rsquo; from the input file, it
+would be resolved to &lsquo;<samp>http://foo/baz/b.html</samp>&rsquo;.
+</p>
+<a name="index-specify-config"></a>
+</dd>
+<dt>&lsquo;<samp>--config=<var>FILE</var></samp>&rsquo;</dt>
+<dd><p>Specify the location of a startup file you wish to use instead of the
+default one(s). Use &ndash;no-config to disable reading of config files.
+If both &ndash;config and &ndash;no-config are given, &ndash;no-config is ignored.
+</p>
+
+</dd>
+<dt>&lsquo;<samp>--rejected-log=<var>logfile</var></samp>&rsquo;</dt>
+<dd><p>Logs all URL rejections to <var>logfile</var> as comma separated values.  The values
+include the reason of rejection, the URL and the parent URL it was found in.
+</p>
+</dd>
+</dl>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="Download-Options.html#Download-Options" accesskey="n" rel="next">Download Options</a>, Previous: <a href="Basic-Startup-Options.html#Basic-Startup-Options" accesskey="p" rel="prev">Basic Startup Options</a>, Up: <a href="Invoking.html#Invoking" accesskey="u" rel="up">Invoking</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

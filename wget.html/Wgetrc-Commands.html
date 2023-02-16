@@ -1,0 +1,691 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This file documents the GNU Wget utility for downloading network
+data.
+
+Copyright (C) 1996-2011, 2015, 2018 Free Software Foundation,
+Inc.
+
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with no Front-Cover Texts, and with no Back-Cover
+Texts.  A copy of the license is included in the section entitled
+"GNU Free Documentation License". -->
+<!-- Created by GNU Texinfo 6.1, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>GNU Wget 1.19.4 Manual: Wgetrc Commands</title>
+
+<meta name="description" content="GNU Wget 1.19.4 Manual: Wgetrc Commands">
+<meta name="keywords" content="GNU Wget 1.19.4 Manual: Wgetrc Commands">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Startup-File.html#Startup-File" rel="up" title="Startup File">
+<link href="Sample-Wgetrc.html#Sample-Wgetrc" rel="next" title="Sample Wgetrc">
+<link href="Wgetrc-Syntax.html#Wgetrc-Syntax" rel="prev" title="Wgetrc Syntax">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Wgetrc-Commands"></a>
+<div class="header">
+<p>
+Next: <a href="Sample-Wgetrc.html#Sample-Wgetrc" accesskey="n" rel="next">Sample Wgetrc</a>, Previous: <a href="Wgetrc-Syntax.html#Wgetrc-Syntax" accesskey="p" rel="prev">Wgetrc Syntax</a>, Up: <a href="Startup-File.html#Startup-File" accesskey="u" rel="up">Startup File</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Wgetrc-Commands-1"></a>
+<h3 class="section">6.3 Wgetrc Commands</h3>
+<a name="index-wgetrc-commands"></a>
+
+<p>The complete set of commands is listed below.  Legal values are listed
+after the &lsquo;<samp>=</samp>&rsquo;.  Simple Boolean values can be set or unset using
+&lsquo;<samp>on</samp>&rsquo; and &lsquo;<samp>off</samp>&rsquo; or &lsquo;<samp>1</samp>&rsquo; and &lsquo;<samp>0</samp>&rsquo;.
+</p>
+<p>Some commands take pseudo-arbitrary values.  <var>address</var> values can be
+hostnames or dotted-quad IP addresses.  <var>n</var> can be any positive
+integer, or &lsquo;<samp>inf</samp>&rsquo; for infinity, where appropriate.  <var>string</var>
+values can be any non-empty string.
+</p>
+<p>Most of these commands have direct command-line equivalents.  Also, any
+wgetrc command can be specified on the command line using the
+&lsquo;<samp>--execute</samp>&rsquo; switch (see <a href="Basic-Startup-Options.html#Basic-Startup-Options">Basic Startup Options</a>.)
+</p>
+<dl compact="compact">
+<dt>accept/reject = <var>string</var></dt>
+<dd><p>Same as &lsquo;<samp>-A</samp>&rsquo;/&lsquo;<samp>-R</samp>&rsquo; (see <a href="Types-of-Files.html#Types-of-Files">Types of Files</a>).
+</p>
+</dd>
+<dt>add_hostdir = on/off</dt>
+<dd><p>Enable/disable host-prefixed file names.  &lsquo;<samp>-nH</samp>&rsquo; disables it.
+</p>
+</dd>
+<dt>ask_password = on/off</dt>
+<dd><p>Prompt for a password for each connection established. Cannot be specified
+when &lsquo;<samp>--password</samp>&rsquo; is being used, because they are mutually
+exclusive. Equivalent to &lsquo;<samp>--ask-password</samp>&rsquo;.
+</p>
+</dd>
+<dt>auth_no_challenge = on/off</dt>
+<dd><p>If this option is given, Wget will send Basic HTTP authentication
+information (plaintext username and password) for all requests. See
+&lsquo;<samp>--auth-no-challenge</samp>&rsquo;.
+</p>
+</dd>
+<dt>background = on/off</dt>
+<dd><p>Enable/disable going to background&mdash;the same as &lsquo;<samp>-b</samp>&rsquo; (which
+enables it).
+</p>
+</dd>
+<dt>backup_converted = on/off</dt>
+<dd><p>Enable/disable saving pre-converted files with the suffix
+&lsquo;<samp>.orig</samp>&rsquo;&mdash;the same as &lsquo;<samp>-K</samp>&rsquo; (which enables it).
+</p>
+</dd>
+<dt>backups = <var>number</var></dt>
+<dd><p>Use up to <var>number</var> backups for a file.  Backups are rotated by
+adding an incremental counter that starts at &lsquo;<samp>1</samp>&rsquo;.  The default is
+&lsquo;<samp>0</samp>&rsquo;.
+</p>
+</dd>
+<dt>base = <var>string</var></dt>
+<dd><p>Consider relative <small>URL</small>s in input files (specified via the
+&lsquo;<samp>input</samp>&rsquo; command or the &lsquo;<samp>--input-file</samp>&rsquo;/&lsquo;<samp>-i</samp>&rsquo; option,
+together with &lsquo;<samp>force_html</samp>&rsquo; or &lsquo;<samp>--force-html</samp>&rsquo;)
+as being relative to <var>string</var>&mdash;the same as &lsquo;<samp>--base=<var>string</var></samp>&rsquo;.
+</p>
+</dd>
+<dt>bind_address = <var>address</var></dt>
+<dd><p>Bind to <var>address</var>, like the &lsquo;<samp>--bind-address=<var>address</var></samp>&rsquo;.
+</p>
+</dd>
+<dt>ca_certificate = <var>file</var></dt>
+<dd><p>Set the certificate authority bundle file to <var>file</var>.  The same
+as &lsquo;<samp>--ca-certificate=<var>file</var></samp>&rsquo;.
+</p>
+</dd>
+<dt>ca_directory = <var>directory</var></dt>
+<dd><p>Set the directory used for certificate authorities.  The same as
+&lsquo;<samp>--ca-directory=<var>directory</var></samp>&rsquo;.
+</p>
+</dd>
+<dt>cache = on/off</dt>
+<dd><p>When set to off, disallow server-caching.  See the &lsquo;<samp>--no-cache</samp>&rsquo;
+option.
+</p>
+</dd>
+<dt>certificate = <var>file</var></dt>
+<dd><p>Set the client certificate file name to <var>file</var>.  The same as
+&lsquo;<samp>--certificate=<var>file</var></samp>&rsquo;.
+</p>
+</dd>
+<dt>certificate_type = <var>string</var></dt>
+<dd><p>Specify the type of the client certificate, legal values being
+&lsquo;<samp>PEM</samp>&rsquo; (the default) and &lsquo;<samp>DER</samp>&rsquo; (aka ASN1).  The same as
+&lsquo;<samp>--certificate-type=<var>string</var></samp>&rsquo;.
+</p>
+</dd>
+<dt>check_certificate = on/off</dt>
+<dd><p>If this is set to off, the server certificate is not checked against
+the specified client authorities.  The default is &ldquo;on&rdquo;.  The same as
+&lsquo;<samp>--check-certificate</samp>&rsquo;.
+</p>
+</dd>
+<dt>connect_timeout = <var>n</var></dt>
+<dd><p>Set the connect timeout&mdash;the same as &lsquo;<samp>--connect-timeout</samp>&rsquo;.
+</p>
+</dd>
+<dt>content_disposition = on/off</dt>
+<dd><p>Turn on recognition of the (non-standard) &lsquo;<samp>Content-Disposition</samp>&rsquo;
+HTTP header&mdash;if set to &lsquo;<samp>on</samp>&rsquo;, the same as &lsquo;<samp>--content-disposition</samp>&rsquo;.
+</p>
+</dd>
+<dt>trust_server_names = on/off</dt>
+<dd><p>If set to on, construct the local file name from redirection URLs
+rather than original URLs.
+</p>
+</dd>
+<dt>continue = on/off</dt>
+<dd><p>If set to on, force continuation of preexistent partially retrieved
+files.  See &lsquo;<samp>-c</samp>&rsquo; before setting it.
+</p>
+</dd>
+<dt>convert_links = on/off</dt>
+<dd><p>Convert non-relative links locally.  The same as &lsquo;<samp>-k</samp>&rsquo;.
+</p>
+</dd>
+<dt>cookies = on/off</dt>
+<dd><p>When set to off, disallow cookies.  See the &lsquo;<samp>--cookies</samp>&rsquo; option.
+</p>
+</dd>
+<dt>cut_dirs = <var>n</var></dt>
+<dd><p>Ignore <var>n</var> remote directory components.  Equivalent to
+&lsquo;<samp>--cut-dirs=<var>n</var></samp>&rsquo;.
+</p>
+</dd>
+<dt>debug = on/off</dt>
+<dd><p>Debug mode, same as &lsquo;<samp>-d</samp>&rsquo;.
+</p>
+</dd>
+<dt>default_page = <var>string</var></dt>
+<dd><p>Default page name&mdash;the same as &lsquo;<samp>--default-page=<var>string</var></samp>&rsquo;.
+</p>
+</dd>
+<dt>delete_after = on/off</dt>
+<dd><p>Delete after download&mdash;the same as &lsquo;<samp>--delete-after</samp>&rsquo;.
+</p>
+</dd>
+<dt>dir_prefix = <var>string</var></dt>
+<dd><p>Top of directory tree&mdash;the same as &lsquo;<samp>-P <var>string</var></samp>&rsquo;.
+</p>
+</dd>
+<dt>dirstruct = on/off</dt>
+<dd><p>Turning dirstruct on or off&mdash;the same as &lsquo;<samp>-x</samp>&rsquo; or &lsquo;<samp>-nd</samp>&rsquo;,
+respectively.
+</p>
+</dd>
+<dt>dns_cache = on/off</dt>
+<dd><p>Turn DNS caching on/off.  Since DNS caching is on by default, this
+option is normally used to turn it off and is equivalent to
+&lsquo;<samp>--no-dns-cache</samp>&rsquo;.
+</p>
+</dd>
+<dt>dns_timeout = <var>n</var></dt>
+<dd><p>Set the DNS timeout&mdash;the same as &lsquo;<samp>--dns-timeout</samp>&rsquo;.
+</p>
+</dd>
+<dt>domains = <var>string</var></dt>
+<dd><p>Same as &lsquo;<samp>-D</samp>&rsquo; (see <a href="Spanning-Hosts.html#Spanning-Hosts">Spanning Hosts</a>).
+</p>
+</dd>
+<dt>dot_bytes = <var>n</var></dt>
+<dd><p>Specify the number of bytes &ldquo;contained&rdquo; in a dot, as seen throughout
+the retrieval (1024 by default).  You can postfix the value with
+&lsquo;<samp>k</samp>&rsquo; or &lsquo;<samp>m</samp>&rsquo;, representing kilobytes and megabytes,
+respectively.  With dot settings you can tailor the dot retrieval to
+suit your needs, or you can use the predefined <em>styles</em>
+(see <a href="Download-Options.html#Download-Options">Download Options</a>).
+</p>
+</dd>
+<dt>dot_spacing = <var>n</var></dt>
+<dd><p>Specify the number of dots in a single cluster (10 by default).
+</p>
+</dd>
+<dt>dots_in_line = <var>n</var></dt>
+<dd><p>Specify the number of dots that will be printed in each line throughout
+the retrieval (50 by default).
+</p>
+</dd>
+<dt>egd_file = <var>file</var></dt>
+<dd><p>Use <var>string</var> as the EGD socket file name.  The same as
+&lsquo;<samp>--egd-file=<var>file</var></samp>&rsquo;.
+</p>
+</dd>
+<dt>exclude_directories = <var>string</var></dt>
+<dd><p>Specify a comma-separated list of directories you wish to exclude from
+download&mdash;the same as &lsquo;<samp>-X <var>string</var></samp>&rsquo; (see <a href="Directory_002dBased-Limits.html#Directory_002dBased-Limits">Directory-Based Limits</a>).
+</p>
+</dd>
+<dt>exclude_domains = <var>string</var></dt>
+<dd><p>Same as &lsquo;<samp>--exclude-domains=<var>string</var></samp>&rsquo; (see <a href="Spanning-Hosts.html#Spanning-Hosts">Spanning Hosts</a>).
+</p>
+</dd>
+<dt>follow_ftp = on/off</dt>
+<dd><p>Follow <small>FTP</small> links from <small>HTML</small> documents&mdash;the same as
+&lsquo;<samp>--follow-ftp</samp>&rsquo;.
+</p>
+</dd>
+<dt>follow_tags = <var>string</var></dt>
+<dd><p>Only follow certain <small>HTML</small> tags when doing a recursive retrieval,
+just like &lsquo;<samp>--follow-tags=<var>string</var></samp>&rsquo;.
+</p>
+</dd>
+<dt>force_html = on/off</dt>
+<dd><p>If set to on, force the input filename to be regarded as an <small>HTML</small>
+document&mdash;the same as &lsquo;<samp>-F</samp>&rsquo;.
+</p>
+</dd>
+<dt>ftp_password = <var>string</var></dt>
+<dd><p>Set your <small>FTP</small> password to <var>string</var>.  Without this setting, the
+password defaults to &lsquo;<samp>-wget@</samp>&rsquo;, which is a useful default for
+anonymous <small>FTP</small> access.
+</p>
+<p>This command used to be named <code>passwd</code> prior to Wget 1.10.
+</p>
+</dd>
+<dt>ftp_proxy = <var>string</var></dt>
+<dd><p>Use <var>string</var> as <small>FTP</small> proxy, instead of the one specified in
+environment.
+</p>
+</dd>
+<dt>ftp_user = <var>string</var></dt>
+<dd><p>Set <small>FTP</small> user to <var>string</var>.
+</p>
+<p>This command used to be named <code>login</code> prior to Wget 1.10.
+</p>
+</dd>
+<dt>glob = on/off</dt>
+<dd><p>Turn globbing on/off&mdash;the same as &lsquo;<samp>--glob</samp>&rsquo; and &lsquo;<samp>--no-glob</samp>&rsquo;.
+</p>
+</dd>
+<dt>header = <var>string</var></dt>
+<dd><p>Define a header for HTTP downloads, like using
+&lsquo;<samp>--header=<var>string</var></samp>&rsquo;.
+</p>
+</dd>
+<dt>compression = <var>string</var></dt>
+<dd><p>Choose the compression type to be used.  Legal values are &lsquo;<samp>auto</samp>&rsquo;
+(the default), &lsquo;<samp>gzip</samp>&rsquo;, and &lsquo;<samp>none</samp>&rsquo;.  The same as
+&lsquo;<samp>--compression=<var>string</var></samp>&rsquo;.
+</p>
+</dd>
+<dt>adjust_extension = on/off</dt>
+<dd><p>Add a &lsquo;<samp>.html</samp>&rsquo; extension to &lsquo;<samp>text/html</samp>&rsquo; or
+&lsquo;<samp>application/xhtml+xml</samp>&rsquo; files that lack one, a &lsquo;<samp>.css</samp>&rsquo;
+extension to &lsquo;<samp>text/css</samp>&rsquo; files that lack one, and a &lsquo;<samp>.br</samp>&rsquo;,
+&lsquo;<samp>.Z</samp>&rsquo;, &lsquo;<samp>.zlib</samp>&rsquo; or &lsquo;<samp>.gz</samp>&rsquo; to compressed files like
+&lsquo;<samp>-E</samp>&rsquo;. Previously named &lsquo;<samp>html_extension</samp>&rsquo; (still acceptable,
+but deprecated).
+</p>
+</dd>
+<dt>http_keep_alive = on/off</dt>
+<dd><p>Turn the keep-alive feature on or off (defaults to on).  Turning it
+off is equivalent to &lsquo;<samp>--no-http-keep-alive</samp>&rsquo;.
+</p>
+</dd>
+<dt>http_password = <var>string</var></dt>
+<dd><p>Set <small>HTTP</small> password, equivalent to
+&lsquo;<samp>--http-password=<var>string</var></samp>&rsquo;.
+</p>
+</dd>
+<dt>http_proxy = <var>string</var></dt>
+<dd><p>Use <var>string</var> as <small>HTTP</small> proxy, instead of the one specified in
+environment.
+</p>
+</dd>
+<dt>http_user = <var>string</var></dt>
+<dd><p>Set <small>HTTP</small> user to <var>string</var>, equivalent to
+&lsquo;<samp>--http-user=<var>string</var></samp>&rsquo;.
+</p>
+</dd>
+<dt>https_only = on/off</dt>
+<dd><p>When in recursive mode, only HTTPS links are followed (defaults to off).
+</p>
+</dd>
+<dt>https_proxy = <var>string</var></dt>
+<dd><p>Use <var>string</var> as <small>HTTPS</small> proxy, instead of the one specified in
+environment.
+</p>
+</dd>
+<dt>ignore_case = on/off</dt>
+<dd><p>When set to on, match files and directories case insensitively; the
+same as &lsquo;<samp>--ignore-case</samp>&rsquo;.
+</p>
+</dd>
+<dt>ignore_length = on/off</dt>
+<dd><p>When set to on, ignore <code>Content-Length</code> header; the same as
+&lsquo;<samp>--ignore-length</samp>&rsquo;.
+</p>
+</dd>
+<dt>ignore_tags = <var>string</var></dt>
+<dd><p>Ignore certain <small>HTML</small> tags when doing a recursive retrieval, like
+&lsquo;<samp>--ignore-tags=<var>string</var></samp>&rsquo;.
+</p>
+</dd>
+<dt>include_directories = <var>string</var></dt>
+<dd><p>Specify a comma-separated list of directories you wish to follow when
+downloading&mdash;the same as &lsquo;<samp>-I <var>string</var></samp>&rsquo;.
+</p>
+</dd>
+<dt>iri = on/off</dt>
+<dd><p>When set to on, enable internationalized URI (IRI) support; the same as
+&lsquo;<samp>--iri</samp>&rsquo;.
+</p>
+</dd>
+<dt>inet4_only = on/off</dt>
+<dd><p>Force connecting to IPv4 addresses, off by default.  You can put this
+in the global init file to disable Wget&rsquo;s attempts to resolve and
+connect to IPv6 hosts.  Available only if Wget was compiled with IPv6
+support.  The same as &lsquo;<samp>--inet4-only</samp>&rsquo; or &lsquo;<samp>-4</samp>&rsquo;.
+</p>
+</dd>
+<dt>inet6_only = on/off</dt>
+<dd><p>Force connecting to IPv6 addresses, off by default.  Available only if
+Wget was compiled with IPv6 support.  The same as &lsquo;<samp>--inet6-only</samp>&rsquo;
+or &lsquo;<samp>-6</samp>&rsquo;.
+</p>
+</dd>
+<dt>input = <var>file</var></dt>
+<dd><p>Read the <small>URL</small>s from <var>string</var>, like &lsquo;<samp>-i <var>file</var></samp>&rsquo;.
+</p>
+</dd>
+<dt>keep_session_cookies = on/off</dt>
+<dd><p>When specified, causes &lsquo;<samp>save_cookies = on</samp>&rsquo; to also save session
+cookies.  See &lsquo;<samp>--keep-session-cookies</samp>&rsquo;.
+</p>
+</dd>
+<dt>limit_rate = <var>rate</var></dt>
+<dd><p>Limit the download speed to no more than <var>rate</var> bytes per second.
+The same as &lsquo;<samp>--limit-rate=<var>rate</var></samp>&rsquo;.
+</p>
+</dd>
+<dt>load_cookies = <var>file</var></dt>
+<dd><p>Load cookies from <var>file</var>.  See &lsquo;<samp>--load-cookies <var>file</var></samp>&rsquo;.
+</p>
+</dd>
+<dt>local_encoding = <var>encoding</var></dt>
+<dd><p>Force Wget to use <var>encoding</var> as the default system encoding. See
+&lsquo;<samp>--local-encoding</samp>&rsquo;.
+</p>
+</dd>
+<dt>logfile = <var>file</var></dt>
+<dd><p>Set logfile to <var>file</var>, the same as &lsquo;<samp>-o <var>file</var></samp>&rsquo;.
+</p>
+</dd>
+<dt>max_redirect = <var>number</var></dt>
+<dd><p>Specifies the maximum number of redirections to follow for a resource.
+See &lsquo;<samp>--max-redirect=<var>number</var></samp>&rsquo;.
+</p>
+</dd>
+<dt>mirror = on/off</dt>
+<dd><p>Turn mirroring on/off.  The same as &lsquo;<samp>-m</samp>&rsquo;.
+</p>
+</dd>
+<dt>netrc = on/off</dt>
+<dd><p>Turn reading netrc on or off.
+</p>
+</dd>
+<dt>no_clobber = on/off</dt>
+<dd><p>Same as &lsquo;<samp>-nc</samp>&rsquo;.
+</p>
+</dd>
+<dt>no_parent = on/off</dt>
+<dd><p>Disallow retrieving outside the directory hierarchy, like
+&lsquo;<samp>--no-parent</samp>&rsquo; (see <a href="Directory_002dBased-Limits.html#Directory_002dBased-Limits">Directory-Based Limits</a>).
+</p>
+</dd>
+<dt>no_proxy = <var>string</var></dt>
+<dd><p>Use <var>string</var> as the comma-separated list of domains to avoid in
+proxy loading, instead of the one specified in environment.
+</p>
+</dd>
+<dt>output_document = <var>file</var></dt>
+<dd><p>Set the output filename&mdash;the same as &lsquo;<samp>-O <var>file</var></samp>&rsquo;.
+</p>
+</dd>
+<dt>page_requisites = on/off</dt>
+<dd><p>Download all ancillary documents necessary for a single <small>HTML</small> page to
+display properly&mdash;the same as &lsquo;<samp>-p</samp>&rsquo;.
+</p>
+</dd>
+<dt>passive_ftp = on/off</dt>
+<dd><p>Change setting of passive <small>FTP</small>, equivalent to the
+&lsquo;<samp>--passive-ftp</samp>&rsquo; option.
+</p>
+</dd>
+<dt>password = <var>string</var></dt>
+<dd><p>Specify password <var>string</var> for both <small>FTP</small> and <small>HTTP</small> file retrieval. 
+This command can be overridden using the &lsquo;<samp>ftp_password</samp>&rsquo; and 
+&lsquo;<samp>http_password</samp>&rsquo; command for <small>FTP</small> and <small>HTTP</small> respectively.
+</p>
+</dd>
+<dt>post_data = <var>string</var></dt>
+<dd><p>Use POST as the method for all HTTP requests and send <var>string</var> in
+the request body.  The same as &lsquo;<samp>--post-data=<var>string</var></samp>&rsquo;.
+</p>
+</dd>
+<dt>post_file = <var>file</var></dt>
+<dd><p>Use POST as the method for all HTTP requests and send the contents of
+<var>file</var> in the request body.  The same as
+&lsquo;<samp>--post-file=<var>file</var></samp>&rsquo;.
+</p>
+</dd>
+<dt>prefer_family = none/IPv4/IPv6</dt>
+<dd><p>When given a choice of several addresses, connect to the addresses
+with specified address family first.  The address order returned by
+DNS is used without change by default.  The same as &lsquo;<samp>--prefer-family</samp>&rsquo;,
+which see for a detailed discussion of why this is useful.
+</p>
+</dd>
+<dt>private_key = <var>file</var></dt>
+<dd><p>Set the private key file to <var>file</var>.  The same as
+&lsquo;<samp>--private-key=<var>file</var></samp>&rsquo;.
+</p>
+</dd>
+<dt>private_key_type = <var>string</var></dt>
+<dd><p>Specify the type of the private key, legal values being &lsquo;<samp>PEM</samp>&rsquo;
+(the default) and &lsquo;<samp>DER</samp>&rsquo; (aka ASN1).  The same as
+&lsquo;<samp>--private-type=<var>string</var></samp>&rsquo;.
+</p>
+</dd>
+<dt>progress = <var>string</var></dt>
+<dd><p>Set the type of the progress indicator.  Legal types are &lsquo;<samp>dot</samp>&rsquo;
+and &lsquo;<samp>bar</samp>&rsquo;.  Equivalent to &lsquo;<samp>--progress=<var>string</var></samp>&rsquo;.
+</p>
+</dd>
+<dt>protocol_directories = on/off</dt>
+<dd><p>When set, use the protocol name as a directory component of local file
+names.  The same as &lsquo;<samp>--protocol-directories</samp>&rsquo;.
+</p>
+</dd>
+<dt>proxy_password = <var>string</var></dt>
+<dd><p>Set proxy authentication password to <var>string</var>, like
+&lsquo;<samp>--proxy-password=<var>string</var></samp>&rsquo;.
+</p>
+</dd>
+<dt>proxy_user = <var>string</var></dt>
+<dd><p>Set proxy authentication user name to <var>string</var>, like
+&lsquo;<samp>--proxy-user=<var>string</var></samp>&rsquo;.
+</p>
+</dd>
+<dt>quiet = on/off</dt>
+<dd><p>Quiet mode&mdash;the same as &lsquo;<samp>-q</samp>&rsquo;.
+</p>
+</dd>
+<dt>quota = <var>quota</var></dt>
+<dd><p>Specify the download quota, which is useful to put in the global
+<samp>wgetrc</samp>.  When download quota is specified, Wget will stop
+retrieving after the download sum has become greater than quota.  The
+quota can be specified in bytes (default), kbytes &lsquo;<samp>k</samp>&rsquo; appended) or
+mbytes (&lsquo;<samp>m</samp>&rsquo; appended).  Thus &lsquo;<samp>quota = 5m</samp>&rsquo; will set the quota
+to 5 megabytes.  Note that the user&rsquo;s startup file overrides system
+settings.
+</p>
+</dd>
+<dt>random_file = <var>file</var></dt>
+<dd><p>Use <var>file</var> as a source of randomness on systems lacking
+<samp>/dev/random</samp>.
+</p>
+</dd>
+<dt>random_wait = on/off</dt>
+<dd><p>Turn random between-request wait times on or off. The same as 
+&lsquo;<samp>--random-wait</samp>&rsquo;.
+</p>
+</dd>
+<dt>read_timeout = <var>n</var></dt>
+<dd><p>Set the read (and write) timeout&mdash;the same as
+&lsquo;<samp>--read-timeout=<var>n</var></samp>&rsquo;.
+</p>
+</dd>
+<dt>reclevel = <var>n</var></dt>
+<dd><p>Recursion level (depth)&mdash;the same as &lsquo;<samp>-l <var>n</var></samp>&rsquo;.
+</p>
+</dd>
+<dt>recursive = on/off</dt>
+<dd><p>Recursive on/off&mdash;the same as &lsquo;<samp>-r</samp>&rsquo;.
+</p>
+</dd>
+<dt>referer = <var>string</var></dt>
+<dd><p>Set HTTP &lsquo;<samp>Referer:</samp>&rsquo; header just like
+&lsquo;<samp>--referer=<var>string</var></samp>&rsquo;.  (Note that it was the folks who wrote
+the <small>HTTP</small> spec who got the spelling of &ldquo;referrer&rdquo; wrong.)
+</p>
+</dd>
+<dt>relative_only = on/off</dt>
+<dd><p>Follow only relative links&mdash;the same as &lsquo;<samp>-L</samp>&rsquo; (see <a href="Relative-Links.html#Relative-Links">Relative Links</a>).
+</p>
+</dd>
+<dt>remote_encoding = <var>encoding</var></dt>
+<dd><p>Force Wget to use <var>encoding</var> as the default remote server encoding.
+See &lsquo;<samp>--remote-encoding</samp>&rsquo;.
+</p>
+</dd>
+<dt>remove_listing = on/off</dt>
+<dd><p>If set to on, remove <small>FTP</small> listings downloaded by Wget.  Setting it
+to off is the same as &lsquo;<samp>--no-remove-listing</samp>&rsquo;.
+</p>
+</dd>
+<dt>restrict_file_names = unix/windows</dt>
+<dd><p>Restrict the file names generated by Wget from URLs.  See
+&lsquo;<samp>--restrict-file-names</samp>&rsquo; for a more detailed description.
+</p>
+</dd>
+<dt>retr_symlinks = on/off</dt>
+<dd><p>When set to on, retrieve symbolic links as if they were plain files; the
+same as &lsquo;<samp>--retr-symlinks</samp>&rsquo;.
+</p>
+</dd>
+<dt>retry_connrefused = on/off</dt>
+<dd><p>When set to on, consider &ldquo;connection refused&rdquo; a transient
+error&mdash;the same as &lsquo;<samp>--retry-connrefused</samp>&rsquo;.
+</p>
+</dd>
+<dt>robots = on/off</dt>
+<dd><p>Specify whether the norobots convention is respected by Wget, &ldquo;on&rdquo; by
+default.  This switch controls both the <samp>/robots.txt</samp> and the
+&lsquo;<samp>nofollow</samp>&rsquo; aspect of the spec.  See <a href="Robot-Exclusion.html#Robot-Exclusion">Robot Exclusion</a>, for more
+details about this.  Be sure you know what you are doing before turning
+this off.
+</p>
+</dd>
+<dt>save_cookies = <var>file</var></dt>
+<dd><p>Save cookies to <var>file</var>.  The same as &lsquo;<samp>--save-cookies
+<var>file</var></samp>&rsquo;.
+</p>
+</dd>
+<dt>save_headers = on/off</dt>
+<dd><p>Same as &lsquo;<samp>--save-headers</samp>&rsquo;.
+</p>
+</dd>
+<dt>secure_protocol = <var>string</var></dt>
+<dd><p>Choose the secure protocol to be used.  Legal values are &lsquo;<samp>auto</samp>&rsquo;
+(the default), &lsquo;<samp>SSLv2</samp>&rsquo;, &lsquo;<samp>SSLv3</samp>&rsquo;, and &lsquo;<samp>TLSv1</samp>&rsquo;.  The same
+as &lsquo;<samp>--secure-protocol=<var>string</var></samp>&rsquo;.
+</p>
+</dd>
+<dt>server_response = on/off</dt>
+<dd><p>Choose whether or not to print the <small>HTTP</small> and <small>FTP</small> server
+responses&mdash;the same as &lsquo;<samp>-S</samp>&rsquo;.
+</p>
+</dd>
+<dt>show_all_dns_entries = on/off</dt>
+<dd><p>When a DNS name is resolved, show all the IP addresses, not just the first
+three.
+</p>
+</dd>
+<dt>span_hosts = on/off</dt>
+<dd><p>Same as &lsquo;<samp>-H</samp>&rsquo;.
+</p>
+</dd>
+<dt>spider = on/off</dt>
+<dd><p>Same as &lsquo;<samp>--spider</samp>&rsquo;.
+</p>
+</dd>
+<dt>strict_comments = on/off</dt>
+<dd><p>Same as &lsquo;<samp>--strict-comments</samp>&rsquo;.
+</p>
+</dd>
+<dt>timeout = <var>n</var></dt>
+<dd><p>Set all applicable timeout values to <var>n</var>, the same as &lsquo;<samp>-T
+<var>n</var></samp>&rsquo;.
+</p>
+</dd>
+<dt>timestamping = on/off</dt>
+<dd><p>Turn timestamping on/off.  The same as &lsquo;<samp>-N</samp>&rsquo; (see <a href="Time_002dStamping.html#Time_002dStamping">Time-Stamping</a>).
+</p>
+</dd>
+<dt>use_server_timestamps = on/off</dt>
+<dd><p>If set to &lsquo;<samp>off</samp>&rsquo;, Wget won&rsquo;t set the local file&rsquo;s timestamp by the
+one on the server (same as &lsquo;<samp>--no-use-server-timestamps</samp>&rsquo;).
+</p>
+</dd>
+<dt>tries = <var>n</var></dt>
+<dd><p>Set number of retries per <small>URL</small>&mdash;the same as &lsquo;<samp>-t <var>n</var></samp>&rsquo;.
+</p>
+</dd>
+<dt>use_proxy = on/off</dt>
+<dd><p>When set to off, don&rsquo;t use proxy even when proxy-related environment
+variables are set.  In that case it is the same as using
+&lsquo;<samp>--no-proxy</samp>&rsquo;.
+</p>
+</dd>
+<dt>user = <var>string</var></dt>
+<dd><p>Specify username <var>string</var> for both <small>FTP</small> and <small>HTTP</small> file retrieval. 
+This command can be overridden using the &lsquo;<samp>ftp_user</samp>&rsquo; and 
+&lsquo;<samp>http_user</samp>&rsquo; command for <small>FTP</small> and <small>HTTP</small> respectively.
+</p>
+</dd>
+<dt>user_agent = <var>string</var></dt>
+<dd><p>User agent identification sent to the HTTP Server&mdash;the same as
+&lsquo;<samp>--user-agent=<var>string</var></samp>&rsquo;.
+</p>
+</dd>
+<dt>verbose = on/off</dt>
+<dd><p>Turn verbose on/off&mdash;the same as &lsquo;<samp>-v</samp>&rsquo;/&lsquo;<samp>-nv</samp>&rsquo;.
+</p>
+</dd>
+<dt>wait = <var>n</var></dt>
+<dd><p>Wait <var>n</var> seconds between retrievals&mdash;the same as &lsquo;<samp>-w
+<var>n</var></samp>&rsquo;.
+</p>
+</dd>
+<dt>wait_retry = <var>n</var></dt>
+<dd><p>Wait up to <var>n</var> seconds between retries of failed retrievals
+only&mdash;the same as &lsquo;<samp>--waitretry=<var>n</var></samp>&rsquo;.  Note that this is
+turned on by default in the global <samp>wgetrc</samp>.
+</p></dd>
+</dl>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="Sample-Wgetrc.html#Sample-Wgetrc" accesskey="n" rel="next">Sample Wgetrc</a>, Previous: <a href="Wgetrc-Syntax.html#Wgetrc-Syntax" accesskey="p" rel="prev">Wgetrc Syntax</a>, Up: <a href="Startup-File.html#Startup-File" accesskey="u" rel="up">Startup File</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This file documents the GNU Wget utility for downloading network
+data.
+
+Copyright (C) 1996-2011, 2015, 2018 Free Software Foundation,
+Inc.
+
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with no Front-Cover Texts, and with no Back-Cover
+Texts.  A copy of the license is included in the section entitled
+"GNU Free Documentation License". -->
+<!-- Created by GNU Texinfo 6.1, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>GNU Wget 1.19.4 Manual: Recursive Download</title>
+
+<meta name="description" content="GNU Wget 1.19.4 Manual: Recursive Download">
+<meta name="keywords" content="GNU Wget 1.19.4 Manual: Recursive Download">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="index.html#Top" rel="up" title="Top">
+<link href="Following-Links.html#Following-Links" rel="next" title="Following Links">
+<link href="Exit-Status.html#Exit-Status" rel="prev" title="Exit Status">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Recursive-Download"></a>
+<div class="header">
+<p>
+Next: <a href="Following-Links.html#Following-Links" accesskey="n" rel="next">Following Links</a>, Previous: <a href="Invoking.html#Invoking" accesskey="p" rel="prev">Invoking</a>, Up: <a href="index.html#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Recursive-Download-1"></a>
+<h2 class="chapter">3 Recursive Download</h2>
+<a name="index-recursion"></a>
+<a name="index-retrieving"></a>
+<a name="index-recursive-download"></a>
+
+<p>GNU Wget is capable of traversing parts of the Web (or a single
+<small>HTTP</small> or <small>FTP</small> server), following links and directory structure.
+We refer to this as to <em>recursive retrieval</em>, or <em>recursion</em>.
+</p>
+<p>With <small>HTTP</small> <small>URL</small>s, Wget retrieves and parses the <small>HTML</small> or
+<small>CSS</small> from the given <small>URL</small>, retrieving the files the document
+refers to, through markup like <code>href</code> or <code>src</code>, or <small>CSS</small>
+<small>URI</small> values specified using the &lsquo;<samp>url()</samp>&rsquo; functional notation.
+If the freshly downloaded file is also of type <code>text/html</code>,
+<code>application/xhtml+xml</code>, or <code>text/css</code>, it will be parsed
+and followed further.
+</p>
+<p>Recursive retrieval of <small>HTTP</small> and <small>HTML</small>/<small>CSS</small> content is
+<em>breadth-first</em>.  This means that Wget first downloads the requested
+document, then the documents linked from that document, then the
+documents linked by them, and so on.  In other words, Wget first
+downloads the documents at depth 1, then those at depth 2, and so on
+until the specified maximum depth.
+</p>
+<p>The maximum <em>depth</em> to which the retrieval may descend is specified
+with the &lsquo;<samp>-l</samp>&rsquo; option.  The default maximum depth is five layers.
+</p>
+<p>When retrieving an <small>FTP</small> <small>URL</small> recursively, Wget will retrieve all
+the data from the given directory tree (including the subdirectories up
+to the specified depth) on the remote server, creating its mirror image
+locally.  <small>FTP</small> retrieval is also limited by the <code>depth</code>
+parameter.  Unlike <small>HTTP</small> recursion, <small>FTP</small> recursion is performed
+depth-first.
+</p>
+<p>By default, Wget will create a local directory tree, corresponding to
+the one found on the remote server.
+</p>
+<p>Recursive retrieving can find a number of applications, the most
+important of which is mirroring.  It is also useful for <small>WWW</small>
+presentations, and any other opportunities where slow network
+connections should be bypassed by storing the files locally.
+</p>
+<p>You should be warned that recursive downloads can overload the remote
+servers.  Because of that, many administrators frown upon them and may
+ban access from your site if they detect very fast downloads of big
+amounts of content.  When downloading from Internet servers, consider
+using the &lsquo;<samp>-w</samp>&rsquo; option to introduce a delay between accesses to the
+server.  The download will take a while longer, but the server
+administrator will not be alarmed by your rudeness.
+</p>
+<p>Of course, recursive download may cause problems on your machine.  If
+left to run unchecked, it can easily fill up the disk.  If downloading
+from local network, it can also take bandwidth on the system, as well as
+consume memory and CPU.
+</p>
+<p>Try to specify the criteria that match the kind of download you are
+trying to achieve.  If you want to download only one page, use
+&lsquo;<samp>--page-requisites</samp>&rsquo; without any additional recursion.  If you want
+to download things under one directory, use &lsquo;<samp>-np</samp>&rsquo; to avoid
+downloading things from other directories.  If you want to download all
+the files from one directory, use &lsquo;<samp>-l 1</samp>&rsquo; to make sure the recursion
+depth never exceeds one.  See <a href="Following-Links.html#Following-Links">Following Links</a>, for more information
+about this.
+</p>
+<p>Recursive retrieval should be used with care.  Don&rsquo;t say you were not
+warned.
+</p>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Following-Links.html#Following-Links" accesskey="n" rel="next">Following Links</a>, Previous: <a href="Invoking.html#Invoking" accesskey="p" rel="prev">Invoking</a>, Up: <a href="index.html#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

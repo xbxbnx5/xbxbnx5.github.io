@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This file documents the GNU Wget utility for downloading network
+data.
+
+Copyright (C) 1996-2011, 2015, 2018 Free Software Foundation,
+Inc.
+
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with no Front-Cover Texts, and with no Back-Cover
+Texts.  A copy of the license is included in the section entitled
+"GNU Free Documentation License". -->
+<!-- Created by GNU Texinfo 6.1, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>GNU Wget 1.19.4 Manual: Directory-Based Limits</title>
+
+<meta name="description" content="GNU Wget 1.19.4 Manual: Directory-Based Limits">
+<meta name="keywords" content="GNU Wget 1.19.4 Manual: Directory-Based Limits">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Following-Links.html#Following-Links" rel="up" title="Following Links">
+<link href="Relative-Links.html#Relative-Links" rel="next" title="Relative Links">
+<link href="Types-of-Files.html#Types-of-Files" rel="prev" title="Types of Files">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Directory_002dBased-Limits"></a>
+<div class="header">
+<p>
+Next: <a href="Relative-Links.html#Relative-Links" accesskey="n" rel="next">Relative Links</a>, Previous: <a href="Types-of-Files.html#Types-of-Files" accesskey="p" rel="prev">Types of Files</a>, Up: <a href="Following-Links.html#Following-Links" accesskey="u" rel="up">Following Links</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Directory_002dBased-Limits-1"></a>
+<h3 class="section">4.3 Directory-Based Limits</h3>
+<a name="index-directories"></a>
+<a name="index-directory-limits"></a>
+
+<p>Regardless of other link-following facilities, it is often useful to
+place the restriction of what files to retrieve based on the directories
+those files are placed in.  There can be many reasons for this&mdash;the
+home pages may be organized in a reasonable directory structure; or some
+directories may contain useless information, e.g. <samp>/cgi-bin</samp> or
+<samp>/dev</samp> directories.
+</p>
+<p>Wget offers three different options to deal with this requirement.  Each
+option description lists a short name, a long name, and the equivalent
+command in <samp>.wgetrc</samp>.
+</p>
+<a name="index-directories_002c-include"></a>
+<a name="index-include-directories"></a>
+<a name="index-accept-directories"></a>
+<dl compact="compact">
+<dt>&lsquo;<samp>-I <var>list</var></samp>&rsquo;</dt>
+<dt>&lsquo;<samp>--include <var>list</var></samp>&rsquo;</dt>
+<dt>&lsquo;<samp>include_directories = <var>list</var></samp>&rsquo;</dt>
+<dd><p>&lsquo;<samp>-I</samp>&rsquo; option accepts a comma-separated list of directories included
+in the retrieval.  Any other directories will simply be ignored.  The
+directories are absolute paths.
+</p>
+<p>So, if you wish to download from &lsquo;<samp>http://host/people/bozo/</samp>&rsquo;
+following only links to bozo&rsquo;s colleagues in the <samp>/people</samp>
+directory and the bogus scripts in <samp>/cgi-bin</samp>, you can specify:
+</p>
+<div class="example">
+<pre class="example">wget -I /people,/cgi-bin http://host/people/bozo/
+</pre></div>
+
+<a name="index-directories_002c-exclude"></a>
+<a name="index-exclude-directories"></a>
+<a name="index-reject-directories"></a>
+</dd>
+<dt>&lsquo;<samp>-X <var>list</var></samp>&rsquo;</dt>
+<dt>&lsquo;<samp>--exclude <var>list</var></samp>&rsquo;</dt>
+<dt>&lsquo;<samp>exclude_directories = <var>list</var></samp>&rsquo;</dt>
+<dd><p>&lsquo;<samp>-X</samp>&rsquo; option is exactly the reverse of &lsquo;<samp>-I</samp>&rsquo;&mdash;this is a list of
+directories <em>excluded</em> from the download.  E.g. if you do not want
+Wget to download things from <samp>/cgi-bin</samp> directory, specify &lsquo;<samp>-X
+/cgi-bin</samp>&rsquo; on the command line.
+</p>
+<p>The same as with &lsquo;<samp>-A</samp>&rsquo;/&lsquo;<samp>-R</samp>&rsquo;, these two options can be combined
+to get a better fine-tuning of downloading subdirectories.  E.g. if you
+want to load all the files from <samp>/pub</samp> hierarchy except for
+<samp>/pub/worthless</samp>, specify &lsquo;<samp>-I/pub -X/pub/worthless</samp>&rsquo;.
+</p>
+<a name="index-no-parent"></a>
+</dd>
+<dt>&lsquo;<samp>-np</samp>&rsquo;</dt>
+<dt>&lsquo;<samp>--no-parent</samp>&rsquo;</dt>
+<dt>&lsquo;<samp>no_parent = on</samp>&rsquo;</dt>
+<dd><p>The simplest, and often very useful way of limiting directories is
+disallowing retrieval of the links that refer to the hierarchy
+<em>above</em> than the beginning directory, i.e. disallowing ascent to the
+parent directory/directories.
+</p>
+<p>The &lsquo;<samp>--no-parent</samp>&rsquo; option (short &lsquo;<samp>-np</samp>&rsquo;) is useful in this case.
+Using it guarantees that you will never leave the existing hierarchy.
+Supposing you issue Wget with:
+</p>
+<div class="example">
+<pre class="example">wget -r --no-parent http://somehost/~luzer/my-archive/
+</pre></div>
+
+<p>You may rest assured that none of the references to
+<samp>/~his-girls-homepage/</samp> or <samp>/~luzer/all-my-mpegs/</samp> will be
+followed.  Only the archive you are interested in will be downloaded.
+Essentially, &lsquo;<samp>--no-parent</samp>&rsquo; is similar to
+&lsquo;<samp>-I/~luzer/my-archive</samp>&rsquo;, only it handles redirections in a more
+intelligent fashion.
+</p>
+<p><strong>Note</strong> that, for HTTP (and HTTPS), the trailing slash is very
+important to &lsquo;<samp>--no-parent</samp>&rsquo;. HTTP has no concept of a &ldquo;directory&rdquo;&mdash;Wget
+relies on you to indicate what&rsquo;s a directory and what isn&rsquo;t. In
+&lsquo;<samp>http://foo/bar/</samp>&rsquo;, Wget will consider &lsquo;<samp>bar</samp>&rsquo; to be a
+directory, while in &lsquo;<samp>http://foo/bar</samp>&rsquo; (no trailing slash),
+&lsquo;<samp>bar</samp>&rsquo; will be considered a filename (so &lsquo;<samp>--no-parent</samp>&rsquo; would be
+meaningless, as its parent is &lsquo;<samp>/</samp>&rsquo;).
+</p></dd>
+</dl>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="Relative-Links.html#Relative-Links" accesskey="n" rel="next">Relative Links</a>, Previous: <a href="Types-of-Files.html#Types-of-Files" accesskey="p" rel="prev">Types of Files</a>, Up: <a href="Following-Links.html#Following-Links" accesskey="u" rel="up">Following Links</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

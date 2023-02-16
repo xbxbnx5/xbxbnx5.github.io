@@ -1,0 +1,356 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This file documents the GNU Wget utility for downloading network
+data.
+
+Copyright (C) 1996-2011, 2015, 2018 Free Software Foundation,
+Inc.
+
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with no Front-Cover Texts, and with no Back-Cover
+Texts.  A copy of the license is included in the section entitled
+"GNU Free Documentation License". -->
+<!-- Created by GNU Texinfo 6.1, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>GNU Wget 1.19.4 Manual: HTTPS (SSL/TLS) Options</title>
+
+<meta name="description" content="GNU Wget 1.19.4 Manual: HTTPS (SSL/TLS) Options">
+<meta name="keywords" content="GNU Wget 1.19.4 Manual: HTTPS (SSL/TLS) Options">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Invoking.html#Invoking" rel="up" title="Invoking">
+<link href="FTP-Options.html#FTP-Options" rel="next" title="FTP Options">
+<link href="HTTP-Options.html#HTTP-Options" rel="prev" title="HTTP Options">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="HTTPS-_0028SSL_002fTLS_0029-Options"></a>
+<div class="header">
+<p>
+Next: <a href="FTP-Options.html#FTP-Options" accesskey="n" rel="next">FTP Options</a>, Previous: <a href="HTTP-Options.html#HTTP-Options" accesskey="p" rel="prev">HTTP Options</a>, Up: <a href="Invoking.html#Invoking" accesskey="u" rel="up">Invoking</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="HTTPS-_0028SSL_002fTLS_0029-Options-1"></a>
+<h3 class="section">2.8 HTTPS (SSL/TLS) Options</h3>
+
+<a name="index-SSL"></a>
+<p>To support encrypted HTTP (HTTPS) downloads, Wget must be compiled
+with an external SSL library. The current default is GnuTLS.
+In addition, Wget also supports HSTS (HTTP Strict Transport Security).
+If Wget is compiled without SSL support, none of these options are available.
+</p>
+<dl compact="compact">
+<dd><a name="index-SSL-protocol_002c-choose"></a>
+</dd>
+<dt>&lsquo;<samp>--secure-protocol=<var>protocol</var></samp>&rsquo;</dt>
+<dd><p>Choose the secure protocol to be used.  Legal values are &lsquo;<samp>auto</samp>&rsquo;,
+&lsquo;<samp>SSLv2</samp>&rsquo;, &lsquo;<samp>SSLv3</samp>&rsquo;, &lsquo;<samp>TLSv1</samp>&rsquo;, &lsquo;<samp>TLSv1_1</samp>&rsquo;, &lsquo;<samp>TLSv1_2</samp>&rsquo;
+and &lsquo;<samp>PFS</samp>&rsquo;.  If &lsquo;<samp>auto</samp>&rsquo; is used, the SSL library is given the
+liberty of choosing the appropriate protocol automatically, which is
+achieved by sending a TLSv1 greeting. This is the default.
+</p>
+<p>Specifying &lsquo;<samp>SSLv2</samp>&rsquo;, &lsquo;<samp>SSLv3</samp>&rsquo;, &lsquo;<samp>TLSv1</samp>&rsquo;, &lsquo;<samp>TLSv1_1</samp>&rsquo; or
+&lsquo;<samp>TLSv1_2</samp>&rsquo; forces the use of the corresponding protocol.  This is
+useful when talking to old and buggy SSL server implementations that
+make it hard for the underlying SSL library to choose the correct
+protocol version.  Fortunately, such servers are quite rare.
+</p>
+<p>Specifying &lsquo;<samp>PFS</samp>&rsquo; enforces the use of the so-called Perfect Forward
+Security cipher suites. In short, PFS adds security by creating a one-time
+key for each SSL connection. It has a bit more CPU impact on client and server.
+We use known to be secure ciphers (e.g. no MD4) and the TLS protocol.
+</p>
+</dd>
+<dt>&lsquo;<samp>--https-only</samp>&rsquo;</dt>
+<dd><p>When in recursive mode, only HTTPS links are followed.
+</p>
+<a name="index-SSL-certificate_002c-check"></a>
+</dd>
+<dt>&lsquo;<samp>--no-check-certificate</samp>&rsquo;</dt>
+<dd><p>Don&rsquo;t check the server certificate against the available certificate
+authorities.  Also don&rsquo;t require the URL host name to match the common
+name presented by the certificate.
+</p>
+<p>As of Wget 1.10, the default is to verify the server&rsquo;s certificate
+against the recognized certificate authorities, breaking the SSL
+handshake and aborting the download if the verification fails.
+Although this provides more secure downloads, it does break
+interoperability with some sites that worked with previous Wget
+versions, particularly those using self-signed, expired, or otherwise
+invalid certificates.  This option forces an &ldquo;insecure&rdquo; mode of
+operation that turns the certificate verification errors into warnings
+and allows you to proceed.
+</p>
+<p>If you encounter &ldquo;certificate verification&rdquo; errors or ones saying
+that &ldquo;common name doesn&rsquo;t match requested host name&rdquo;, you can use
+this option to bypass the verification and proceed with the download.
+<em>Only use this option if you are otherwise convinced of the
+site&rsquo;s authenticity, or if you really don&rsquo;t care about the validity of
+its certificate.</em>  It is almost always a bad idea not to check the
+certificates when transmitting confidential or important data.
+For self-signed/internal certificates, you should download the certificate
+and verify against that instead of forcing this insecure mode.
+If you are really sure of not desiring any certificate verification, you
+can specify &ndash;check-certificate=quiet to tell wget to not print any
+warning about invalid certificates, albeit in most cases this is the
+wrong thing to do.
+</p>
+<a name="index-SSL-certificate"></a>
+</dd>
+<dt>&lsquo;<samp>--certificate=<var>file</var></samp>&rsquo;</dt>
+<dd><p>Use the client certificate stored in <var>file</var>.  This is needed for
+servers that are configured to require certificates from the clients
+that connect to them.  Normally a certificate is not required and this
+switch is optional.
+</p>
+<a name="index-SSL-certificate-type_002c-specify"></a>
+</dd>
+<dt>&lsquo;<samp>--certificate-type=<var>type</var></samp>&rsquo;</dt>
+<dd><p>Specify the type of the client certificate.  Legal values are
+&lsquo;<samp>PEM</samp>&rsquo; (assumed by default) and &lsquo;<samp>DER</samp>&rsquo;, also known as
+&lsquo;<samp>ASN1</samp>&rsquo;.
+</p>
+</dd>
+<dt>&lsquo;<samp>--private-key=<var>file</var></samp>&rsquo;</dt>
+<dd><p>Read the private key from <var>file</var>.  This allows you to provide the
+private key in a file separate from the certificate.
+</p>
+</dd>
+<dt>&lsquo;<samp>--private-key-type=<var>type</var></samp>&rsquo;</dt>
+<dd><p>Specify the type of the private key.  Accepted values are &lsquo;<samp>PEM</samp>&rsquo;
+(the default) and &lsquo;<samp>DER</samp>&rsquo;.
+</p>
+</dd>
+<dt>&lsquo;<samp>--ca-certificate=<var>file</var></samp>&rsquo;</dt>
+<dd><p>Use <var>file</var> as the file with the bundle of certificate authorities
+(&ldquo;CA&rdquo;) to verify the peers.  The certificates must be in PEM format.
+</p>
+<p>Without this option Wget looks for CA certificates at the
+system-specified locations, chosen at OpenSSL installation time.
+</p>
+<a name="index-SSL-certificate-authority"></a>
+</dd>
+<dt>&lsquo;<samp>--ca-directory=<var>directory</var></samp>&rsquo;</dt>
+<dd><p>Specifies directory containing CA certificates in PEM format.  Each
+file contains one CA certificate, and the file name is based on a hash
+value derived from the certificate.  This is achieved by processing a
+certificate directory with the <code>c_rehash</code> utility supplied with
+OpenSSL.  Using &lsquo;<samp>--ca-directory</samp>&rsquo; is more efficient than
+&lsquo;<samp>--ca-certificate</samp>&rsquo; when many certificates are installed because
+it allows Wget to fetch certificates on demand.
+</p>
+<p>Without this option Wget looks for CA certificates at the
+system-specified locations, chosen at OpenSSL installation time.
+</p>
+<a name="index-SSL-CRL_002c-certificate-revocation-list"></a>
+</dd>
+<dt>&lsquo;<samp>--crl-file=<var>file</var></samp>&rsquo;</dt>
+<dd><p>Specifies a CRL file in <var>file</var>.  This is needed for certificates
+that have been revocated by the CAs.
+</p>
+<a name="index-SSL-Public-Key-Pin"></a>
+</dd>
+<dt>&lsquo;<samp>--pinnedpubkey=file/hashes</samp>&rsquo;</dt>
+<dd><p>Tells wget to use the specified public key file (or hashes) to verify the peer.
+This can be a path to a file which contains a single public key in PEM or DER
+format, or any number of base64 encoded sha256 hashes preceded by &ldquo;sha256//&rdquo;
+and separated by &ldquo;;&rdquo;
+</p>
+<p>When negotiating a TLS or SSL connection, the server sends a certificate
+indicating its identity. A public key is extracted from this certificate and if
+it does not exactly match the public key(s) provided to this option, wget will
+abort the connection before sending or receiving any data.
+</p>
+<a name="index-entropy_002c-specifying-source-of"></a>
+<a name="index-randomness_002c-specifying-source-of"></a>
+</dd>
+<dt>&lsquo;<samp>--random-file=<var>file</var></samp>&rsquo;</dt>
+<dd><p>[OpenSSL and LibreSSL only]
+Use <var>file</var> as the source of random data for seeding the
+pseudo-random number generator on systems without <samp>/dev/urandom</samp>.
+</p>
+<p>On such systems the SSL library needs an external source of randomness
+to initialize.  Randomness may be provided by EGD (see
+&lsquo;<samp>--egd-file</samp>&rsquo; below) or read from an external source specified by
+the user.  If this option is not specified, Wget looks for random data
+in <code>$RANDFILE</code> or, if that is unset, in <samp>$HOME/.rnd</samp>.
+</p>
+<p>If you&rsquo;re getting the &ldquo;Could not seed OpenSSL PRNG; disabling SSL.&rdquo; 
+error, you should provide random data using some of the methods
+described above.
+</p>
+<a name="index-EGD"></a>
+</dd>
+<dt>&lsquo;<samp>--egd-file=<var>file</var></samp>&rsquo;</dt>
+<dd><p>[OpenSSL only]
+Use <var>file</var> as the EGD socket.  EGD stands for <em>Entropy
+Gathering Daemon</em>, a user-space program that collects data from
+various unpredictable system sources and makes it available to other
+programs that might need it.  Encryption software, such as the SSL
+library, needs sources of non-repeating randomness to seed the random
+number generator used to produce cryptographically strong keys.
+</p>
+<p>OpenSSL allows the user to specify his own source of entropy using the
+<code>RAND_FILE</code> environment variable.  If this variable is unset, or
+if the specified file does not produce enough randomness, OpenSSL will
+read random data from EGD socket specified using this option.
+</p>
+<p>If this option is not specified (and the equivalent startup command is
+not used), EGD is never contacted.  EGD is not needed on modern Unix
+systems that support <samp>/dev/urandom</samp>.
+</p>
+<a name="index-HSTS"></a>
+</dd>
+<dt>&lsquo;<samp>--no-hsts</samp>&rsquo;</dt>
+<dd><p>Wget supports HSTS (HTTP Strict Transport Security, RFC 6797) by default.
+Use &lsquo;<samp>--no-hsts</samp>&rsquo; to make Wget act as a non-HSTS-compliant UA. As a
+consequence, Wget would ignore all the <code>Strict-Transport-Security</code>
+headers, and would not enforce any existing HSTS policy.
+</p>
+</dd>
+<dt>&lsquo;<samp>--hsts-file=<var>file</var></samp>&rsquo;</dt>
+<dd><p>By default, Wget stores its HSTS database in <samp>~/.wget-hsts</samp>.
+You can use &lsquo;<samp>--hsts-file</samp>&rsquo; to override this. Wget will use
+the supplied file as the HSTS database. Such file must conform to the
+correct HSTS database format used by Wget. If Wget cannot parse the provided
+file, the behaviour is unspecified.
+</p>
+<p>The Wget&rsquo;s HSTS database is a plain text file. Each line contains an HSTS entry
+(ie. a site that has issued a <code>Strict-Transport-Security</code> header and that
+therefore has specified a concrete HSTS policy to be applied). Lines starting with
+a dash (<code>#</code>) are ignored by Wget. Please note that in spite of this convenient
+human-readability hand-hacking the HSTS database is generally not a good idea.
+</p>
+<p>An HSTS entry line consists of several fields separated by one or more whitespace:
+</p>
+<p><code>&lt;hostname&gt; SP [&lt;port&gt;] SP &lt;include subdomains&gt; SP &lt;created&gt; SP &lt;max-age&gt;</code>
+</p>
+<p>The <var>hostname</var> and <var>port</var> fields indicate the hostname and port to which
+the given HSTS policy applies. The <var>port</var> field may be zero, and it will, in
+most of the cases. That means that the port number will not be taken into account
+when deciding whether such HSTS policy should be applied on a given request (only
+the hostname will be evaluated). When <var>port</var> is different to zero, both the
+target hostname and the port will be evaluated and the HSTS policy will only be applied
+if both of them match. This feature has been included for testing/development purposes only.
+The Wget testsuite (in <samp>testenv/</samp>) creates HSTS databases with explicit ports
+with the purpose of ensuring Wget&rsquo;s correct behaviour. Applying HSTS policies to ports
+other than the default ones is discouraged by RFC 6797 (see Appendix B &quot;Differences
+between HSTS Policy and Same-Origin Policy&quot;). Thus, this functionality should not be used
+in production environments and <var>port</var> will typically be zero. The last three fields
+do what they are expected to. The field <var>include_subdomains</var> can either be <code>1</code>
+or <code>0</code> and it signals whether the subdomains of the target domain should be
+part of the given HSTS policy as well. The <var>created</var> and <var>max-age</var> fields
+hold the timestamp values of when such entry was created (first seen by Wget) and the
+HSTS-defined value &rsquo;max-age&rsquo;, which states how long should that HSTS policy remain active,
+measured in seconds elapsed since the timestamp stored in <var>created</var>. Once that time
+has passed, that HSTS policy will no longer be valid and will eventually be removed
+from the database.
+</p>
+<p>If you supply your own HSTS database via &lsquo;<samp>--hsts-file</samp>&rsquo;, be aware that Wget
+may modify the provided file if any change occurs between the HSTS policies
+requested by the remote servers and those in the file. When Wget exists,
+it effectively updates the HSTS database by rewriting the database file with the new entries.
+</p>
+<p>If the supplied file does not exist, Wget will create one. This file will contain the new HSTS
+entries. If no HSTS entries were generated (no <code>Strict-Transport-Security</code> headers
+were sent by any of the servers) then no file will be created, not even an empty one. This
+behaviour applies to the default database file (<samp>~/.wget-hsts</samp>) as well: it will not be
+created until some server enforces an HSTS policy.
+</p>
+<p>Care is taken not to override possible changes made by other Wget processes at
+the same time over the HSTS database. Before dumping the updated HSTS entries
+on the file, Wget will re-read it and merge the changes.
+</p>
+<p>Using a custom HSTS database and/or modifying an existing one is discouraged.
+For more information about the potential security threats arised from such practice,
+see section 14 &quot;Security Considerations&quot; of RFC 6797, specially section 14.9
+&quot;Creative Manipulation of HSTS Policy Store&quot;.
+</p></dd>
+</dl>
+
+<a name="index-WARC"></a>
+<dl compact="compact">
+<dt>&lsquo;<samp>--warc-file=<var>file</var></samp>&rsquo;</dt>
+<dd><p>Use <var>file</var> as the destination WARC file.
+</p>
+</dd>
+<dt>&lsquo;<samp>--warc-header=<var>string</var></samp>&rsquo;</dt>
+<dd><p>Use <var>string</var> into as the warcinfo record.
+</p>
+</dd>
+<dt>&lsquo;<samp>--warc-max-size=<var>size</var></samp>&rsquo;</dt>
+<dd><p>Set the maximum size of the WARC files to <var>size</var>.
+</p>
+</dd>
+<dt>&lsquo;<samp>--warc-cdx</samp>&rsquo;</dt>
+<dd><p>Write CDX index files.
+</p>
+</dd>
+<dt>&lsquo;<samp>--warc-dedup=<var>file</var></samp>&rsquo;</dt>
+<dd><p>Do not store records listed in this CDX file.
+</p>
+</dd>
+<dt>&lsquo;<samp>--no-warc-compression</samp>&rsquo;</dt>
+<dd><p>Do not compress WARC files with GZIP.
+</p>
+</dd>
+<dt>&lsquo;<samp>--no-warc-digests</samp>&rsquo;</dt>
+<dd><p>Do not calculate SHA1 digests.
+</p>
+</dd>
+<dt>&lsquo;<samp>--no-warc-keep-log</samp>&rsquo;</dt>
+<dd><p>Do not store the log file in a WARC record.
+</p>
+</dd>
+<dt>&lsquo;<samp>--warc-tempdir=<var>dir</var></samp>&rsquo;</dt>
+<dd><p>Specify the location for temporary files created by the WARC writer.
+</p></dd>
+</dl>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="FTP-Options.html#FTP-Options" accesskey="n" rel="next">FTP Options</a>, Previous: <a href="HTTP-Options.html#HTTP-Options" accesskey="p" rel="prev">HTTP Options</a>, Up: <a href="Invoking.html#Invoking" accesskey="u" rel="up">Invoking</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

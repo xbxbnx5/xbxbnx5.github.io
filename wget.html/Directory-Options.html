@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This file documents the GNU Wget utility for downloading network
+data.
+
+Copyright (C) 1996-2011, 2015, 2018 Free Software Foundation,
+Inc.
+
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with no Front-Cover Texts, and with no Back-Cover
+Texts.  A copy of the license is included in the section entitled
+"GNU Free Documentation License". -->
+<!-- Created by GNU Texinfo 6.1, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>GNU Wget 1.19.4 Manual: Directory Options</title>
+
+<meta name="description" content="GNU Wget 1.19.4 Manual: Directory Options">
+<meta name="keywords" content="GNU Wget 1.19.4 Manual: Directory Options">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Invoking.html#Invoking" rel="up" title="Invoking">
+<link href="HTTP-Options.html#HTTP-Options" rel="next" title="HTTP Options">
+<link href="Download-Options.html#Download-Options" rel="prev" title="Download Options">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Directory-Options"></a>
+<div class="header">
+<p>
+Next: <a href="HTTP-Options.html#HTTP-Options" accesskey="n" rel="next">HTTP Options</a>, Previous: <a href="Download-Options.html#Download-Options" accesskey="p" rel="prev">Download Options</a>, Up: <a href="Invoking.html#Invoking" accesskey="u" rel="up">Invoking</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Directory-Options-1"></a>
+<h3 class="section">2.6 Directory Options</h3>
+
+<dl compact="compact">
+<dt>&lsquo;<samp>-nd</samp>&rsquo;</dt>
+<dt>&lsquo;<samp>--no-directories</samp>&rsquo;</dt>
+<dd><p>Do not create a hierarchy of directories when retrieving recursively.
+With this option turned on, all files will get saved to the current
+directory, without clobbering (if a name shows up more than once, the
+filenames will get extensions &lsquo;<samp>.n</samp>&rsquo;).
+</p>
+</dd>
+<dt>&lsquo;<samp>-x</samp>&rsquo;</dt>
+<dt>&lsquo;<samp>--force-directories</samp>&rsquo;</dt>
+<dd><p>The opposite of &lsquo;<samp>-nd</samp>&rsquo;&mdash;create a hierarchy of directories, even if
+one would not have been created otherwise.  E.g. &lsquo;<samp>wget -x
+http://fly.srk.fer.hr/robots.txt</samp>&rsquo; will save the downloaded file to
+<samp>fly.srk.fer.hr/robots.txt</samp>.
+</p>
+</dd>
+<dt>&lsquo;<samp>-nH</samp>&rsquo;</dt>
+<dt>&lsquo;<samp>--no-host-directories</samp>&rsquo;</dt>
+<dd><p>Disable generation of host-prefixed directories.  By default, invoking
+Wget with &lsquo;<samp>-r http://fly.srk.fer.hr/</samp>&rsquo; will create a structure of
+directories beginning with <samp>fly.srk.fer.hr/</samp>.  This option disables
+such behavior.
+</p>
+</dd>
+<dt>&lsquo;<samp>--protocol-directories</samp>&rsquo;</dt>
+<dd><p>Use the protocol name as a directory component of local file names.  For
+example, with this option, &lsquo;<samp>wget -r http://<var>host</var></samp>&rsquo; will save to
+&lsquo;<samp>http/<var>host</var>/...</samp>&rsquo; rather than just to &lsquo;<samp><var>host</var>/...</samp>&rsquo;.
+</p>
+<a name="index-cut-directories"></a>
+</dd>
+<dt>&lsquo;<samp>--cut-dirs=<var>number</var></samp>&rsquo;</dt>
+<dd><p>Ignore <var>number</var> directory components.  This is useful for getting a
+fine-grained control over the directory where recursive retrieval will
+be saved.
+</p>
+<p>Take, for example, the directory at
+&lsquo;<samp>ftp://ftp.xemacs.org/pub/xemacs/</samp>&rsquo;.  If you retrieve it with
+&lsquo;<samp>-r</samp>&rsquo;, it will be saved locally under
+<samp>ftp.xemacs.org/pub/xemacs/</samp>.  While the &lsquo;<samp>-nH</samp>&rsquo; option can
+remove the <samp>ftp.xemacs.org/</samp> part, you are still stuck with
+<samp>pub/xemacs</samp>.  This is where &lsquo;<samp>--cut-dirs</samp>&rsquo; comes in handy; it
+makes Wget not &ldquo;see&rdquo; <var>number</var> remote directory components.  Here
+are several examples of how &lsquo;<samp>--cut-dirs</samp>&rsquo; option works.
+</p>
+<div class="example">
+<pre class="example">No options        -&gt; ftp.xemacs.org/pub/xemacs/
+-nH               -&gt; pub/xemacs/
+-nH --cut-dirs=1  -&gt; xemacs/
+-nH --cut-dirs=2  -&gt; .
+
+--cut-dirs=1      -&gt; ftp.xemacs.org/xemacs/
+...
+</pre></div>
+
+<p>If you just want to get rid of the directory structure, this option is
+similar to a combination of &lsquo;<samp>-nd</samp>&rsquo; and &lsquo;<samp>-P</samp>&rsquo;.  However, unlike
+&lsquo;<samp>-nd</samp>&rsquo;, &lsquo;<samp>--cut-dirs</samp>&rsquo; does not lose with subdirectories&mdash;for
+instance, with &lsquo;<samp>-nH --cut-dirs=1</samp>&rsquo;, a <samp>beta/</samp> subdirectory will
+be placed to <samp>xemacs/beta</samp>, as one would expect.
+</p>
+<a name="index-directory-prefix"></a>
+</dd>
+<dt>&lsquo;<samp>-P <var>prefix</var></samp>&rsquo;</dt>
+<dt>&lsquo;<samp>--directory-prefix=<var>prefix</var></samp>&rsquo;</dt>
+<dd><p>Set directory prefix to <var>prefix</var>.  The <em>directory prefix</em> is the
+directory where all other files and subdirectories will be saved to,
+i.e. the top of the retrieval tree.  The default is &lsquo;<samp>.</samp>&rsquo; (the
+current directory).
+</p></dd>
+</dl>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="HTTP-Options.html#HTTP-Options" accesskey="n" rel="next">HTTP Options</a>, Previous: <a href="Download-Options.html#Download-Options" accesskey="p" rel="prev">Download Options</a>, Up: <a href="Invoking.html#Invoking" accesskey="u" rel="up">Invoking</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>
