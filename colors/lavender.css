@@ -1,0 +1,132 @@
+#logo a .dinamic-logo {
+    background-image: url('../images/logo_l.png');
+    width: 165px;
+    height: 27px;
+}
+
+.icon-postit {
+    background-image: url('../images/icon_postit_l.png')
+}
+
+.about-icon1,.about-icon2,.about-icon3,
+.services-icon1,.services-icon2,
+.services-icon3,.services-icon4 {
+    background-position: 50% 50%;
+}
+
+#footer .widget .footer-logo {
+    background-image: url('../images/footer_logo_l.png');
+    width: 113px;
+    height: 18px;
+}
+
+.about-icon1 {
+    background-image: url('../images/icon1_l.png'); 
+}
+
+.about-icon2 {
+    background-image: url('../images/icon2_l.png'); 
+}
+
+.about-icon3 {
+    background-image: url('../images/icon3_l.png'); 
+}
+
+.services-icon1 {
+    background-image: url('../images/icon4_l.png');
+}
+
+.services-icon2 {
+    background-image: url('../images/icon5_l.png');
+}
+
+.services-icon3 {
+    background-image: url('../images/icon6_l.png');
+}
+
+.services-icon4 {
+    background-image: url('../images/icon7_l.png');
+}
+
+#navigation ul li a:hover,
+#navigation ul li.active a,
+#mobile-navigation ul li a:hover,
+#mobile-navigation ul li.active a,
+.dark .section-title h2,
+.team-item h3,
+#footer .recent-tweets ul li a,
+#footer .recent-tweets ul li a:visited,
+p .bold-team-info,
+.welcome-box p.info,
+#footer .widget h3 .obold,
+#footer .widget_text a,
+#footer .widget_text a:visited,
+#footer .widget_text a:active {
+    color: #9a00fb;
+}
+
+.welcome-box .outer-hex,
+.services-item .outer-hex,
+#calendar tr.days th,
+.current-events .outer-hex,
+#calendar .cur-day,
+.bar-graph .bar-month,
+.bar-graph .graph li.bar,
+.gragh-info-symbol,
+.about-item .outer-hex,
+.important-info .outer-hex,
+.recent-tweets .hex-area,
+.recent-tweets .outer-hex,
+.team-item .skill-degree.full,
+.contact-form input#submit,
+.map-marker .pin,
+.general-section .flex-control-paging li a.flex-active,
+.general-section .flex-control-paging li a:hover,
+.progress-bar,
+#footer .newsletter .hex-area,
+#footer .newsletter .outer-hex,
+.team-item .socials .social.facebook .outer-hex:hover,
+.team-item .socials .social.facebook .hex-area:hover,
+.team-item .socials .social.twitter .outer-hex:hover,
+.team-item .socials .social.twitter .hex-area:hover,
+.team-item .socials .social.google-plus .outer-hex:hover,
+.team-item .socials .social.google-plus .hex-area:hover,
+.team-item .socials .social.dribbble .outer-hex:hover,
+.team-item .socials .social.dribbble .hex-area:hover,
+.gallery-item .socials .social.fav .hex-area:hover,
+.gallery-item .socials .social.fav .outer-hex:hover, 
+.gallery-item .socials .social.facebook .hex-area:hover,
+.gallery-item .socials .social.facebook .outer-hex:hover,
+.gallery-item .socials .social.twitter .hex-area:hover,
+.gallery-item .socials .social.twitter .outer-hex:hover {
+    background: #9a00fb !important;
+}
+#calendar tr.days {
+    border-color: #9a00fb;
+}
+#header-wrap,
+#navigation ul li.active .nav-active-mark,
+#calendar table,
+.team-item .skill-degree.full:before,
+#calendar .cur-day:before,
+.bar-graph .bar-month:before,
+.gragh-info-symbol:before,
+#footer-wrap,
+.general-section .flex-control-paging li a.flex-active:before,
+.general-section .flex-control-paging li a:hover:before,
+#mobile-navigation,
+.mobile-nav-mark { 
+    border-bottom-color: #9a00fb; 
+} 
+.team-item .skill-degree.full:after,
+#calendar .cur-day:after,
+.bar-graph .bar-month:after,
+.gragh-info-symbol:after,
+.general-section .flex-control-paging li a.flex-active:after,
+.general-section .flex-control-paging li a:hover:after {   
+    border-top-color: #9a00fb; 
+}
+.gallery-item-overlay:hover .outer-hex {
+    background-color: rgba(142,68,173,0.5);
+}
+
