@@ -10,6 +10,8 @@
 	      "1389467375");-->
 
 
+
+<head>
     <style>
         body {
             display: flex;
@@ -17,6 +19,10 @@
             align-items: center;
             height: 100vh;
             background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
         }
         #timer {
             font-size: 50px;
@@ -30,7 +36,7 @@
 <div id="timer"></div>
 
 <script>
-var countDate = new Date("Jan 1, 2014 00:00:00").getTime();
+var countDate = new Date("Jan 1, 2024 00:00:00").getTime();
 
 function newTimer() {
     var now = new Date().getTime();
@@ -47,6 +53,9 @@ function newTimer() {
 
 setInterval(newTimer, 1000);
 </script>
+
+</body>
+
 
 </body>
 
