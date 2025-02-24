@@ -20,9 +20,9 @@
             line-height: 1.8;
             position: relative;
             overflow-x: hidden;
-            min-height: 100vh; /* Убеждаемся, что скролл работает */
+            min-height: 100vh;
+            text-align: center;
         }
-        /* Анимация фона */
         .background-animation {
             position: fixed;
             top: 0;
@@ -39,19 +39,18 @@
         }
         .bubble {
             border-radius: 50%;
-            background: rgba(168, 213, 226, 0.3); /* Голубые пузыри */
+            background: rgba(168, 213, 226, 0.3);
         }
         .star {
             clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-            background: rgba(212, 228, 188, 0.3); /* Салатовые звезды */
+            background: rgba(212, 228, 188, 0.3);
         }
         .letter {
             font-size: 24px;
-            color: rgba(247, 216, 225, 0.3); /* Розовые буквы/цифры */
+            color: rgba(247, 216, 225, 0.3);
             font-family: 'Open Sans', sans-serif;
             font-weight: 600;
         }
-        /* Пузыри */
         .bubble:nth-child(1) { width: 50px; height: 50px; left: 5%; top: 10%; animation-duration: 10s; }
         .bubble:nth-child(2) { width: 70px; height: 70px; left: 15%; top: 40%; animation-duration: 14s; animation-delay: 1s; }
         .bubble:nth-child(3) { width: 40px; height: 40px; left: 25%; top: 70%; animation-duration: 12s; animation-delay: 2s; }
@@ -62,7 +61,6 @@
         .bubble:nth-child(8) { width: 50px; height: 50px; left: 75%; top: 60%; animation-duration: 13s; animation-delay: 7s; }
         .bubble:nth-child(9) { width: 60px; height: 60px; left: 85%; top: 10%; animation-duration: 15s; animation-delay: 8s; }
         .bubble:nth-child(10) { width: 40px; height: 40px; left: 95%; top: 40%; animation-duration: 17s; animation-delay: 9s; }
-        /* Звездочки */
         .star:nth-child(11) { width: 50px; height: 50px; left: 10%; top: 15%; animation-duration: 12s; }
         .star:nth-child(12) { width: 60px; height: 60px; left: 20%; top: 45%; animation-duration: 15s; animation-delay: 1s; }
         .star:nth-child(13) { width: 40px; height: 40px; left: 30%; top: 75%; animation-duration: 13s; animation-delay: 2s; }
@@ -73,7 +71,6 @@
         .star:nth-child(18) { width: 50px; height: 50px; left: 80%; top: 65%; animation-duration: 14s; animation-delay: 7s; }
         .star:nth-child(19) { width: 60px; height: 60px; left: 90%; top: 15%; animation-duration: 16s; animation-delay: 8s; }
         .star:nth-child(20) { width: 40px; height: 40px; left: 0%; top: 45%; animation-duration: 18s; animation-delay: 9s; }
-        /* Буквы и цифры */
         .letter:nth-child(21) { left: 5%; top: 20%; animation-duration: 13s; }
         .letter:nth-child(22) { left: 10%; top: 50%; animation-duration: 15s; animation-delay: 1s; }
         .letter:nth-child(23) { left: 15%; top: 80%; animation-duration: 11s; animation-delay: 2s; }
@@ -129,7 +126,6 @@
         }
         header {
             background: linear-gradient(to bottom, #f0f4f8, #d9e2ec);
-            text-align: center;
             padding: 120px 20px;
             position: relative;
             border-bottom: 3px solid rgba(168, 213, 226, 0.3);
@@ -212,7 +208,6 @@
             font-family: 'Playfair Display', serif;
             font-size: 2.2em;
             color: #487eb0;
-            text-align: center;
             margin-bottom: 40px;
             position: relative;
             animation: slideIn 1.5s ease-in-out;
@@ -255,7 +250,6 @@
             padding: 25px;
             border-radius: 20px;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
-            text-align: center;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
@@ -313,18 +307,27 @@
         .gallery img:hover {
             transform: scale(1.05) rotate(3deg);
         }
-        .reviews div {
-            background: #fff;
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
-            margin: 20px 0;
-            font-style: italic;
-            transition: all 0.3s ease;
+        .reviews {
+            overflow: hidden;
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
         }
-        .reviews div:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+        .carousel {
+            display: flex;
+            animation: slide 20s infinite linear;
+        }
+        .carousel img {
+            width: 300px;
+            height: 200px;
+            object-fit: cover;
+            margin: 0 10px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        @keyframes slide {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
         }
         .faq details {
             background: #fff;
@@ -371,9 +374,7 @@
             box-shadow: 0 0 15px rgba(168, 213, 226, 0.5);
             background: #fff;
         }
-        #contacts p, #contacts a {
-            text-align: center;
-            margin: 10px 0;
+        #contacts a {
             color: #487eb0;
             text-decoration: none;
             transition: color 0.3s ease;
@@ -386,14 +387,13 @@
             .photo { width: 250px; height: 150px; }
             h2 { font-size: 1.8em; }
             .fixed-btn { font-size: 0.9em; padding: 8px 20px; }
-            .bubble:nth-child(n+6), .star:nth-child(n+16), .letter:nth-child(n+41) { display: none; } /* Уменьшаем на мобильных */
+            .bubble:nth-child(n+6), .star:nth-child(n+16), .letter:nth-child(n+41) { display: none; }
+            .carousel img { width: 200px; height: 150px; }
         }
     </style>
 </head>
 <body>
-    <!-- Анимация фона -->
     <div class="background-animation">
-        <!-- Пузыри -->
         <div class="bubble"></div>
         <div class="bubble"></div>
         <div class="bubble"></div>
@@ -404,7 +404,6 @@
         <div class="bubble"></div>
         <div class="bubble"></div>
         <div class="bubble"></div>
-        <!-- Звездочки -->
         <div class="star"></div>
         <div class="star"></div>
         <div class="star"></div>
@@ -415,7 +414,6 @@
         <div class="star"></div>
         <div class="star"></div>
         <div class="star"></div>
-        <!-- Буквы и цифры -->
         <div class="letter">1</div>
         <div class="letter">A</div>
         <div class="letter">2</div>
@@ -450,7 +448,6 @@
 
     <a href="#contacts" class="fixed-btn">Записаться</a>
 
-    <!-- Главная страница -->
     <header>
         <h1>Помогаю детям раскрыть потенциал</h1>
         <p>Индивидуальный подход к развитию и коррекции<br>Клинический психолог | Нейропсихолог | Арт-терапевт</p>
@@ -458,12 +455,9 @@
         <a href="#contacts" class="btn">Запишитесь на консультацию</a>
     </header>
 
-    <!-- Обо мне -->
     <section id="about">
         <h2>Обо мне</h2>
-        <p>Меня зовут Игнатьева Владлена Алексеевна. 
-            Я клинический психолог, нейропсихолог и арт-терапевт с опытом работы с детьми с ОВЗ. 
-            Моя миссия — помочь каждому ребенку преодолеть трудности и раскрыть его уникальные способности.</p>
+        <p>Меня зовут Игнатьева Владлена Алексеевна. Я клинический психолог, нейропсихолог и арт-терапевт с опытом работы с детьми с ОВЗ. Моя миссия — помочь каждому ребенку преодолеть трудности и раскрыть его уникальные способности.</p>
         <div class="advantages">
             <div>Работаю с детьми от 2 лет</div>
             <div>Индивидуальные программы, без шаблонов</div>
@@ -472,7 +466,6 @@
         <p><strong>Образование:</strong><br>Уфимский государственный университет — клиническая психология<br>Новосибирский государственный педагогический университет — нейропсихология<br>Воронежский государственный университет — арт-терапия</p>
     </section>
 
-    <!-- С какими запросами я работаю -->
     <section id="requests">
         <h2>С какими запросами я работаю</h2>
         <div class="requests">
@@ -483,7 +476,6 @@
         </div>
     </section>
 
-    <!-- Мой подход -->
     <section id="approach">
         <h2>Мой подход</h2>
         <p>Сочетаю научные методы с творчеством. Каждая программа адаптирована под потребности вашего ребенка.</p>
@@ -495,7 +487,6 @@
         </div>
     </section>
 
-    <!-- Для родителей -->
     <section id="parents">
         <h2>Для родителей</h2>
         <div class="parents-tips">
@@ -503,10 +494,9 @@
             <a href="#">Игры для развития речи дома</a>
             <a href="#">Почему ребенок избирателен в еде?</a>
         </div>
-        <p style="text-align: center; margin-top: 30px;">Подписывайтесь на мой <a href="#">Telegram-канал</a> для регулярных советов!</p>
+        <p style="margin-top: 30px;">Подписывайтесь на мой <a href="#">Telegram-канал</a> для регулярных советов!</p>
     </section>
 
-    <!-- Образование и сертификаты -->
     <section id="gallery">
         <h2>Образование и сертификаты</h2>
         <div class="gallery">
@@ -516,14 +506,18 @@
         </div>
     </section>
 
-    <!-- Отзывы -->
     <section id="reviews">
         <h2>Отзывы</h2>
-        <div>“Спасибо Владлене за чуткость и профессионализм! Сын стал лучше говорить и спокойнее себя вести.” — Анна, мама Артема</div>
-        <div>“Рекомендации для дома — это находка. Мы видим прогресс каждый день.” — Ольга, мама Софии</div>
+        <div class="carousel">
+            <img src="review1.jpg" alt="Отзыв 1">
+            <img src="review2.jpg" alt="Отзыв 2">
+            <img src="review3.jpg" alt="Отзыв 3">
+            <img src="review1.jpg" alt="Отзыв 1">
+            <img src="review2.jpg" alt="Отзыв 2">
+            <img src="review3.jpg" alt="Отзыв 3">
+        </div>
     </section>
 
-    <!-- FAQ -->
     <section id="faq">
         <h2>Частые вопросы</h2>
         <div class="faq">
@@ -535,16 +529,31 @@
                 <summary>Как долго длится курс?</summary>
                 <p>Длительность зависит от запроса, обычно от 3 месяцев до года с регулярными занятиями.</p>
             </details>
+            <details>
+                <summary>Как приучить к горшку?</summary>
+                <p>Приучение к горшку требует терпения. Начните с регулярного высаживания после еды и сна, используйте похвалу и избегайте давления.</p>
+            </details>
+            <details>
+                <summary>Почему мой ребенок плохо ест?</summary>
+                <p>Причины могут быть разными: от сенсорных особенностей до стресса. Важно наблюдать за предпочтениями и проконсультироваться со специалистом.</p>
+            </details>
+            <details>
+                <summary>Как успокоить ребенка в истерике?</summary>
+                <p>Сохраняйте спокойствие, дайте ребенку время выплеснуть эмоции, затем предложите объятия или отвлекающее занятие.</p>
+            </details>
+            <details>
+                <summary>Что такое нейровоспаление?</summary>
+                <p>Нейровоспаление — это воспалительный процесс в нервной системе, который может влиять на поведение и развитие ребенка. Требует диагностики специалиста.</p>
+            </details>
         </div>
     </section>
 
-    <!-- Контакты -->
     <section id="contacts">
         <h2>Контакты</h2>
-        <form>
-            <input type="text" placeholder="Ваше имя" required>
-            <input type="tel" placeholder="Телефон" required>
-            <textarea placeholder="Ваш вопрос" rows="4"></textarea>
+        <form id="contact-form">
+            <input type="text" name="name" placeholder="Ваше имя" required>
+            <input type="tel" name="phone" placeholder="Телефон" required>
+            <textarea name="message" placeholder="Ваш вопрос" rows="4"></textarea>
             <button type="submit" class="btn">Отправить</button>
         </form>
         <p>Телефон: +7 (XXX) XXX-XX-XX</p>
@@ -553,5 +562,35 @@
         <p>График: Пн-Пт, 10:00-18:00</p>
         <p>Адрес: г. Уфа, ул. Примерная, д. 10</p>
     </section>
+
+    <!-- JavaScript для отправки через Telegram -->
+    <script>
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const data = {
+                name: formData.get('name'),
+                phone: formData.get('phone'),
+                message: formData.get('message')
+            };
+            const token = '7600676454:AAE_ps5IMj0LfK7K0ESZVyAL1S66WrOMf7U';
+            const chatId = '330575602'; // Ваш chat_id
+            const text = `Новая заявка:\nИмя: ${data.name}\nТелефон: ${data.phone}\nСообщение: ${data.message}`;
+            fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(text)}`)
+                .then(response => response.json())
+                .then(result => {
+                    if (result.ok) {
+                        alert('Заявка отправлена! Я свяжусь с вами в ближайшее время.');
+                        this.reset();
+                    } else {
+                        alert('Ошибка при отправке. Попробуйте позже.');
+                    }
+                })
+                .catch(error => {
+                    alert('Ошибка подключения. Проверьте интернет.');
+                    console.error(error);
+                });
+        });
+    </script>
 </body>
 </html>
