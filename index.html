@@ -648,23 +648,24 @@
                 message: formData.get('message')
             };
             const token = '7600676454:AAE_ps5IMj0LfK7K0ESZVyAL1S66WrOMf7U';
-            const chatId = '330575602';
+            const chatId = ['330575602', '1360153297'];
             const text = `Новая заявка:\nИмя: ${data.name}\nТелефон: ${data.phone}\nTelegram: ${data.telegram}\nСообщение: ${data.message}`;
-            fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(text)}`)
-                .then(response => response.json())
-                .then(result => {
-                    if (result.ok) {
-                        alert('Заявка отправлена! Я свяжусь с вами в ближайшее время.');
-                        this.reset();
-                    } else {
-                        alert('Ошибка при отправке. Попробуйте позже.');
-                    }
-                })
-                .catch(error => {
-                    alert('Ошибка подключения. Проверьте интернет.');
-                    console.error(error);
-                });
-        });
+            chatIds.forEach(chatId => {
+                fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(text)}`)
+                    .then(response => response.json())
+                    .then(result => {
+                        if (result.ok) {
+                            alert('Заявка отправлена! Я свяжусь с вами в ближайшее время.');
+                            this.reset();
+                        } else {
+                            alert('Ошибка при отправке. Попробуйте позже.');
+                        }
+                    })
+                    .catch(error => {
+                        alert('Ошибка подключения. Проверьте интернет.');
+                        console.error(error);
+                    });
+            });
     </script>
 </body>
 </html>
