@@ -532,13 +532,13 @@
     <section id="reviews">
         <h2>Отзывы</h2>
         <div class="reviews">
-            <button id="prevBtn" class="carousel-button">&lt;</button>
+            <button id="prevBtn" class="carousel-button"><</button>
             <div class="carousel">
                 <img src="review1.jpg" alt="Отзыв 1">
                 <img src="review2.jpg" alt="Отзыв 2">
                 <img src="review3.jpg" alt="Отзыв 3">
             </div>
-            <button id="nextBtn" class="carousel-button">&gt;</button>
+            <button id="nextBtn" class="carousel-button">></button>
         </div>
     </section>
 
@@ -576,7 +576,8 @@
         <h2>Контакты</h2>
         <form id="contact-form">
             <input type="text" name="name" placeholder="Ваше имя" required>
-            <input type="tel" name="phone" placeholder="Телефон" required>
+            <input type="tel" name="phone" placeholder="Телефон" required onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+            <input type="text" name="telegram" placeholder="Telegram (опционально)" id="telegramInput">
             <textarea name="message" placeholder="Ваш вопрос" rows="4"></textarea>
             <button type="submit" class="btn">Отправить</button>
         </form>
@@ -587,21 +588,21 @@
         <p>Адрес: г. Уфа, ул. Примерная, д. 10</p>
     </section>
 
-    <!-- JavaScript для карусели и отправки через Telegram -->
+    <!-- JavaScript для карусели, Telegram и поля Telegram -->
     <script>
         // Карусель отзывов
         const carousel = document.querySelector('.carousel');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
         let scrollPosition = 0;
-        const scrollAmount = carousel.querySelector('img').offsetWidth + 20; // Ширина изображения + отступ
+        const scrollAmount = carousel.querySelector('img').offsetWidth + 20;
 
         nextBtn.addEventListener('click', () => {
             if (scrollPosition < (carousel.scrollWidth - carousel.clientWidth)) {
                 scrollPosition += scrollAmount;
                 carousel.scrollLeft = scrollPosition;
             } else {
-                scrollPosition = 0; // Вернуться в начало
+                scrollPosition = 0;
                 carousel.scrollLeft = scrollPosition;
             }
         });
@@ -611,8 +612,28 @@
                 scrollPosition -= scrollAmount;
                 carousel.scrollLeft = scrollPosition;
             } else {
-                scrollPosition = carousel.scrollWidth - carousel.clientWidth; // Перейти в конец
+                scrollPosition = carousel.scrollWidth - carousel.clientWidth;
                 carousel.scrollLeft = scrollPosition;
+            }
+        });
+
+        // Автоматическое добавление @ в поле Telegram
+        const telegramInput = document.getElementById('telegramInput');
+        telegramInput.addEventListener('focus', function() {
+            if (this.value === '') {
+                this.value = '@';
+                // Устанавливаем курсор после @
+                setTimeout(() => this.setSelectionRange(1, 1), 0);
+            }
+        });
+
+        telegramInput.addEventListener('input', function() {
+            if (this.value === '@') {
+                this.value = '@';
+                this.setSelectionRange(1, 1); // Курсор остается после @
+            } else if (!this.value.startsWith('@')) {
+                this.value = '@' + this.value.replace(/^@/, '');
+                this.setSelectionRange(this.value.length, this.value.length); // Курсор в конец
             }
         });
 
@@ -623,11 +644,12 @@
             const data = {
                 name: formData.get('name'),
                 phone: formData.get('phone'),
+                telegram: formData.get('telegram') || 'Не указан',
                 message: formData.get('message')
             };
             const token = '7600676454:AAE_ps5IMj0LfK7K0ESZVyAL1S66WrOMf7U';
             const chatId = '330575602';
-            const text = `Новая заявка:\nИмя: ${data.name}\nТелефон: ${data.phone}\nСообщение: ${data.message}`;
+            const text = `Новая заявка:\nИмя: ${data.name}\nТелефон: ${data.phone}\nTelegram: ${data.telegram}\nСообщение: ${data.message}`;
             fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(text)}`)
                 .then(response => response.json())
                 .then(result => {
