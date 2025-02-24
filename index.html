@@ -308,14 +308,15 @@
             transform: scale(1.05) rotate(3deg);
         }
         .reviews {
-            overflow: hidden;
             position: relative;
             max-width: 800px;
             margin: 0 auto;
+            padding: 20px 0;
         }
         .carousel {
             display: flex;
-            animation: slide 20s infinite linear;
+            overflow: hidden;
+            scroll-behavior: smooth;
         }
         .carousel img {
             width: 300px;
@@ -324,10 +325,31 @@
             margin: 0 10px;
             border-radius: 15px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            flex: 0 0 auto;
         }
-        @keyframes slide {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-100%); }
+        .carousel-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(168, 213, 226, 0.7);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+            color: #fff;
+            cursor: pointer;
+            z-index: 1;
+            transition: background 0.3s ease;
+        }
+        .carousel-button:hover {
+            background: rgba(168, 213, 226, 1);
+        }
+        #prevBtn {
+            left: 10px;
+        }
+        #nextBtn {
+            right: 10px;
         }
         .faq details {
             background: #fff;
@@ -389,6 +411,7 @@
             .fixed-btn { font-size: 0.9em; padding: 8px 20px; }
             .bubble:nth-child(n+6), .star:nth-child(n+16), .letter:nth-child(n+41) { display: none; }
             .carousel img { width: 200px; height: 150px; }
+            .carousel-button { width: 30px; height: 30px; font-size: 16px; }
         }
     </style>
 </head>
@@ -508,13 +531,14 @@
 
     <section id="reviews">
         <h2>Отзывы</h2>
-        <div class="carousel">
-            <img src="review1.jpg" alt="Отзыв 1">
-            <img src="review2.jpg" alt="Отзыв 2">
-            <img src="review3.jpg" alt="Отзыв 3">
-            <img src="review1.jpg" alt="Отзыв 1">
-            <img src="review2.jpg" alt="Отзыв 2">
-            <img src="review3.jpg" alt="Отзыв 3">
+        <div class="reviews">
+            <button id="prevBtn" class="carousel-button">&lt;</button>
+            <div class="carousel">
+                <img src="review1.jpg" alt="Отзыв 1">
+                <img src="review2.jpg" alt="Отзыв 2">
+                <img src="review3.jpg" alt="Отзыв 3">
+            </div>
+            <button id="nextBtn" class="carousel-button">&gt;</button>
         </div>
     </section>
 
@@ -563,8 +587,36 @@
         <p>Адрес: г. Уфа, ул. Примерная, д. 10</p>
     </section>
 
-    <!-- JavaScript для отправки через Telegram -->
+    <!-- JavaScript для карусели и отправки через Telegram -->
     <script>
+        // Карусель отзывов
+        const carousel = document.querySelector('.carousel');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        let scrollPosition = 0;
+        const scrollAmount = carousel.querySelector('img').offsetWidth + 20; // Ширина изображения + отступ
+
+        nextBtn.addEventListener('click', () => {
+            if (scrollPosition < (carousel.scrollWidth - carousel.clientWidth)) {
+                scrollPosition += scrollAmount;
+                carousel.scrollLeft = scrollPosition;
+            } else {
+                scrollPosition = 0; // Вернуться в начало
+                carousel.scrollLeft = scrollPosition;
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (scrollPosition > 0) {
+                scrollPosition -= scrollAmount;
+                carousel.scrollLeft = scrollPosition;
+            } else {
+                scrollPosition = carousel.scrollWidth - carousel.clientWidth; // Перейти в конец
+                carousel.scrollLeft = scrollPosition;
+            }
+        });
+
+        // Отправка формы через Telegram
         document.getElementById('contact-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const formData = new FormData(this);
@@ -574,7 +626,7 @@
                 message: formData.get('message')
             };
             const token = '7600676454:AAE_ps5IMj0LfK7K0ESZVyAL1S66WrOMf7U';
-            const chatId = '330575602'; // Ваш chat_id
+            const chatId = '330575602';
             const text = `Новая заявка:\nИмя: ${data.name}\nТелефон: ${data.phone}\nСообщение: ${data.message}`;
             fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(text)}`)
                 .then(response => response.json())
