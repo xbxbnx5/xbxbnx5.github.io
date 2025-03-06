@@ -19,6 +19,7 @@
             line-height: 1.8;
             padding: 40px;
             text-align: center;
+            display: none; /* Скрываем содержимое по умолчанию */
         }
         h1 {
             font-family: 'Playfair Display', serif;
@@ -90,7 +91,7 @@
         <div class="diagnostic-section">
             <h3>Основные данные</h3>
             <input type="text" name="fullName" placeholder="ФИО ребенка" required>
-            <input type="date" name="birthDate" required>
+            <input type="date" name="birth замените" required>
             <label>Пол:</label>
             <select name="gender" required>
                 <option value="">Выберите пол</option>
@@ -326,11 +327,17 @@
             '2b70e878-a46f-4dcc-b4e7-5aa891bd4081', '2f9c679f-11fd-4933-a2db-6c0ce45780e3'
         ];
 
-        const storedIdentifier = localStorage.getItem('diagnosticAccess');
-        if (!storedIdentifier || !validIdentifiers.includes(storedIdentifier)) {
-            alert('Доступ запрещен. Пожалуйста, введите корректный идентификатор на главной странице.');
-            window.location.href = 'index.html';
-        }
+        // Проверка доступа выполняется немедленно
+        (function checkAccess() {
+            const storedIdentifier = localStorage.getItem('diagnosticAccess');
+            if (!storedIdentifier || !validIdentifiers.includes(storedIdentifier)) {
+                alert('Доступ запрещен. Пожалуйста, введите корректный идентификатор на главной странице.');
+                window.location.replace('index.html'); // Используем replace для немедленного перенаправления
+                return;
+            }
+            // Если идентификатор верный, показываем страницу
+            document.body.style.display = 'block';
+        })();
 
         document.getElementById('diagnostic-form').addEventListener('submit', function(e) {
             e.preventDefault();
