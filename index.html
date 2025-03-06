@@ -404,6 +404,39 @@
         #contacts a:hover {
             color: #74c7d5;
         }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+        .modal-content input {
+            width: 100%;
+            margin: 10px 0;
+        }
+        .modal-content button {
+            margin-top: 10px;
+        }
+        .error-message {
+            color: red;
+            display: none;
+            margin-top: 10px;
+        }
         @media (max-width: 768px) {
             h1 { font-size: 2em; }
             .photo { width: 250px; height: 150px; }
@@ -470,6 +503,7 @@
     </div>
 
     <a href="#contacts" class="fixed-btn">Записаться</a>
+    <a href="#" id="diagnostic-btn" class="fixed-btn" style="top: 70px;">Диагностика онлайн</a>
 
     <header>
         <h1>Помогаю детям раскрыть потенциал</h1>
@@ -583,14 +617,21 @@
         </form>
         <p>Телефон: +7 (965) 931-52-59</p>
         <p>Email: iva@defectufa.ru</p>
-        <p>Соцсети: <a href="https://t.me/VladLenyn">Telegram</a>
+        <p>Соцсети: <a href="https://t.me/VladLenyn">Telegram</a></p>
         <p>График: Пн-ВС, 10:00-19:00</p>
         <p>Адрес: г. Уфа, ул. Малая Кооперативная, д. 5</p>
     </section>
 
-    <!-- JavaScript для карусели, Telegram и поля Telegram -->
+    <div id="diagnostic-modal" class="modal">
+        <div class="modal-content">
+            <h3>Введите идентификатор</h3>
+            <input type="text" id="identifier-input" placeholder="Введите ваш идентификатор">
+            <button class="btn" id="submit-identifier">Подтвердить</button>
+            <p id="error-message" class="error-message">Неверный идентификатор</p>
+        </div>
+    </div>
+
     <script>
-        // Карусель отзывов
         const carousel = document.querySelector('.carousel');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
@@ -617,12 +658,10 @@
             }
         });
 
-        // Автоматическое добавление @ в поле Telegram
         const telegramInput = document.getElementById('telegramInput');
         telegramInput.addEventListener('focus', function() {
             if (this.value === '') {
                 this.value = '@';
-                // Устанавливаем курсор после @
                 setTimeout(() => this.setSelectionRange(1, 1), 0);
             }
         });
@@ -630,14 +669,13 @@
         telegramInput.addEventListener('input', function() {
             if (this.value === '@') {
                 this.value = '@';
-                this.setSelectionRange(1, 1); // Курсор остается после @
+                this.setSelectionRange(1, 1);
             } else if (!this.value.startsWith('@')) {
                 this.value = '@' + this.value.replace(/^@/, '');
-                this.setSelectionRange(this.value.length, this.value.length); // Курсор в конец
+                this.setSelectionRange(this.value.length, this.value.length);
             }
         });
 
-        // Отправка формы через Telegram
         document.getElementById('contact-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const formData = new FormData(this);
@@ -648,7 +686,7 @@
                 message: formData.get('message')
             };
             const token = '7600676454:AAE_ps5IMj0LfK7K0ESZVyAL1S66WrOMf7U';
-            const chatId = ['1360153297', '330575602'];
+            const chatIds = ['1360153297', '330575602'];
             const text = `Новая заявка:\nИмя: ${data.name}\nТелефон: ${data.phone}\nTelegram: ${data.telegram}\nСообщение: ${data.message}`;
             chatIds.forEach(chatId => {
                 fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(text)}`)
@@ -666,6 +704,62 @@
                         console.error(error);
                     });
             });
+        });
+
+        const diagnosticBtn = document.getElementById('diagnostic-btn');
+        const modal = document.getElementById('diagnostic-modal');
+        const submitIdentifier = document.getElementById('submit-identifier');
+        const identifierInput = document.getElementById('identifier-input');
+        const errorMessage = document.getElementById('error-message');
+
+        const validIdentifiers = [
+            'f172b4e7-b79e-4e83-aec1-a719f377aa48', 'fec42f34-7e7b-4992-b0b1-b7245e477f5d',
+            'cc85ea48-a6b2-4547-a8d6-48e3815d32a1', '70142591-b33a-4529-9c90-001b6fc531b7',
+            'c245e5e2-cf68-48b5-94d8-fcc11f228605', 'f5743da7-b3f3-4e79-83fd-cab0e467fa54',
+            '7ff3e0fb-4b09-4db6-8566-5974c9fe4dfc', '0074ee6d-c0b3-4cd5-8a68-af36ccf89a83',
+            '99b31d59-2eff-496f-99e2-a70c5826edb5', 'a7611979-847c-4f09-8aba-a31b8e5d0131',
+            '49cf00ad-f6d6-45a8-802f-bc7308a75215', '0c9074ea-617f-44d0-8991-6169da73cf65',
+            'c6ea0993-1ca7-4a49-a2a2-b51a73df4466', '498ec386-10b9-4aa8-9bf6-895cb994133e',
+            '7e4cc55f-d89c-461d-af96-a4f11ec724c2', '932b1450-d24f-4238-abd8-28be9d19ca1c',
+            '10c4b9bc-528d-4813-aed4-ff7ccbd3511b', '0be40d49-39e2-40fb-bf37-7f2d75467f75',
+            '55b4cef6-e066-4450-a418-0e726fafe869', 'f55370d2-13ac-42a5-908d-ee4060961aea',
+            'cd2239d2-e9a0-40dc-a141-fa9595429eb0', '09d76932-17d8-4e5e-9fbe-4619c53ab1b6',
+            'b55c9cc1-ae08-4444-9549-5b5fc5dcdcce', '0474f204-df20-4926-8b29-810dfa2b32c3',
+            '02172484-62a0-49be-ae8f-9505992e2944', '9e64309c-ac0a-4b22-a1ec-a8d2186ba781',
+            '27f6da80-522b-4439-b090-ee1826575ed7', '06dec1d3-7958-4471-8645-d5c23e8ff1fd',
+            '9f0ab6f2-4119-491c-8bb1-88ef23b02a54', '0adbcd70-4f9d-4a8a-bb76-e6ce192c9e06',
+            'a474b86e-b26d-468e-9e70-8990104bca5e', '5fbd6980-c917-4298-bf74-97801084bd5a',
+            'ecdfcfd9-e33d-423d-a380-6f1f62cc3820', '1c1bc7de-a57a-4f59-9d41-3285b427dd86',
+            '30eee851-3b19-46a1-8ba7-80687a4565a3', 'a57755fc-929b-4ef0-8ce2-10bbe669df78',
+            '489dc6c2-4140-468e-8e07-84c99518fd3f', '1d080905-86b0-46bf-a5eb-7b98e7bf2e3b',
+            '1ec8ba02-f5b6-495c-8d77-265b9d7ca875', 'f3c4c61a-76a0-4635-9a92-6dd4bbd90f5b',
+            'dde76267-cd0d-43ca-bd68-856112e3836a', 'aaf0f0e4-9b8f-413b-b093-7fb812fe1b04',
+            '1eeca7d5-6f25-4b82-a578-af4ba91ca8e6', 'fa40b441-158d-4b79-bc20-f3b618b87a92',
+            'cbeb6215-754b-44b3-9b40-01c3c9e89c10', '2cfe1d17-d26a-4654-a401-979c46b394ad',
+            '9eec7a7b-2621-4010-a129-0111241ea9bf', 'e6076433-9803-4975-a8ce-2f1185649069',
+            '2b70e878-a46f-4dcc-b4e7-5aa891bd4081', '2f9c679f-11fd-4933-a2db-6c0ce45780e3'
+        ];
+
+        diagnosticBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            modal.style.display = 'flex';
+        });
+
+        submitIdentifier.addEventListener('click', () => {
+            const enteredId = identifierInput.value.trim();
+            if (validIdentifiers.includes(enteredId)) {
+                window.location.href = 'diagnostic.html';
+            } else {
+                errorMessage.style.display = 'block';
+                setTimeout(() => errorMessage.style.display = 'none', 3000);
+            }
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
     </script>
 </body>
 </html>
