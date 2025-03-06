@@ -662,7 +662,6 @@
         telegramInput.addEventListener('focus', function() {
             if (this.value === '') {
                 this.value = '@';
-                
                 setTimeout(() => this.setSelectionRange(1, 1), 0);
             }
         });
@@ -712,6 +711,7 @@
         const submitIdentifier = document.getElementById('submit-identifier');
         const identifierInput = document.getElementById('identifier-input');
         const errorMessage = document.getElementById('error-message');
+
 
         const validIdentifiers = [
             'f172b4e7-b79e-4e83-aec1-a719f377aa48', 'fec42f34-7e7b-4992-b0b1-b7245e477f5d',
