@@ -742,6 +742,8 @@
 
     diagnosticBtn.addEventListener('click', (e) => {
         e.preventDefault();
+        identifierInput.value = ''; // Очищаем поле ввода при открытии модального окна
+        errorMessage.style.display = 'none'; // Скрываем сообщение об ошибке
         modal.style.display = 'flex';
     });
 
@@ -749,16 +751,22 @@
         const enteredId = identifierInput.value.trim();
         if (validIdentifiers.includes(enteredId)) {
             localStorage.setItem('diagnosticAccess', enteredId); // Сохраняем идентификатор
+            modal.style.display = 'none'; // Закрываем модальное окно
             window.location.href = 'diagnostic.html';
         } else {
             errorMessage.style.display = 'block';
-            setTimeout(() => errorMessage.style.display = 'none', 3000);
+            identifierInput.value = ''; // Очищаем поле при неверном вводе
+            setTimeout(() => {
+                errorMessage.style.display = 'none';
+            }, 3000);
         }
     });
 
     modal.addEventListener('click', (e) => {
         if (e.target === modal) {
             modal.style.display = 'none';
+            identifierInput.value = ''; // Очищаем поле при закрытии модального окна
+            errorMessage.style.display = 'none'; // Скрываем сообщение об ошибке
         }
     });
 </script>
