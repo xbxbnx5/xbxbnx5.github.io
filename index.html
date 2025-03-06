@@ -662,6 +662,7 @@
         telegramInput.addEventListener('focus', function() {
             if (this.value === '') {
                 this.value = '@';
+                
                 setTimeout(() => this.setSelectionRange(1, 1), 0);
             }
         });
