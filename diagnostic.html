@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Диагностика онлайн</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa, #e9ecef);
+            color: #333;
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.8;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8em;
+            color: #487eb0;
+            margin-bottom: 20px;
+        }
+        .diagnostic-section {
+            background: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px auto;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            max-width: 600px;
+        }
+        .diagnostic-section h3 {
+            color: #487eb0;
+            margin-bottom: 15px;
+        }
+        .diagnostic-section label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: 600;
+        }
+        .diagnostic-section select,
+        .diagnostic-section input {
+            width: 100%;
+            max-width: 300px;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            background: #f9f9f9;
+            box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.05);
+        }
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #a8d5e2, #74c7d5);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 6px 20px rgba(116, 199, 213, 0.4);
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 25px rgba(116, 199, 213, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <h1>Диагностика онлайн</h1>
+    <p>Заполните форму ниже, чтобы оценить развитие вашего ребенка. После заполнения вы сможете скачать результаты в PDF.</p>
+    <form id="diagnostic-form">
+        <div class="diagnostic-section">
+            <h3>Основные данные</h3>
+            <input type="text" name="fullName" placeholder="ФИО ребенка" required>
+            <input type="date" name="birthDate" required>
+            <label>Пол:</label>
+            <select name="gender" required>
+                <option value="">Выберите пол</option>
+                <option value="Жен">Женский</option>
+                <option value="Муж">Мужской</option>
+            </select>
+        </div>
+
+        <div class="diagnostic-section">
+            <h3>Беременность</h3>
+            <label>Как проходила беременность?</label>
+            <select name="pregnancy" required>
+                <option value="">Выберите вариант</option>
+                <option value="Без проблем">Без проблем</option>
+                <option value="Была угроза">Была угроза (кровотечения, заболевания и т.д.)</option>
+                <option value="Болела простудами">Болела простудами</option>
+            </select>
+        </div>
+
+        <div class="diagnostic-section">
+            <h3>Роды</h3>
+            <label>Как проходили роды?</label>
+            <select name="birth" required>
+                <option value="">Выберите вариант</option>
+                <option value="Нормально, в срок">Нормально, в срок самостоятельно</option>
+                <option value="Раньше времени">Раньше времени на 1-2 мес.</option>
+                <option value="Не все гладко">Не все гладко (обвитие, выдавливание и т.д.)</option>
+            </select>
+        </div>
+
+        <div class="diagnostic-section">
+            <h3>Развитие до года</h3>
+            <label>Были тонусные нарушения или кривошея?</label>
+            <select name="toneIssues" required>
+                <option value="">Выберите вариант</option>
+                <option value="Нет">Нет</option>
+                <option value="Да-гипер">Да - гипертонус</option>
+                <option value="Да-гипо">Да - гипотонус</option>
+            </select>
+            <label>Часто болел простудами?</label>
+            <select name="frequentColds" required>
+                <option value="">Выберите вариант</option>
+                <option value="Да">Да</option>
+                <option value="Нет">Нет</option>
+                <option value="Иногда">Иногда</option>
+            </select>
+        </div>
+
+        <div class="diagnostic-section">
+            <h3>Моторное развитие</h3>
+            <label>Сел в 6-7 месяцев?</label>
+            <select name="sitting" required>
+                <option value="">Выберите вариант</option>
+                <option value="Да">Да</option>
+                <option value="Нет">Нет</option>
+            </select>
+            <label>Встал с поддержкой в 7-8 месяцев?</label>
+            <select name="standingSupport" required>
+                <option value="">Выберите вариант</option>
+                <option value="Да">Да</option>
+                <option value="Нет">Нет</option>
+            </select>
+            <label>Пополз в 6-9 месяцев?</label>
+            <select name="crawling" required>
+                <option value="">Выберите вариант</option>
+                <option value="Да">Да</option>
+                <option value="Нет">Нет</option>
+            </select>
+            <label>Встал самостоятельно в 7-9 месяцев?</label>
+            <select name="standingAlone" required>
+                <option value="">Выберите вариант</option>
+                <option value="Да">Да</option>
+                <option value="Нет">Нет</option>
+            </select>
+            <label>Пошел с поддержкой в 11 мес - 1 год 1 мес?</label>
+            <select name="walkingSupport" required>
+                <option value="">Выберите вариант</option>
+                <option value="Да">Да</option>
+                <option value="Нет">Нет</option>
+            </select>
+            <label>Пошел самостоятельно в 11 мес - 1 год 2 мес?</label>
+            <select name="walkingAlone" required>
+                <option value="">Выберите вариант</option>
+                <option value="Да">Да</option>
+                <option value="Нет">Нет</option>
+            </select>
+            <label>Умеет прыгать?</label>
+            <select name="jumping" required>
+                <option value="">Выберите вариант</option>
+                <option value="Да">Да</option>
+                <option value="Нет">Нет</option>
+            </select>
+        </div>
+
+        <div class="diagnostic-section">
+            <h3>Поведение и особенности</h3>
+            <label>Присутствуют синкинезии и стимы? (на цыпочках, взмахи руками и т.д.)</label>
+            <select name="synkinesia" required>
+                <option value="">Выберите вариант</option>
+                <option value="Да">Да</option>
+                <option value="Нет">Нет</option>
+            </select>
+            <label>Боится лазить на стул, площадку?</label>
+            <select name="fearClimbing" required>
+                <option value="">Выберите вариант</option>
+                <option value="Да">Да</option>
+                <option value="Нет">Нет</option>
+            </select>
+            <label>Боится качелей?</label>
+            <select name="fearSwings" required>
+                <option value="">Выберите вариант</option>
+                <option value="Да">Да</option>
+                <option value="Нет">Нет</option>
+            </select>
+            <label>Носит только определенную одежду?</label>
+            <select name="selectiveClothing" required>
+                <option value="">Выберите вариант</option>
+                <option value="Да">Да</option>
+                <option value="Нет">Нет</option>
+            </select>
+            <label>Избирательно питается?</label>
+            <select name="selectiveEating" required>
+                <option value="">Выберите вариант</option>
+                <option value="Да">Да</option>
+                <option value="Нет">Нет</option>
+            </select>
+            <label>Имеет нарушения сна?</label>
+            <select name="sleepIssues" required>
+                <option value="">Выберите вариант</option>
+                <option value="Да">Да</option>
+                <option value="Нет">Нет</option>
+            </select>
+        </div>
+
+        <div class="diagnostic-section">
+            <h3>Социальные навыки</h3>
+            <label>Имеет устойчивый зрительный контакт?</label>
+            <select name="eyeContact" required>
+                <option value="">Выберите вариант</option>
+                <option value="Да">Да</option>
+                <option value="Нет">Нет</option>
+            </select>
+            <label>Играет в сюжетно-ролевые игры?</label>
+            <select name="rolePlay" required>
+                <option value="">Выберите вариант</option>
+                <option value="Да">Да</option>
+                <option value="Нет">Нет</option>
+            </select>
+            <label>Имеет указательный жест?</label>
+            <select name="pointing" required>
+                <option value="">Выберите вариант</option>
+                <option value="Да">Да</option>
+                <option value="Редко">Редко</option>
+                <option value="Нет">Нет</option>
+            </select>
+            <label>Активный словарный запас:</label>
+            <select name="vocabulary" required>
+                <option value="">Выберите вариант</option>
+                <option value="0-20 слов">0-20 слов</option>
+                <option value="20-40">20-40 слов</option>
+                <option value="40+">40+ слов</option>
+            </select>
+            <label>Избегает зрительного контакта?</label>
+            <select name="avoidEyeContact" required>
+                <option value="">Выберите вариант</option>
+                <option value="Редко">Редко и мало</option>
+                <option value="Да">Да</option>
+                <option value="Нет">Совсем нет</option>
+            </select>
+            <label>Откликается на имя?</label>
+            <select name="respondsToName" required>
+                <option value="">Выберите вариант</option>
+                <option value="Через раз">Через раз</option>
+                <option value="Да">Да</option>
+                <option value="Нет">Нет</option>
+            </select>
+        </div>
+
+        <div class="diagnostic-section">
+            <h3>Дополнительно</h3>
+            <label>Часто спотыкается?</label>
+            <select name="tripping" required>
+                <option value="">Выберите вариант</option>
+                <option value="Да">Да</option>
+                <option value="Нет">Нет</option>
+            </select>
+            <label>Любит рисовать и заниматься за столом?</label>
+            <select name="drawing" required>
+                <option value="">Выберите вариант</option>
+                <option value="Да, очень">Да, очень</option>
+                <option value="Тяжело усадить">Тяжело усадить</option>
+                <option value="По настроению">По настроению</option>
+            </select>
+            <label>Проблемы с горшком?</label>
+            <select name="pottyIssues" required>
+                <option value="">Выберите вариант</option>
+                <option value="Да, но прошли">Да, но прошли</option>
+                <option value="Мучаемся">Мучаемся до сих пор</option>
+                <option value="Нет">Нет</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn">Скачать результаты</button>
+    </form>
+
+    <script>
+        document.getElementById('diagnostic-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            doc.setFontSize(16);
+            doc.text('Результаты диагностики', 20, 20);
+            doc.setFontSize(12);
+            let yPosition = 30;
+            const lineHeight = 10;
+
+            const questions = {
+                fullName: 'ФИО ребенка',
+                birthDate: 'Дата рождения',
+                gender: 'Пол',
+                pregnancy: 'Как проходила беременность',
+                birth: 'Как проходили роды',
+                toneIssues: 'Были тонусные нарушения или кривошея',
+                frequentColds: 'Часто болел простудами',
+                sitting: 'Сел в 6-7 месяцев',
+                standingSupport: 'Встал с поддержкой в 7-8 месяцев',
+                crawling: 'Пополз в 6-9 месяцев',
+                standingAlone: 'Встал самостоятельно в 7-9 месяцев',
+                walkingSupport: 'Пошел с поддержкой в 11 мес - 1 год 1 мес',
+                walkingAlone: 'Пошел самостоятельно в 11 мес - 1 год 2 мес',
+                jumping: 'Умеет прыгать',
+                synkinesia: 'Присутствуют синкинезии и стимы',
+                fearClimbing: 'Боится лазить на стул, площадку',
+                fearSwings: 'Боится качелей',
+                selectiveClothing: 'Носит только определенную одежду',
+                selectiveEating: 'Избирательно питается',
+                sleepIssues: 'Имеет нарушения сна',
+                eyeContact: 'Имеет устойчивый зрительный контакт',
+                rolePlay: 'Играет в сюжетно-ролевые игры',
+                pointing: 'Имеет указательный жест',
+                vocabulary: 'Активный словарный запас',
+                avoidEyeContact: 'Избегает зрительного контакта',
+                respondsToName: 'Откликается на имя',
+                tripping: 'Часто спотыкается',
+                drawing: 'Любит рисовать и заниматься за столом',
+                pottyIssues: 'Проблемы с горшком'
+            };
+
+            formData.forEach((value, key) => {
+                const questionText = questions[key] || key;
+                doc.text(`${questionText}: ${value}`, 20, yPosition);
+                yPosition += lineHeight;
+                if (yPosition > 280) {
+                    doc.addPage();
+                    yPosition = 20;
+                }
+            });
+
+            const childName = formData.get('fullName') || 'Ребенок';
+            doc.save(`Диагностика_${childName}_${new Date().toLocaleDateString('ru-RU')}.pdf`);
+        });
+    </script>
+</body>
+</html>
