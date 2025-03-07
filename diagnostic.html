@@ -94,24 +94,40 @@
         <div class="diagnostic-section">
             <h3>Основные данные</h3>
             <input type="text" name="fullName" placeholder="ФИО ребенка" required>
-            <input type="date" name="birth замените" required>
+            <input type="date" name="Дата рождения ребенка" required>
             <label>Пол:</label>
             <select name="gender" required>
-                <option value="">Выберите пол</option>
+                <option value="">Выберите пол ребенка</option>
                 <option value="Жен">Женский</option>
                 <option value="Муж">Мужской</option>
             </select>
         </div>
 
         <div class="diagnostic-section">
-            <h3>Беременность</h3>
-            <label>Как проходила беременность?</label>
-            <select name="pregnancy" required>
-                <option value="">Выберите вариант</option>
-                <option value="Без проблем">Без проблем</option>
-                <option value="Была угроза">Была угроза (кровотечения, заболевания и т.д.)</option>
-                <option value="Болела простудами">Болела простудами</option>
-            </select>
+<h3>Беременность</h3>
+        <label>Как проходила беременность?</label>
+        <select name="pregnancy" id="pregnancy" required>
+            <option value="">Выберите вариант</option>
+            <option value="Без проблем">Без проблем</option>
+            <option value="Была угроза">Была угроза (кровотечения, заболевания и т.д.)</option>
+            <option value="Болела простудами">Болела простудами</option>
+        </select>
+        <div id="threat-details" style="display: none; margin-top: 10px;">
+            <label>Укажите, что именно было:</label>
+            <textarea name="threat-text" id="threat-text" rows="4" cols="50" placeholder="Опишите угрозы..."></textarea>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('pregnancy').addEventListener('change', function() {
+            const threatDetails = document.getElementById('threat-details');
+            if (this.value === 'Была угроза') {
+                threatDetails.style.display = 'block';
+            } else {
+                threatDetails.style.display = 'none';
+            }
+        });
+    </script>
         </div>
 
         <div class="diagnostic-section">
