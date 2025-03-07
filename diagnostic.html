@@ -496,6 +496,11 @@
 
             localStorage.setItem('diagnosticAnswers', JSON.stringify(answers));
             console.log('Ответы сохранены:', answers);
+            // Проверяем и выводим diagnosticAccess перед переходом
+            const storedIdentifier = localStorage.getItem('diagnosticAccess');
+            console.log('Текущий diagnosticAccess:', storedIdentifier);
+
+    // Переход на страницу рекомендаций
             window.location.href = 'recommendations.html';
             });
         
