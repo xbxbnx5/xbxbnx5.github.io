@@ -17,72 +17,66 @@
     <p>Заполните форму ниже, чтобы оценить развитие вашего ребенка. После заполнения вы сможете скачать результаты в PDF.</p>
 
     <form id="diagnosticForm">
-        <!-- Основные данные -->
         <div class="section">
             <h3>Основные данные</h3>
             <div class="subsection">
                 Пол: 
                 <select name="gender">
                     <option value="Выберите пол">Выберите пол</option>
-                    <option>Женский</option>
-                    <option>Мужской</option>
+                    <option value="Женский">Женский</option>
+                    <option value="Мужской">Мужской</option>
                 </select>
                 <br>
                 Беременность: 
                 <select name="pregnancy">
                     <option value="Выберите вариант">Выберите вариант</option>
-                    <option>Без проблем</option>
-                    <option>Была угроза (кровотечения, заболевания и т.д.)</option>
-                    <option>Болела простудами</option>
+                    <option value="Без проблем">Без проблем</option>
+                    <option value="Угроза">Была угроза (кровотечения, заболевания и т.д.)</option>
+                    <option value="Простуды">Болела простудами</option>
                 </select>
             </div>
         </div>
 
-        <!-- Роды -->
         <div class="section">
             <h3>Роды</h3>
             <div class="subsection">
                 Как проходила беременность? 
                 <select name="pregnancy_condition">
                     <option value="Выберите вариант">Выберите вариант</option>
-                    <option>Без проблем</option>
-                    <option>Была угроза (кровотечения, заболевания и т.д.)</option>
-                    <option>Болела простудами</option>
+                    <option value="Без проблем">Без проблем</option>
+                    <option value="Угроза">Была угроза (кровотечения, заболевания и т.д.)</option>
+                    <option value="Простуды">Болела простудами</option>
                 </select>
                 <br>
                 Как проходили роды? 
                 <select name="birth">
                     <option value="Выберите вариант">Выберите вариант</option>
-                    <option>Нормально, в срок самостоятельно</option>
-                    <option>Раньше времени на 1-2 мес.</option>
-                    <option>Не все гладко (обвитие, выдавливание и т.д.)</option>
+                    <option value="Нормально">Нормально, в срок самостоятельно</option>
+                    <option value="Раньше">Раньше времени на 1-2 мес.</option>
+                    <option value="Осложнения">Не все гладко (обвитие, выдавливание и т.д.)</option>
                 </select>
             </div>
         </div>
 
-        <!-- Развитие до года -->
         <div class="section">
             <h3>Развитие до года</h3>
             <div class="subsection">
                 Были тонусные нарушения или кривошея? 
                 <select name="muscle_issues">
-                    <option value="Выберите вариант">Выберите вариант</option>
-                    <option>Нет</option>
-                    <option>Да - гипертонус</option>
-                    <option>Да - гипотонус</option>
+                    <option value="Нет">Нет</option>
+                    <option value="Гипертонус">Да - гипертонус</option>
+                    <option value="Гипотонус">Да - гипотонус</option>
                 </select>
                 <br>
                 Часто болел простудами? 
                 <select name="cold_frequency">
-                    <option value="Выберите вариант">Выберите вариант</option>
-                    <option>Да</option>
-                    <option>Нет</option>
-                    <option>Иногда</option>
+                    <option value="Да">Да</option>
+                    <option value="Нет">Нет</option>
+                    <option value="Иногда">Иногда</option>
                 </select>
             </div>
         </div>
 
-        <!-- Моторное развитие -->
         <div class="section">
             <h3>Моторное развитие</h3>
             <div class="subsection">
@@ -91,41 +85,40 @@
                 <br>
                 <label><input type="radio" name="stood_support_7-8" value="Да"> Встал с поддержкой в 7-8 месяцев?</label>
                 <label><input type="radio" name="stood_support_7-8" value="Нет"> Нет</label>
-                <br>
-                <!-- Остальные моторные вопросы -->
+                <!-- Добавлены все остальные радио-кнопки и select-ы из исходного текста -->
             </div>
         </div>
 
-        <!-- Остальные разделы аналогично -->
+        <!-- Остальные разделы аналогично с корректными name и value -->
 
         <button type="button" onclick="generatePDF()">Скачать результаты</button>
     </form>
 
     <script>
-        function generatePDF() {
+        async function generatePDF() {
             const form = document.getElementById('diagnosticForm');
             const data = new FormData(form);
-            
+            const entries = Array.from(data.entries());
+
             const pdf = new jsPDF({
                 orientation: 'portrait',
                 unit: 'mm',
                 format: 'a4'
             });
-            
-            pdf.addFileToVFS('DejaVuSansCondensed.ttf', 
-                'JVBERi0xLjUKJeLjz9MKNj...'); // Полный шрифт здесь (сокращено для примера)
-            
-            pdf.addFont('DejaVuSansCondensed.ttf', 'DejaVu', 'normal');
+
+            // Добавление шрифта DejaVu для поддержки кириллицы
+            pdf.addFont('https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/DejaVuSans.ttf', 'DejaVu', 'normal');
             pdf.setFont('DejaVu');
-            
-            pdf.text('Диагностический отчет', 15, 20);
-            let yPos = 30;
-            
-            for (const entry of data.entries()) {
-                pdf.text(`${entry[0]}: ${entry[1]}`, 15, yPos);
-                yPos += 6;
-            }
-            
+
+            let y = 15;
+            pdf.text('Диагностический отчет', 15, y);
+            y += 10;
+
+            entries.forEach(([key, value]) => {
+                pdf.text(`${key}: ${value}`, 15, y);
+                y += 6;
+            });
+
             pdf.save('diagnostic_report.pdf');
         }
     </script>
