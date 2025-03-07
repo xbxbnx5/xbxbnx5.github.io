@@ -186,15 +186,15 @@
                 <option value="9+">Позже 9 месяцев</option>                
             </select>
             <label>Во сколько начал ползать?</label>
-            <select name="sitting" required>
+            <select name="crawling" required>
                 <option value="">Выберите вариант</option>
                 <option value="5-6">5-6 месяцев</option>
                 <option value="6-7">6-7 месяцев</option>
                 <option value="7-8">7-8 месяцев</option>
                 <option value="9+">Позже 9 месяцев</option>
             </select>
-            <label>8. Во сколько встал с поддержкой?</label>
-            <select name="sitting" required>
+            <label>Во сколько встал с поддержкой?</label>
+            <select name="standingSupport" required>
                 <option value="">Выберите вариант</option>
                 <option value="6-7">6-7 месяцев</option>
                 <option value="7-8">7-8 месяцев</option>
@@ -202,7 +202,7 @@
                 <option value="10+">Позже 10 месяцев</option>
             </select>
             <label>Во сколько встал самостоятельно?</label>
-            <select name="sitting" required>
+            <select name="standingAlone" required>
                 <option value="">Выберите вариант</option>
                 <option value="7-8">7-8 месяцев</option>
                 <option value="8-9">8-9 месяцев</option>
@@ -210,7 +210,7 @@
                 <option value="12+">После года</option>
             </select>
             <label>Во сколько пошел с поддержкой?</label>
-            <select name="sitting" required>
+            <select name="walkingSupport" required>
                 <option value="">Выберите вариант</option>
                 <option value="7-8">7-8 месяцев</option>
                 <option value="8-9">8-9 месяцев</option>
@@ -218,7 +218,7 @@
                 <option value="12+">После года</option>
             </select>
             <label>Во сколько пошел самостоятельно?</label>
-            <select name="sitting" required>
+            <select name="walkingAlone" required>
                 <option value="">Выберите вариант</option>
                 <option value="7-8">7-8 месяцев</option>
                 <option value="8-9">8-9 месяцев</option>
@@ -235,12 +235,15 @@
 
         <div class="diagnostic-section">
             <h3>Поведение и особенности</h3>
-            <label>Присутствуют синкинезии и стимы? (Хождение на цыпочках, взмахи руками, бьется головой, высовывает язык во время занятий, мастурбация и т.д.)</label>
+            <label>
+               <span class="question-text">Присутствуют синкинезии и стимы?</span> 
+                <span class="hint">Хождение на цыпочках, взмахи руками, бьется головой, высовывает язык во время занятий, мастурбация и т.д.</span> 
             <select name="synkinesia" required>
                 <option value="">Выберите вариант</option>
                 <option value="Да">Да</option>
                 <option value="Нет">Нет</option>
             </select>
+            </label>
             <label>Боится лазить на стул, на площадке и т.д?</label>
             <select name="fearClimbing" required>
                 <option value="">Выберите вариант</option>
@@ -259,12 +262,15 @@
                 <option value="Да">Да</option>
                 <option value="Нет">Нет</option>
             </select>
-            <label>Избирательно питается? (Кушает определенные продукты, присутствует рвотный рефлекс, когда даешь, что не нравится и т.д)</label>
+            <label>
+                <span class="question-text">Избирательно питается? </span> 
+                <span class="hint">Кушает определенные продукты, присутствует рвотный рефлекс, когда даешь, что не нравится и т.д</span> 
             <select name="selectiveEating" required>
                 <option value="">Выберите вариант</option>
                 <option value="Да">Да</option>
                 <option value="Нет">Нет</option>
             </select>
+            </label>
             <label>
                 <span class="question-text">Имеет нарушения сна?</span> 
                  <span class="hint">Часто просыпается, трудно засыпает, говорит или плачет во сне)</span> 
@@ -285,7 +291,7 @@
                 <option value="Нет">Нет</option>
             </select>
             <label>
-              <span class="question-text">Играет в сюжетно-ролевые игры?</span>
+              <span class="question-text">Играет с игрушками в сюжетно ролевые игры?</span>
               <span class="hint">Укладывает куклу спать, кормит игрушки, катает машинки и т.д</span>            
               <select name="rolePlay" required>
                 <option value="">Выберите вариант</option>
@@ -328,14 +334,14 @@
             <label>Избегает зрительного контакта?</label>
             <select name="avoidEyeContact" required>
                 <option value="">Выберите вариант</option>
-                <option value="Редко">Редко и мало</option>
-                <option value="Да">Да</option>
-                <option value="Нет">Совсем нет</option>
+                <option value="Редко">Редко</option>
+                <option value="Да">Избегает</option>
+                <option value="Нет">Не избегает</option>
             </select>
             <label>Откликается на имя?</label>
             <select name="respondsToName" required>
                 <option value="">Выберите вариант</option>
-                <option value="Через раз">Через раз</option>
+                <option value="Иногда">Иногда</option>
                 <option value="Да">Да</option>
                 <option value="Нет">Нет</option>
             </select>
@@ -352,16 +358,17 @@
             <label>Любит рисовать и заниматься за столом?</label>
             <select name="drawing" required>
                 <option value="">Выберите вариант</option>
-                <option value="Да, очень">Да, очень</option>
-                <option value="Тяжело усадить">Тяжело усадить</option>
-                <option value="По настроению">По настроению</option>
+                <option value="Да">Да</option>
+                <option value="Нет">Нет</option>
+                <option value="Не усидчивый">Не усидчивый</option>
+                <option value="Иногда">Иногда</option>
             </select>
-            <label>Проблемы с горшком?</label>
+            <label>Присутствовали(ют) проблемы с приучением к горшку?</label>
             <select name="pottyIssues" required>
                 <option value="">Выберите вариант</option>
-                <option value="Да, но прошли">Да, но прошли</option>
-                <option value="Мучаемся">Мучаемся до сих пор</option>
+                <option value="Да">Да</option>
                 <option value="Нет">Нет</option>
+                <option value="В процессе">В процессе</option>
             </select>
         </div>
 
@@ -426,27 +433,27 @@
 
         const questions = {
             fullName: 'ФИО ребенка',
-            birthDate: 'Дата рождения',
-            gender: 'Пол',
+            birthDate: 'Дата рождения ребенка',
+            gender: 'Пол ребенка',
             pregnancy: 'Как проходила беременность',
             birth: 'Как проходили роды',
             toneIssues: 'Были тонусные нарушения или кривошея',
-            frequentColds: 'Часто болел простудами',
-            sitting: 'Сел в 6-7 месяцев',
-            standingSupport: 'Встал с поддержкой в 7-8 месяцев',
-            crawling: 'Пополз в 6-9 месяцев',
-            standingAlone: 'Встал самостоятельно в 7-9 месяцев',
-            walkingSupport: 'Пошел с поддержкой в 11 мес - 1 год 1 мес',
-            walkingAlone: 'Пошел самостоятельно в 11 мес - 1 год 2 мес',
+            frequentColds: 'Как часто ребенок болел',
+            sitting: 'Во сколько сел',
+            crawling: 'Во сколько начал ползать?',
+            standingSupport: 'Во сколько встал с поддержкой',
+            standingAlone: 'Во сколько встал самостоятельно',
+            walkingSupport: 'Во сколько пошел с поддержкой',
+            walkingAlone: 'Во сколько пошел самостоятельно',
             jumping: 'Умеет прыгать',
             synkinesia: 'Присутствуют синкинезии и стимы',
-            fearClimbing: 'Боится лазить на стул, площадку',
+            fearClimbing: 'Боится лазить на стул, на площадке и т.д',
             fearSwings: 'Боится качелей',
             selectiveClothing: 'Носит только определенную одежду',
             selectiveEating: 'Избирательно питается',
             sleepIssues: 'Имеет нарушения сна',
             eyeContact: 'Имеет устойчивый зрительный контакт',
-            rolePlay: 'Играет в сюжетно-ролевые игры',
+            rolePlay: 'Играет с игрушками в сюжетно ролевые игры',
             pointing: 'Имеет указательный жест',
             vocabulary: 'Активный словарный запас',
             avoidEyeContact: 'Избегает зрительного контакта',
