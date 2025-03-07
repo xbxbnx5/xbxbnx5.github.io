@@ -1,1 +1,227 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Онлайн диагностика</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf-customfonts@latest/dist/jspdf.customfonts.min.js"></script>
+    <script src="Roboto-Regular.js"></script>
 
+    <style>
+        /* Ваш CSS остается без изменений */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: linear-gradient(135deg, #f5f7fa, #e9ecef); color: #333; font-family: 'Open Sans', sans-serif; line-height: 1.8; padding: 40px; text-align: center; display: none; }
+        h1 { font-family: 'Playfair Display', serif; font-size: 2.5em; color: #487eb0; margin-bottom: 30px; }
+        form { background: #fff; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); max-width: 600px; margin: 0 auto; }
+        .diagnostic-section { margin-bottom: 25px; text-align: left; }
+        .diagnostic-section h3 { font-family: 'Playfair Display', serif; color: #487eb0; margin-bottom: 15px; }
+        label { display: block; margin-bottom: 10px; font-weight: 600; color: #487eb0; }
+        input[type="text"], input[type="date"], select, textarea { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 5px; font-family: 'Open Sans', sans-serif; }
+        .btn { display: inline-block; padding: 15px 40px; background: linear-gradient(135deg, #a8d5e2, #74c7d5); color: #fff; text-decoration: none; border: none; border-radius: 50px; font-weight: 600; box-shadow: 0 6px 20px rgba(116, 199, 213, 0.4); cursor: pointer; transition: all 0.4s ease; }
+        .btn:hover { transform: scale(1.1); box-shadow: 0 10px 25px rgba(116, 199, 213, 0.6); }
+        @media (max-width: 768px) { h1 { font-size: 2em; } form { padding: 20px; } }
+    </style>
+</head>
+<body>
+    <h1>Диагностика онлайн</h1>
+    <p>Заполните форму ниже, чтобы оценить развитие вашего ребенка. После заполнения вы сможете скачать результаты в PDF.</p>
+    <form id="diagnostic-form">
+        <div class="diagnostic-section">
+            <h3>Основные данные</h3>
+            <input type="text" name="fullName" placeholder="ФИО ребенка" required>
+            <input type="date" name="birthDate" required>
+            <label>Пол:</label>
+            <select name="gender" required>
+                <option value="">Выберите пол ребенка</option>
+                <option value="Жен">Женский</option>
+                <option value="Муж">Мужской</option>
+            </select>
+        </div>
+
+        <div class="diagnostic-section">
+            <h3>Беременность</h3>
+            <label>Как проходила беременность?</label>
+            <select name="pregnancy" id="pregnancy" required>
+                <option value="">Выберите вариант</option>
+                <option value="Без проблем">Без проблем</option>
+                <option value="Была угроза">Была угроза</option>
+                <option value="Были заболевания">Были заболевания</option>
+            </select>
+            <div id="pregnancy-threat-details" style="display: none; margin-top: 10px;">
+                <label>Укажите, что именно было:</label>
+                <textarea name="pregnancy-threat-text" id="pregnancy-threat-text" rows="4" cols="50" placeholder="Опишите подробнее"></textarea>
+            </div>
+        </div>
+
+        <div class="diagnostic-section">
+            <h3>Роды</h3>
+            <label>Как проходили роды?</label>
+            <select name="birth" id="birth" required>
+                <option value="">Выберите вариант</option>
+                <option value="Самостоятельно">Самостоятельно в срок, без осложнений</option>
+                <option value="Раньше времени">Раньше времени на 4-8 недель</option>
+                <option value="С осложнениями">С осложнениями</option>
+            </select>
+            <div id="birth-threat-details" style="display: none; margin-top: 10px;">
+                <label>Укажите, что именно было:</label>
+                <textarea name="birth-threat-text" id="birth-threat-text" rows="4" cols="50" placeholder="Какие были осложнения?"></textarea>
+            </div>
+        </div>
+
+        <!-- Остальные секции формы остаются без изменений -->
+
+        <button type="submit" class="btn">Скачать результаты</button>
+        <button type="button" class="btn" id="to-recommendations" style="margin-top: 10px;">Перейти к рекомендациям</button>
+    </form>
+
+    <script>
+        const { jsPDF } = window.jspdf;
+
+        // Проверка доступа
+        const validIdentifiers = [
+            'f172b4e7-b79e-4e83-aec1-a719f377aa48', 'fec42f34-7e7b-4992-b0b1-b7245e477f5d',
+            // ... остальные идентификаторы
+        ];
+
+        (function checkAccess() {
+            const storedIdentifier = localStorage.getItem('diagnosticAccess');
+            if (!storedIdentifier || !validIdentifiers.includes(storedIdentifier)) {
+                alert('Доступ запрещен. Пожалуйста, введите корректный идентификатор на главной странице.');
+                window.location.replace('index.html');
+            } else {
+                document.body.style.display = 'block';
+                console.log('Доступ разрешен');
+            }
+        })();
+
+        // Обработчики для дополнительных полей
+        const pregnancySelect = document.getElementById('pregnancy');
+        if (pregnancySelect) {
+            pregnancySelect.addEventListener('change', function() {
+                const threatDetails = document.getElementById('pregnancy-threat-details');
+                if (this.value === 'Была угроза' || this.value === 'Были заболевания') {
+                    threatDetails.style.display = 'block';
+                } else {
+                    threatDetails.style.display = 'none';
+                }
+            });
+        }
+
+        const birthSelect = document.getElementById('birth');
+        if (birthSelect) {
+            birthSelect.addEventListener('change', function() {
+                const threatDetails = document.getElementById('birth-threat-details');
+                if (this.value === 'С осложнениями') {
+                    threatDetails.style.display = 'block';
+                } else {
+                    threatDetails.style.display = 'none';
+                }
+            });
+        }
+
+        // Генерация PDF
+        const form = document.getElementById('diagnostic-form');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                console.log('Форма отправлена');
+
+                const formData = new FormData(this);
+                const doc = new jsPDF();
+
+                try {
+                    if (typeof RobotoRegular !== 'undefined') {
+                        doc.addFileToVFS('Roboto-Regular.ttf', RobotoRegular);
+                        doc.addFont('Roboto-Regular.ttf', 'Roboto-Regular', 'normal');
+                        doc.setFont('Roboto-Regular', 'normal');
+                    }
+
+                    doc.setFontSize(16);
+                    doc.text('Результаты диагностики', 20, 20);
+                    doc.setFontSize(12);
+                    let yPosition = 30;
+                    const lineHeight = 10;
+                    const maxWidth = 170;
+
+                    const questions = {
+                        fullName: 'ФИО ребенка',
+                        birthDate: 'Дата рождения ребенка',
+                        gender: 'Пол ребенка',
+                        pregnancy: 'Как проходила беременность',
+                        birth: 'Как проходили роды',
+                        // ... остальные вопросы
+                    };
+
+                    const skipFields = ['pregnancy-threat-text', 'birth-threat-text'];
+                    formData.forEach((value, key) => {
+                        if (skipFields.includes(key)) return;
+                        const questionText = questions[key] || key;
+
+                        if (document.getElementsByName(key)[0]?.tagName === 'SELECT') {
+                            const selectElement = document.getElementsByName(key)[0];
+                            const selectedOption = selectElement.options[selectElement.selectedIndex];
+                            const answerText = selectedOption ? selectedOption.text : '';
+                            const textLines = doc.splitTextToSize(`${questionText}: ${answerText}`, maxWidth);
+                            doc.text(textLines, 20, yPosition);
+                            yPosition += textLines.length * lineHeight;
+
+                            if (key === 'pregnancy') {
+                                const threatText = formData.get('pregnancy-threat-text');
+                                if (threatText) {
+                                    const detailLines = doc.splitTextToSize(`Подробности: ${threatText}`, maxWidth);
+                                    doc.text(detailLines, 20, yPosition);
+                                    yPosition += detailLines.length * lineHeight;
+                                }
+                            } else if (key === 'birth') {
+                                const threatText = formData.get('birth-threat-text');
+                                if (threatText) {
+                                    const detailLines = doc.splitTextToSize(`Подробности: ${threatText}`, maxWidth);
+                                    doc.text(detailLines, 20, yPosition);
+                                    yPosition += detailLines.length * lineHeight;
+                                }
+                            }
+                        } else {
+                            const textLines = doc.splitTextToSize(`${questionText}: ${value}`, maxWidth);
+                            doc.text(textLines, 20, yPosition);
+                            yPosition += textLines.length * lineHeight;
+                        }
+
+                        if (yPosition > 280) {
+                            doc.addPage();
+                            yPosition = 20;
+                        }
+                    });
+
+                    const childName = formData.get('fullName') || 'Ребенок';
+                    doc.save(`Диагностика_${childName}_${new Date().toLocaleDateString('ru-RU')}.pdf`);
+                    console.log('PDF успешно сгенерирован');
+                } catch (error) {
+                    console.error('Ошибка при генерации PDF:', error);
+                }
+            });
+
+            // Обработчик для кнопки "Перейти к рекомендациям"
+            document.getElementById('to-recommendations').addEventListener('click', function() {
+                const formData = new FormData(document.getElementById('diagnostic-form'));
+                const answers = {};
+
+                formData.forEach((value, key) => {
+                    if (document.getElementsByName(key)[0]?.tagName === 'SELECT') {
+                        const selectElement = document.getElementsByName(key)[0];
+                        const selectedOption = selectElement.options[selectElement.selectedIndex];
+                        answers[key] = selectedOption ? selectedOption.text : '';
+                    } else {
+                        answers[key] = value;
+                    }
+                });
+
+                localStorage.setItem('diagnosticAnswers', JSON.stringify(answers));
+                console.log('Ответы сохранены:', answers);
+                window.location.href = 'recommendations.html';
+            });
+        }
+    </script>
+</body>
+</html>
