@@ -421,7 +421,7 @@
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
 
-    // Устанавливаем шрифт Open Sans (предполагается, что он подключен через OpenSans-Regular.js)
+    
         doc.addFont("Roboto-Regular.ttf", "Roboto-Regular", "normal");
         doc.setFont("Roboto-Regular", "normal");
 
@@ -463,17 +463,46 @@
             pottyIssues: 'Проблемы с горшком'
         };
 
-        formData.forEach((value, key) => {
-            const questionText = questions[key] || key;
-            doc.text(`${questionText}: ${value}`, 20, yPosition);
-            yPosition += lineHeight;
-            if (yPosition > 280) {
-                doc.addPage();
-                yPosition = 20;
-            }
-        });
+// Проходим по данным формы
+            formData.forEach((value, key) => {
+                const questionText = questions[key] || key;
 
-        const childName = formData.get('fullName') || 'Ребенок';
-        doc.save(`Диагностика_${childName}_${new Date().toLocaleDateString('ru-RU')}.pdf`);
-    });
-</script>
+                // Если это <select>, берем текст выбранного <option>
+                if (document.getElementsByName(key)[0]?.tagName === 'SELECT') {
+                    const selectElement = document.getElementsByName(key)[0];
+                    const selectedOption = selectElement.options[selectElement.selectedIndex];
+                    const answerText = selectedOption ? selectedOption.text : '';
+                    doc.text(`${questionText}: ${answerText}`, 20, yPosition);
+                    yPosition += lineHeight;
+
+                    // Проверяем дополнительные поля для pregnancy и birth
+                    if (key === 'pregnancy') {
+                        const threatText = formData.get('pregnancy-threat-text');
+                        if (threatText) {
+                            doc.text(`Подробности: ${threatText}`, 20, yPosition);
+                            yPosition += lineHeight;
+                        }
+                    } else if (key === 'birth') {
+                        const threatText = formData.get('birth-threat-text');
+                        if (threatText) {
+                            doc.text(`Подробности: ${threatText}`, 20, yPosition);
+                            yPosition += lineHeight;
+                        }
+                    }
+                } else {
+                    // Для остальных полей (например, <input>)
+                    doc.text(`${questionText}: ${value}`, 20, yPosition);
+                    yPosition += lineHeight;
+                }
+
+                // Проверка на конец страницы
+                if (yPosition > 280) {
+                    doc.addPage();
+                    yPosition = 20;
+                }
+            });
+
+            const childName = formData.get('fullName') || 'Ребенок';
+            doc.save(`Диагностика_${childName}_${new Date().toLocaleDateString('ru-RU')}.pdf`);
+        });
+    </script>
