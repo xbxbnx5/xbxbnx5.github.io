@@ -109,19 +109,19 @@
         <select name="pregnancy" id="pregnancy" required>
             <option value="">Выберите вариант</option>
             <option value="Без проблем">Без проблем</option>
-            <option value="Была угроза">Была угроза (кровотечения, заболевания и т.д.)</option>
-            <option value="Болела простудами">Болела простудами</option>
+            <option value="Была угроза">Была угроза</option>
+            <option value="Были заболевания">Были заболевания</option>
         </select>
-        <div id="threat-details" style="display: none; margin-top: 10px;">
+        <div id="pregnancy-threat-details" style="display: none; margin-top: 10px;">
             <label>Укажите, что именно было:</label>
-            <textarea name="threat-text" id="threat-text" rows="4" cols="50" placeholder="Опишите угрозы..."></textarea>
+            <textarea name="pregnancy-threat-text" id="pregnancy-threat-text" rows="4" cols="50" placeholder="Опишите подробнее"></textarea>
         </div>
     </div>
 
     <script>
         document.getElementById('pregnancy').addEventListener('change', function() {
-            const threatDetails = document.getElementById('threat-details');
-            if (this.value === 'Была угроза') {
+            const threatDetails = document.getElementById('pregnancy-threat-details');
+            if (this.value === 'Была угроза' || this.value === 'Были заболевания') {
                 threatDetails.style.display = 'block';
             } else {
                 threatDetails.style.display = 'none';
@@ -139,15 +139,15 @@
                 <option value="Раньше времени">Раньше времени на 4-8 недель</option>
                 <option value="С осложнениями">С осложнениями</option>
             </select>
-                    <div id="threat-details" style="display: none; margin-top: 10px;">
+                    <div id="birth-threat-details" style="display: none; margin-top: 10px;">
             <label>Укажите, что именно было:</label>
-            <textarea name="threat-text" id="threat-text" rows="4" cols="50" placeholder="Какие были осложнения? (обвитие пуповиной, выдавливание, длительные роды и т.д.)"></textarea>
+            <textarea name="birth-threat-text" id="birth-threat-text" rows="4" cols="50" placeholder="Какие были осложнения? (обвитие пуповиной, выдавливание, длительные роды и т.д.)"></textarea>
         </div>
     </div>
 
     <script>
         document.getElementById('pregnancy').addEventListener('change', function() {
-            const threatDetails = document.getElementById('threat-details');
+            const threatDetails = document.getElementById('birth-threat-details');
             if (this.value === 'С осложнениями') {
                 threatDetails.style.display = 'block';
             } else {
