@@ -6,7 +6,8 @@
     <title>Онлайн диагностика</title>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="Arial.js"></script>
+    <script src="Roboto-Regular.js"></script>
+
     <style>
         * {
             margin: 0;
@@ -86,7 +87,7 @@
     </style>
 </head>
 <body>
-    <h1>Диагностика Онлайн</h1>
+    <h1>Диагностика онлайн</h1>
     <p>Заполните форму ниже, чтобы оценить развитие вашего ребенка. После заполнения вы сможете скачать результаты в PDF.</p>
     <form id="diagnostic-form">
         <div class="diagnostic-section">
@@ -345,8 +346,8 @@
         const doc = new jsPDF();
 
     // Устанавливаем шрифт Open Sans (предполагается, что он подключен через OpenSans-Regular.js)
-        doc.addFont('Arial.ttf', 'Arial', 'normal');
-        doc.setFont('Arial', 'normal');
+        doc.addFont("Roboto-Regular.ttf", "Roboto-Regular", "normal");
+        doc.setFont("Roboto-Regular", "normal");
 
         doc.setFontSize(16);
         doc.text('Результаты диагностики', 20, 20);
