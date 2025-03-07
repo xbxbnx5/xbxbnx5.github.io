@@ -411,10 +411,8 @@
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
 
-            // Предполагается, что Roboto-Regular.js содержит переменную RobotoRegular с base64
-            doc.addFileToVFS('Roboto-Regular.ttf', RobotoRegular);
-            doc.addFont('Roboto-Regular.ttf', 'Roboto-Regular', 'normal');
-            doc.setFont('Roboto-Regular', 'normal');
+            doc.addFont("Roboto-Regular.ttf", "Roboto-Regular", "normal");
+            doc.setFont("Roboto-Regular", "normal");
 
             doc.setFontSize(16);
             doc.text('Результаты диагностики', 20, 20);
