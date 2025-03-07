@@ -6,7 +6,7 @@
     <title>Онлайн диагностика</title>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="path/to/OpenSans-Regular-normal.js"></script>
+    <script src="Arial.js"></script>
     <style>
         * {
             margin: 0;
@@ -345,8 +345,8 @@
         const doc = new jsPDF();
 
     // Устанавливаем шрифт Open Sans (предполагается, что он подключен через OpenSans-Regular.js)
-        doc.addFont('OpenSans-Regular-normal.ttf', 'OpenSans', 'normal');
-        doc.setFont('OpenSans', 'normal');
+        doc.addFont('Arial.ttf', 'Arial', 'normal');
+        doc.setFont('Arial', 'normal');
 
         doc.setFontSize(16);
         doc.text('Результаты диагностики', 20, 20);
