@@ -95,7 +95,7 @@
     </style>
 </head>
 <body>
-    <h1>Диагностика онлайн</h1>
+    <h1>Диагностика Онлайн</h1>
     <p>Заполните форму ниже, чтобы оценить развитие вашего ребенка. После заполнения вы сможете скачать результаты в PDF.</p>
     <form id="diagnostic-form">
         <div class="diagnostic-section">
@@ -453,7 +453,9 @@
                 pottyIssues: 'Проблемы с горшком'
             };
 
+            const skipFields = ['pregnancy-threat-text', 'birth-threat-text'];
             formData.forEach((value, key) => {
+                if (skipFields.includes(key)) return;
                 const questionText = questions[key] || key;
 
                 if (document.getElementsByName(key)[0]?.tagName === 'SELECT') {
