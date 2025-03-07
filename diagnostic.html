@@ -38,7 +38,7 @@
             max-width: 600px;
             margin: 0 auto;
         }
-        .diagnostic-section {
+        .question, .diagnostic-section {
             margin-bottom: 25px;
             text-align: left;
         }
@@ -53,13 +53,16 @@
             font-weight: 600;
             color: #487eb0;
         }
-        input[type="text"], input[type="date"], select, textarea {
+        input[type="text"], input[type="date"], select {
             width: 100%;
             padding: 10px;
             margin-bottom: 10px;
             border: 1px solid #ddd;
             border-radius: 5px;
             font-family: 'Open Sans', sans-serif;
+        }
+        input[type="radio"] {
+            margin-right: 10px;
         }
         .btn {
             display: inline-block;
@@ -78,16 +81,6 @@
             transform: scale(1.1);
             box-shadow: 0 10px 25px rgba(116, 199, 213, 0.6);
         }
-        .question-text {
-            display: block;
-            margin-bottom: 2px;
-        }
-        .hint {
-            display: block;
-            font-size: 0.8em;
-            color: #666;
-            margin-bottom: 8px;
-        }
         @media (max-width: 768px) {
             h1 { font-size: 2em; }
             form { padding: 20px; }
@@ -95,16 +88,16 @@
     </style>
 </head>
 <body>
-    <h1>Диагностика Онлайн</h1>
+    <h1>Диагностика онлайн</h1>
     <p>Заполните форму ниже, чтобы оценить развитие вашего ребенка. После заполнения вы сможете скачать результаты в PDF.</p>
     <form id="diagnostic-form">
         <div class="diagnostic-section">
             <h3>Основные данные</h3>
             <input type="text" name="fullName" placeholder="ФИО ребенка" required>
-            <input type="date" name="birthDate" required>
+            <input type="date" name="birth замените" required>
             <label>Пол:</label>
             <select name="gender" required>
-                <option value="">Выберите пол ребенка</option>
+                <option value="">Выберите пол</option>
                 <option value="Жен">Женский</option>
                 <option value="Муж">Мужской</option>
             </select>
@@ -113,31 +106,23 @@
         <div class="diagnostic-section">
             <h3>Беременность</h3>
             <label>Как проходила беременность?</label>
-            <select name="pregnancy" id="pregnancy" required>
+            <select name="pregnancy" required>
                 <option value="">Выберите вариант</option>
                 <option value="Без проблем">Без проблем</option>
-                <option value="Была угроза">Была угроза</option>
-                <option value="Были заболевания">Были заболевания</option>
+                <option value="Была угроза">Была угроза (кровотечения, заболевания и т.д.)</option>
+                <option value="Болела простудами">Болела простудами</option>
             </select>
-            <div id="pregnancy-threat-details" style="display: none; margin-top: 10px;">
-                <label>Укажите, что именно было:</label>
-                <textarea name="pregnancy-threat-text" id="pregnancy-threat-text" rows="4" cols="50" placeholder="Опишите подробнее"></textarea>
-            </div>
         </div>
 
         <div class="diagnostic-section">
             <h3>Роды</h3>
             <label>Как проходили роды?</label>
-            <select name="birth" id="birth" required>
+            <select name="birth" required>
                 <option value="">Выберите вариант</option>
-                <option value="Самостоятельно">Самостоятельно в срок, без осложнений</option>
-                <option value="Раньше времени">Раньше времени на 4-8 недель</option>
-                <option value="С осложнениями">С осложнениями</option>
+                <option value="Нормально, в срок">Нормально, в срок самостоятельно</option>
+                <option value="Раньше времени">Раньше времени на 1-2 мес.</option>
+                <option value="Не все гладко">Не все гладко (обвитие, выдавливание и т.д.)</option>
             </select>
-            <div id="birth-threat-details" style="display: none; margin-top: 10px;">
-                <label>Укажите, что именно было:</label>
-                <textarea name="birth-threat-text" id="birth-threat-text" rows="4" cols="50" placeholder="Какие были осложнения? (обвитие пуповиной, выдавливание, длительные роды и т.д.)"></textarea>
-            </div>
         </div>
 
         <div class="diagnostic-section">
@@ -146,67 +131,55 @@
             <select name="toneIssues" required>
                 <option value="">Выберите вариант</option>
                 <option value="Нет">Нет</option>
-                <option value="Да-гипергипо">Да (гипер/гипотонус)</option>
-                <option value="Не знаю">Не знаю</option>
+                <option value="Да-гипер">Да - гипертонус</option>
+                <option value="Да-гипо">Да - гипотонус</option>
             </select>
-            <label>Как часто ребенок болел?</label>
+            <label>Часто болел простудами?</label>
             <select name="frequentColds" required>
                 <option value="">Выберите вариант</option>
-                <option value="Да">Часто (раз в месяц)</option>
-                <option value="Нет">Не часто (раз в полгода)</option>
-                <option value="Иногда">Периодически (каждые 3 месяца)</option>
+                <option value="Да">Да</option>
+                <option value="Нет">Нет</option>
+                <option value="Иногда">Иногда</option>
             </select>
         </div>
 
         <div class="diagnostic-section">
             <h3>Моторное развитие</h3>
-            <label>Во сколько сел?</label>
+            <label>Сел в 6-7 месяцев?</label>
             <select name="sitting" required>
                 <option value="">Выберите вариант</option>
-                <option value="5-6">5-6 месяцев</option>
-                <option value="6-7">6-7 месяцев</option>
-                <option value="7-8">7-8 месяцев</option>
-                <option value="9+">Позже 9 месяцев</option>                
+                <option value="Да">Да</option>
+                <option value="Нет">Нет</option>
             </select>
-            <label>Во сколько начал ползать?</label>
-            <select name="crawling" required>
-                <option value="">Выберите вариант</option>
-                <option value="5-6">5-6 месяцев</option>
-                <option value="6-7">6-7 месяцев</option>
-                <option value="7-8">7-8 месяцев</option>
-                <option value="9+">Позже 9 месяцев</option>
-            </select>
-            <label>Во сколько встал с поддержкой?</label>
+            <label>Встал с поддержкой в 7-8 месяцев?</label>
             <select name="standingSupport" required>
                 <option value="">Выберите вариант</option>
-                <option value="6-7">6-7 месяцев</option>
-                <option value="7-8">7-8 месяцев</option>
-                <option value="8-9">8-9 месяцев</option>
-                <option value="10+">Позже 10 месяцев</option>
+                <option value="Да">Да</option>
+                <option value="Нет">Нет</option>
             </select>
-            <label>Во сколько встал самостоятельно?</label>
+            <label>Пополз в 6-9 месяцев?</label>
+            <select name="crawling" required>
+                <option value="">Выберите вариант</option>
+                <option value="Да">Да</option>
+                <option value="Нет">Нет</option>
+            </select>
+            <label>Встал самостоятельно в 7-9 месяцев?</label>
             <select name="standingAlone" required>
                 <option value="">Выберите вариант</option>
-                <option value="7-8">7-8 месяцев</option>
-                <option value="8-9">8-9 месяцев</option>
-                <option value="10-11">10-11 месяцев</option>
-                <option value="12+">После года</option>
+                <option value="Да">Да</option>
+                <option value="Нет">Нет</option>
             </select>
-            <label>Во сколько пошел с поддержкой?</label>
+            <label>Пошел с поддержкой в 11 мес - 1 год 1 мес?</label>
             <select name="walkingSupport" required>
                 <option value="">Выберите вариант</option>
-                <option value="7-8">7-8 месяцев</option>
-                <option value="8-9">8-9 месяцев</option>
-                <option value="10-12">10-12 месяцев</option>
-                <option value="12+">После года</option>
+                <option value="Да">Да</option>
+                <option value="Нет">Нет</option>
             </select>
-            <label>Во сколько пошел самостоятельно?</label>
+            <label>Пошел самостоятельно в 11 мес - 1 год 2 мес?</label>
             <select name="walkingAlone" required>
                 <option value="">Выберите вариант</option>
-                <option value="7-8">7-8 месяцев</option>
-                <option value="8-9">8-9 месяцев</option>
-                <option value="10-12">10-12 месяцев</option>
-                <option value="12+">После года</option>
+                <option value="Да">Да</option>
+                <option value="Нет">Нет</option>
             </select>
             <label>Умеет прыгать?</label>
             <select name="jumping" required>
@@ -218,16 +191,13 @@
 
         <div class="diagnostic-section">
             <h3>Поведение и особенности</h3>
-            <label>
-               <span class="question-text">Присутствуют синкинезии и стимы?</span> 
-                <span class="hint">Хождение на цыпочках, взмахи руками, бьется головой, высовывает язык во время занятий, мастурбация и т.д.</span> 
+            <label>Присутствуют синкинезии и стимы? (на цыпочках, взмахи руками и т.д.)</label>
             <select name="synkinesia" required>
                 <option value="">Выберите вариант</option>
                 <option value="Да">Да</option>
                 <option value="Нет">Нет</option>
             </select>
-            </label>
-            <label>Боится лазить на стул, на площадке и т.д?</label>
+            <label>Боится лазить на стул, площадку?</label>
             <select name="fearClimbing" required>
                 <option value="">Выберите вариант</option>
                 <option value="Да">Да</option>
@@ -245,24 +215,18 @@
                 <option value="Да">Да</option>
                 <option value="Нет">Нет</option>
             </select>
-            <label>
-                <span class="question-text">Избирательно питается? </span> 
-                <span class="hint">Кушает определенные продукты, присутствует рвотный рефлекс, когда даешь, что не нравится и т.д</span> 
+            <label>Избирательно питается?</label>
             <select name="selectiveEating" required>
                 <option value="">Выберите вариант</option>
                 <option value="Да">Да</option>
                 <option value="Нет">Нет</option>
             </select>
-            </label>
-            <label>
-                <span class="question-text">Имеет нарушения сна?</span> 
-                 <span class="hint">Часто просыпается, трудно засыпает, говорит или плачет во сне)</span> 
+            <label>Имеет нарушения сна?</label>
             <select name="sleepIssues" required>
                 <option value="">Выберите вариант</option>
                 <option value="Да">Да</option>
                 <option value="Нет">Нет</option>
             </select>
-            </label>
         </div>
 
         <div class="diagnostic-section">
@@ -273,26 +237,19 @@
                 <option value="Да">Да</option>
                 <option value="Нет">Нет</option>
             </select>
-            <label>
-              <span class="question-text">Играет с игрушками в сюжетно ролевые игры?</span>
-              <span class="hint">Укладывает куклу спать, кормит игрушки, катает машинки и т.д</span>            
-              <select name="rolePlay" required>
+            <label>Играет в сюжетно-ролевые игры?</label>
+            <select name="rolePlay" required>
                 <option value="">Выберите вариант</option>
                 <option value="Да">Да</option>
                 <option value="Нет">Нет</option>
             </select>
-            </label>
-            
-            <label>
-              <span class="question-text">Имеет указательный жест?</span>
-              <span class="hint">Показывает пальчиком на необходимый предмет или сторону</span>
-              <select name="pointing" required>
+            <label>Имеет указательный жест?</label>
+            <select name="pointing" required>
                 <option value="">Выберите вариант</option>
                 <option value="Да">Да</option>
                 <option value="Редко">Редко</option>
                 <option value="Нет">Нет</option>
-              </select>
-            </label>
+            </select>
             <label>Активный словарный запас:</label>
             <select name="vocabulary" required>
                 <option value="">Выберите вариант</option>
@@ -303,14 +260,14 @@
             <label>Избегает зрительного контакта?</label>
             <select name="avoidEyeContact" required>
                 <option value="">Выберите вариант</option>
-                <option value="Редко">Редко</option>
-                <option value="Да">Избегает</option>
-                <option value="Нет">Не избегает</option>
+                <option value="Редко">Редко и мало</option>
+                <option value="Да">Да</option>
+                <option value="Нет">Совсем нет</option>
             </select>
             <label>Откликается на имя?</label>
             <select name="respondsToName" required>
                 <option value="">Выберите вариант</option>
-                <option value="Иногда">Иногда</option>
+                <option value="Через раз">Через раз</option>
                 <option value="Да">Да</option>
                 <option value="Нет">Нет</option>
             </select>
@@ -327,175 +284,143 @@
             <label>Любит рисовать и заниматься за столом?</label>
             <select name="drawing" required>
                 <option value="">Выберите вариант</option>
-                <option value="Да">Да</option>
-                <option value="Нет">Нет</option>
-                <option value="Не усидчивый">Не усидчивый</option>
-                <option value="Иногда">Иногда</option>
+                <option value="Да, очень">Да, очень</option>
+                <option value="Тяжело усадить">Тяжело усадить</option>
+                <option value="По настроению">По настроению</option>
             </select>
-            <label>Присутствовали(ют) проблемы с приучением к горшку?</label>
+            <label>Проблемы с горшком?</label>
             <select name="pottyIssues" required>
                 <option value="">Выберите вариант</option>
-                <option value="Да">Да</option>
+                <option value="Да, но прошли">Да, но прошли</option>
+                <option value="Мучаемся">Мучаемся до сих пор</option>
                 <option value="Нет">Нет</option>
-                <option value="В процессе">В процессе</option>
             </select>
         </div>
 
         <button type="submit" class="btn">Скачать результаты</button>
+        
+        <button type="button" class="btn" id="to-recommendations" style="margin-top: 10px;">Перейти к рекомендациям</button>
     </form>
+<script>
+    // Проверка доступа через localStorage
+    const validIdentifiers = [
+        'f172b4e7-b79e-4e83-aec1-a719f377aa48', 'fec42f34-7e7b-4992-b0b1-b7245e477f5d',
+        'cc85ea48-a6b2-4547-a8d6-48e3815d32a1', '70142591-b33a-4529-9c90-001b6fc531b7',
+        'c245e5e2-cf68-48b5-94d8-fcc11f228605', 'f5743da7-b3f3-4e79-83fd-cab0e467fa54',
+        '7ff3e0fb-4b09-4db6-8566-5974c9fe4dfc', '0074ee6d-c0b3-4cd5-8a68-af36ccf89a83',
+        '99b31d59-2eff-496f-99e2-a70c5826edb5', 'a7611979-847c-4f09-8aba-a31b8e5d0131',
+        '49cf00ad-f6d6-45a8-802f-bc7308a75215', '0c9074ea-617f-44d0-8991-6169da73cf65',
+        'c6ea0993-1ca7-4a49-a2a2-b51a73df4466', '498ec386-10b9-4aa8-9bf6-895cb994133e',
+        '7e4cc55f-d89c-461d-af96-a4f11ec724c2', '932b1450-d24f-4238-abd8-28be9d19ca1c',
+        '10c4b9bc-528d-4813-aed4-ff7ccbd3511b', '0be40d49-39e2-40fb-bf37-7f2d75467f75',
+        '55b4cef6-e066-4450-a418-0e726fafe869', 'f55370d2-13ac-42a5-908d-ee4060961aea',
+        'cd2239d2-e9a0-40dc-a141-fa9595429eb0', '09d76932-17d8-4e5e-9fbe-4619c53ab1b6',
+        'b55c9cc1-ae08-4444-9549-5b5fc5dcdcce', '0474f204-df20-4926-8b29-810dfa2b32c3',
+        '02172484-62a0-49be-ae8f-9505992e2944', '9e64309c-ac0a-4b22-a1ec-a8d2186ba781',
+        '27f6da80-522b-4439-b090-ee1826575ed7', '06dec1d3-7958-4471-8645-d5c23e8ff1fd',
+        '9f0ab6f2-4119-491c-8bb1-88ef23b02a54', '0adbcd70-4f9d-4a8a-bb76-e6ce192c9e06',
+        'a474b86e-b26d-468e-9e70-8990104bca5e', '5fbd6980-c917-4298-bf74-97801084bd5a',
+        'ecdfcfd9-e33d-423d-a380-6f1f62cc3820', '1c1bc7de-a57a-4f59-9d41-3285b427dd86',
+        '30eee851-3b19-46a1-8ba7-80687a4565a3', 'a57755fc-929b-4ef0-8ce2-10bbe669df78',
+        '489dc6c2-4140-468e-8e07-84c99518fd3f', '1d080905-86b0-46bf-a5eb-7b98e7bf2e3b',
+        '1ec8ba02-f5b6-495c-8d77-265b9d7ca875', 'f3c4c61a-76a0-4635-9a92-6dd4bbd90f5b',
+        'dde76267-cd0d-43ca-bd68-856112e3836a', 'aaf0f0e4-9b8f-413b-b093-7fb812fe1b04',
+        '1eeca7d5-6f25-4b82-a578-af4ba91ca8e6', 'fa40b441-158d-4b79-bc20-f3b618b87a92',
+        'cbeb6215-754b-44b3-9b40-01c3c9e89c10', '2cfe1d17-d26a-4654-a401-979c46b394ad',
+        '9eec7a7b-2621-4010-a129-0111241ea9bf', 'e6076433-9803-4975-a8ce-2f1185649069',
+        '2b70e878-a46f-4dcc-b4e7-5aa891bd4081', '2f9c679f-11fd-4933-a2db-6c0ce45780e3'
+    ];
 
-    <script>
-        // Проверка доступа через localStorage
-        const validIdentifiers = [
-            'f172b4e7-b79e-4e83-aec1-a719f377aa48', 'fec42f34-7e7b-4992-b0b1-b7245e477f5d',
-            'cc85ea48-a6b2-4547-a8d6-48e3815d32a1', '70142591-b33a-4529-9c90-001b6fc531b7',
-            'c245e5e2-cf68-48b5-94d8-fcc11f228605', 'f5743da7-b3f3-4e79-83fd-cab0e467fa54',
-            '7ff3e0fb-4b09-4db6-8566-5974c9fe4dfc', '0074ee6d-c0b3-4cd5-8a68-af36ccf89a83',
-            '99b31d59-2eff-496f-99e2-a70c5826edb5', 'a7611979-847c-4f09-8aba-a31b8e5d0131',
-            '49cf00ad-f6d6-45a8-802f-bc7308a75215', '0c9074ea-617f-44d0-8991-6169da73cf65',
-            'c6ea0993-1ca7-4a49-a2a2-b51a73df4466', '498ec386-10b9-4aa8-9bf6-895cb994133e',
-            '7e4cc55f-d89c-461d-af96-a4f11ec724c2', '932b1450-d24f-4238-abd8-28be9d19ca1c',
-            '10c4b9bc-528d-4813-aed4-ff7ccbd3511b', '0be40d49-39e2-40fb-bf37-7f2d75467f75',
-            '55b4cef6-e066-4450-a418-0e726fafe869', 'f55370d2-13ac-42a5-908d-ee4060961aea',
-            'cd2239d2-e9a0-40dc-a141-fa9595429eb0', '09d76932-17d8-4e5e-9fbe-4619c53ab1b6',
-            'b55c9cc1-ae08-4444-9549-5b5fc5dcdcce', '0474f204-df20-4926-8b29-810dfa2b32c3',
-            '02172484-62a0-49be-ae8f-9505992e2944', '9e64309c-ac0a-4b22-a1ec-a8d2186ba781',
-            '27f6da80-522b-4439-b090-ee1826575ed7', '06dec1d3-7958-4471-8645-d5c23e8ff1fd',
-            '9f0ab6f2-4119-491c-8bb1-88ef23b02a54', '0adbcd70-4f9d-4a8a-bb76-e6ce192c9e06',
-            'a474b86e-b26d-468e-9e70-8990104bca5e', '5fbd6980-c917-4298-bf74-97801084bd5a',
-            'ecdfcfd9-e33d-423d-a380-6f1f62cc3820', '1c1bc7de-a57a-4f59-9d41-3285b427dd86',
-            '30eee851-3b19-46a1-8ba7-80687a4565a3', 'a57755fc-929b-4ef0-8ce2-10bbe669df78',
-            '489dc6c2-4140-468e-8e07-84c99518fd3f', '1d080905-86b0-46bf-a5eb-7b98e7bf2e3b',
-            '1ec8ba02-f5b6-495c-8d77-265b9d7ca875', 'f3c4c61a-76a0-4635-9a92-6dd4bbd90f5b',
-            'dde76267-cd0d-43ca-bd68-856112e3836a', 'aaf0f0e4-9b8f-413b-b093-7fb812fe1b04',
-            '1eeca7d5-6f25-4b82-a578-af4ba91ca8e6', 'fa40b441-158d-4b79-bc20-f3b618b87a92',
-            'cbeb6215-754b-44b3-9b40-01c3c9e89c10', '2cfe1d17-d26a-4654-a401-979c46b394ad',
-            '9eec7a7b-2621-4010-a129-0111241ea9bf', 'e6076433-9803-4975-a8ce-2f1185649069',
-            '2b70e878-a46f-4dcc-b4e7-5aa891bd4081', '2f9c679f-11fd-4933-a2db-6c0ce45780e3'
-        ];
+    // Проверка доступа выполняется немедленно
+    (function checkAccess() {
+        const storedIdentifier = localStorage.getItem('diagnosticAccess');
+        if (!storedIdentifier || !validIdentifiers.includes(storedIdentifier)) {
+            alert('Доступ запрещен. Пожалуйста, введите корректный идентификатор на главной странице.');
+            window.location.replace('index.html');
+            return;
+        }
+        document.body.style.display = 'block';
+    })();
 
-        // Проверка доступа
-        (function checkAccess() {
-            const storedIdentifier = localStorage.getItem('diagnosticAccess');
-            if (!storedIdentifier || !validIdentifiers.includes(storedIdentifier)) {
-                alert('Доступ запрещен. Пожалуйста, введите корректный идентификатор на главной странице.');
-                window.location.replace('index.html');
-                return;
-            }
-            document.body.style.display = 'block';
-        })();
+    document.getElementById('diagnostic-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
 
-        // Обработчики для дополнительных полей
-        document.getElementById('pregnancy').addEventListener('change', function() {
-            const threatDetails = document.getElementById('pregnancy-threat-details');
-            if (this.value === 'Была угроза' || this.value === 'Были заболевания') {
-                threatDetails.style.display = 'block';
-            } else {
-                threatDetails.style.display = 'none';
+    // Устанавливаем шрифт Open Sans (предполагается, что он подключен через OpenSans-Regular.js)
+        doc.addFont("Roboto-Regular.ttf", "Roboto-Regular", "normal");
+        doc.setFont("Roboto-Regular", "normal");
+
+        doc.setFontSize(16);
+        doc.text('Результаты диагностики', 20, 20);
+        doc.setFontSize(12);
+        let yPosition = 30;
+        const lineHeight = 10;
+
+        const questions = {
+            fullName: 'ФИО ребенка',
+            birthDate: 'Дата рождения',
+            gender: 'Пол',
+            pregnancy: 'Как проходила беременность',
+            birth: 'Как проходили роды',
+            toneIssues: 'Были тонусные нарушения или кривошея',
+            frequentColds: 'Часто болел простудами',
+            sitting: 'Сел в 6-7 месяцев',
+            standingSupport: 'Встал с поддержкой в 7-8 месяцев',
+            crawling: 'Пополз в 6-9 месяцев',
+            standingAlone: 'Встал самостоятельно в 7-9 месяцев',
+            walkingSupport: 'Пошел с поддержкой в 11 мес - 1 год 1 мес',
+            walkingAlone: 'Пошел самостоятельно в 11 мес - 1 год 2 мес',
+            jumping: 'Умеет прыгать',
+            synkinesia: 'Присутствуют синкинезии и стимы',
+            fearClimbing: 'Боится лазить на стул, площадку',
+            fearSwings: 'Боится качелей',
+            selectiveClothing: 'Носит только определенную одежду',
+            selectiveEating: 'Избирательно питается',
+            sleepIssues: 'Имеет нарушения сна',
+            eyeContact: 'Имеет устойчивый зрительный контакт',
+            rolePlay: 'Играет в сюжетно-ролевые игры',
+            pointing: 'Имеет указательный жест',
+            vocabulary: 'Активный словарный запас',
+            avoidEyeContact: 'Избегает зрительного контакта',
+            respondsToName: 'Откликается на имя',
+            tripping: 'Часто спотыкается',
+            drawing: 'Любит рисовать и заниматься за столом',
+            pottyIssues: 'Проблемы с горшком'
+        };
+
+        formData.forEach((value, key) => {
+            const questionText = questions[key] || key;
+            doc.text(`${questionText}: ${value}`, 20, yPosition);
+            yPosition += lineHeight;
+            if (yPosition > 280) {
+                doc.addPage();
+                yPosition = 20;
             }
         });
 
-        document.getElementById('birth').addEventListener('change', function() {
-            const threatDetails = document.getElementById('birth-threat-details');
-            if (this.value === 'С осложнениями') {
-                threatDetails.style.display = 'block';
-            } else {
-                threatDetails.style.display = 'none';
-            }
-        });
+        const childName = formData.get('fullName') || 'Ребенок';
+        doc.save(`Диагностика_${childName}_${new Date().toLocaleDateString('ru-RU')}.pdf`);
+    });
+    // Обработчик для кнопки "Перейти к рекомендациям"
+        document.getElementById('to-recommendations').addEventListener('click', function() {
+            const formData = new FormData(document.getElementById('diagnostic-form'));
+            const answers = {};
 
-        // Генерация PDF
-        document.getElementById('diagnostic-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const formData = new FormData(this);
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-
-            doc.addFont("Roboto-Regular.ttf", "Roboto-Regular", "normal");
-            doc.setFont("Roboto-Regular", "normal");
-
-            doc.setFontSize(16);
-            doc.text('Результаты диагностики', 20, 20);
-            doc.setFontSize(12);
-            let yPosition = 30;
-            const lineHeight = 10;
-            const maxWidth = 170; // Максимальная ширина текста на странице
-
-            const questions = {
-                fullName: 'ФИО ребенка',
-                birthDate: 'Дата рождения ребенка',
-                gender: 'Пол ребенка',
-                pregnancy: 'Как проходила беременность',
-                birth: 'Как проходили роды',
-                toneIssues: 'Были тонусные нарушения или кривошея',
-                frequentColds: 'Как часто ребенок болел',
-                sitting: 'Во сколько сел',
-                crawling: 'Во сколько начал ползать?',
-                standingSupport: 'Во сколько встал с поддержкой',
-                standingAlone: 'Во сколько встал самостоятельно',
-                walkingSupport: 'Во сколько пошел с поддержкой',
-                walkingAlone: 'Во сколько пошел самостоятельно',
-                jumping: 'Умеет прыгать',
-                synkinesia: 'Присутствуют синкинезии и стимы',
-                fearClimbing: 'Боится лазить на стул, на площадке и т.д',
-                fearSwings: 'Боится качелей',
-                selectiveClothing: 'Носит только определенную одежду',
-                selectiveEating: 'Избирательно питается',
-                sleepIssues: 'Имеет нарушения сна',
-                eyeContact: 'Имеет устойчивый зрительный контакт',
-                rolePlay: 'Играет с игрушками в сюжетно ролевые игры',
-                pointing: 'Имеет указательный жест',
-                vocabulary: 'Активный словарный запас',
-                avoidEyeContact: 'Избегает зрительного контакта',
-                respondsToName: 'Откликается на имя',
-                tripping: 'Часто спотыкается',
-                drawing: 'Любит рисовать и заниматься за столом',
-                pottyIssues: 'Проблемы с горшком'
-            };
-
-            const skipFields = ['pregnancy-threat-text', 'birth-threat-text'];
             formData.forEach((value, key) => {
-                if (skipFields.includes(key)) return;
-                const questionText = questions[key] || key;
-
                 if (document.getElementsByName(key)[0]?.tagName === 'SELECT') {
                     const selectElement = document.getElementsByName(key)[0];
                     const selectedOption = selectElement.options[selectElement.selectedIndex];
-                    const answerText = selectedOption ? selectedOption.text : '';
-                    const textLines = doc.splitTextToSize(`${questionText}: ${answerText}`, maxWidth);
-                    doc.text(textLines, 20, yPosition);
-                    yPosition += textLines.length * lineHeight;
-
-                    if (key === 'pregnancy') {
-                        const threatText = formData.get('pregnancy-threat-text');
-                        if (threatText) {
-                            const detailLines = doc.splitTextToSize(`Подробности: ${threatText}`, maxWidth);
-                            doc.text(detailLines, 20, yPosition);
-                            yPosition += detailLines.length * lineHeight;
-                        }
-                    } else if (key === 'birth') {
-                        const threatText = formData.get('birth-threat-text');
-                        if (threatText) {
-                            const detailLines = doc.splitTextToSize(`Подробности: ${threatText}`, maxWidth);
-                            doc.text(detailLines, 20, yPosition);
-                            yPosition += detailLines.length * lineHeight;
-                        }
-                    }
+                    answers[key] = selectedOption ? selectedOption.text : '';
                 } else {
-                    const textLines = doc.splitTextToSize(`${questionText}: ${value}`, maxWidth);
-                    doc.text(textLines, 20, yPosition);
-                    yPosition += textLines.length * lineHeight;
-                }
-
-                if (yPosition > 280) {
-                    doc.addPage();
-                    yPosition = 20;
+                    answers[key] = value;
                 }
             });
 
-            const childName = formData.get('fullName') || 'Ребенок';
-            doc.save(`Диагностика_${childName}_${new Date().toLocaleDateString('ru-RU')}.pdf`);
-        });
-    </script>
-</body>
-</html>
+            localStorage.setItem('diagnosticAnswers', JSON.stringify(answers));
+            console.log('Ответы сохранены:', answers);
+            window.location.href = 'recommendations.html';
+            });
+        
+</script>
