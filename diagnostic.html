@@ -86,7 +86,7 @@
     </style>
 </head>
 <body>
-    <h1>Диагностика--онлайн</h1>
+    <h1>Диагностика онлайн</h1>
     <p>Заполните форму ниже, чтобы оценить развитие вашего ребенка. После заполнения вы сможете скачать результаты в PDF.</p>
     <form id="diagnostic-form">
         <div class="diagnostic-section">
@@ -345,8 +345,8 @@
         const doc = new jsPDF();
 
     // Устанавливаем шрифт Open Sans (предполагается, что он подключен через OpenSans-Regular.js)
-        doc.addFont('OpenSans-Regular-normal.ttf', 'OpenSans-Regular', 'normal');
-        doc.setFont('OpenSans-Regular', 'normal');
+        doc.addFont('OpenSans-Regular-normal.ttf', 'OpenSans', 'normal');
+        doc.setFont('OpenSans', 'normal');
 
         doc.setFontSize(16);
         doc.text('Результаты диагностики', 20, 20);
