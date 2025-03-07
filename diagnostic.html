@@ -110,7 +110,7 @@
             <option value="">Выберите вариант</option>
             <option value="Без проблем">Без проблем</option>
             <option value="Была угроза">Была угроза (кровотечения, заболевания и т.д.)</option>
-            <option value="Болела простудами">Были заболевания</option>
+            <option value="Были заболевания">Были заболевания</option>
         </select>
         <div id="threat-details" style="display: none; margin-top: 10px;">
             <label>Укажите, что именно было:</label>
@@ -121,7 +121,7 @@
     <script>
         document.getElementById('pregnancy').addEventListener('change', function() {
             const threatDetails = document.getElementById('threat-details');
-            if (this.value === 'Болела простудами') {
+            if (this.value === 'Были заболевания') {
                 threatDetails.style.display = 'block';
             } else {
                 threatDetails.style.display = 'none';
@@ -135,10 +135,26 @@
             <label>Как проходили роды?</label>
             <select name="birth" required>
                 <option value="">Выберите вариант</option>
-                <option value="Нормально, в срок">Нормально, в срок самостоятельно</option>
-                <option value="Раньше времени">Раньше времени на 1-2 мес.</option>
-                <option value="Не все гладко">Не все гладко (обвитие, выдавливание и т.д.)</option>
+                <option value="Самостоятельно">Самостоятельно в срок, без осложнений</option>
+                <option value="Раньше времени">Раньше времени на 4-8 недель</option>
+                <option value="С осложнениями">С осложнениями</option>
             </select>
+                    <div id="threat-details" style="display: none; margin-top: 10px;">
+            <label>Укажите, что именно было:</label>
+            <textarea name="threat-text" id="threat-text" rows="4" cols="50" placeholder="Какие были осложнения? (обвитие пуповиной, выдавливание, длительные роды и т.д.)"></textarea>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('pregnancy').addEventListener('change', function() {
+            const threatDetails = document.getElementById('threat-details');
+            if (this.value === 'С осложнениями') {
+                threatDetails.style.display = 'block';
+            } else {
+                threatDetails.style.display = 'none';
+            }
+        });
+    </script>
         </div>
 
         <div class="diagnostic-section">
@@ -147,55 +163,62 @@
             <select name="toneIssues" required>
                 <option value="">Выберите вариант</option>
                 <option value="Нет">Нет</option>
-                <option value="Да-гипер">Да - гипертонус</option>
-                <option value="Да-гипо">Да - гипотонус</option>
+                <option value="Да-гипергипо">Да (гипер/гипотонус)</option>
+                <option value="Не знаю">Не знаю</option>
             </select>
-            <label>Часто болел простудами?</label>
+            <label>Как часто ребенок болел?</label>
             <select name="frequentColds" required>
                 <option value="">Выберите вариант</option>
-                <option value="Да">Да</option>
-                <option value="Нет">Нет</option>
-                <option value="Иногда">Иногда</option>
+                <option value="Да">Часто (раз в месяц)</option>
+                <option value="Нет">Не часто (раз в полгода)</option>
+                <option value="Иногда">Периодически (каждые 3 месяца)</option>
             </select>
         </div>
 
         <div class="diagnostic-section">
             <h3>Моторное развитие</h3>
-            <label>Сел в 6-7 месяцев?</label>
+            <label>Во сколько сел?</label>
             <select name="sitting" required>
                 <option value="">Выберите вариант</option>
-                <option value="Да">Да</option>
-                <option value="Нет">Нет</option>
+                <option value="5-6">5-6 месяцев</option>
+                <option value="6-7">6-7 месяцев</option>
+                <option value="7-8">7-8 месяцев</option>
+                <option value="9+">Позже 9 месяцев</option>                
             </select>
-            <label>Встал с поддержкой в 7-8 месяцев?</label>
-            <select name="standingSupport" required>
+            <label>Во сколько начал ползать?</label>
                 <option value="">Выберите вариант</option>
-                <option value="Да">Да</option>
-                <option value="Нет">Нет</option>
+                <option value="5-6">5-6 месяцев</option>
+                <option value="6-7">6-7 месяцев</option>
+                <option value="7-8">7-8 месяцев</option>
+                <option value="9+">Позже 9 месяцев</option>
             </select>
-            <label>Пополз в 6-9 месяцев?</label>
-            <select name="crawling" required>
+            <label>8. Во сколько встал с поддержкой?</label>
                 <option value="">Выберите вариант</option>
-                <option value="Да">Да</option>
-                <option value="Нет">Нет</option>
+                <option value="6-7">6-7 месяцев</option>
+                <option value="7-8">7-8 месяцев</option>
+                <option value="8-9">8-9 месяцев</option>
+                <option value="10+">Позже 10 месяцев</option>
             </select>
-            <label>Встал самостоятельно в 7-9 месяцев?</label>
-            <select name="standingAlone" required>
+            <label>Во сколько встал самостоятельно?</label>
                 <option value="">Выберите вариант</option>
-                <option value="Да">Да</option>
-                <option value="Нет">Нет</option>
+                <option value="7-8">7-8 месяцев</option>
+                <option value="8-9">8-9 месяцев</option>
+                <option value="10-11">10-11 месяцев</option>
+                <option value="12+">После года</option>
             </select>
-            <label>Пошел с поддержкой в 11 мес - 1 год 1 мес?</label>
-            <select name="walkingSupport" required>
+            <label>Во сколько пошел с поддержкой?</label>
                 <option value="">Выберите вариант</option>
-                <option value="Да">Да</option>
-                <option value="Нет">Нет</option>
+                <option value="7-8">7-8 месяцев</option>
+                <option value="8-9">8-9 месяцев</option>
+                <option value="10-12">10-12 месяцев</option>
+                <option value="12+">После года</option>
             </select>
-            <label>Пошел самостоятельно в 11 мес - 1 год 2 мес?</label>
-            <select name="walkingAlone" required>
+            <label>Во сколько пошел самостоятельно?</label>
                 <option value="">Выберите вариант</option>
-                <option value="Да">Да</option>
-                <option value="Нет">Нет</option>
+                <option value="7-8">7-8 месяцев</option>
+                <option value="8-9">8-9 месяцев</option>
+                <option value="10-12">10-12 месяцев</option>
+                <option value="12+">После года</option>
             </select>
             <label>Умеет прыгать?</label>
             <select name="jumping" required>
@@ -207,13 +230,13 @@
 
         <div class="diagnostic-section">
             <h3>Поведение и особенности</h3>
-            <label>Присутствуют синкинезии и стимы? (на цыпочках, взмахи руками и т.д.)</label>
+            <label>Присутствуют синкинезии и стимы? (Хождение на цыпочках, взмахи руками, бьется головой, высовывает язык во время занятий, мастурбация и т.д.)</label>
             <select name="synkinesia" required>
                 <option value="">Выберите вариант</option>
                 <option value="Да">Да</option>
                 <option value="Нет">Нет</option>
             </select>
-            <label>Боится лазить на стул, площадку?</label>
+            <label>Боится лазить на стул, на площадке и т.д?</label>
             <select name="fearClimbing" required>
                 <option value="">Выберите вариант</option>
                 <option value="Да">Да</option>
@@ -231,13 +254,13 @@
                 <option value="Да">Да</option>
                 <option value="Нет">Нет</option>
             </select>
-            <label>Избирательно питается?</label>
+            <label>Избирательно питается? (Кушает определенные продукты, присутствует рвотный рефлекс, когда даешь, что не нравится и т.д)</label>
             <select name="selectiveEating" required>
                 <option value="">Выберите вариант</option>
                 <option value="Да">Да</option>
                 <option value="Нет">Нет</option>
             </select>
-            <label>Имеет нарушения сна?</label>
+            <label>Имеет нарушения сна? (Часто просыпается, трудно засыпает, говорит или плачет во сне)</label>
             <select name="sleepIssues" required>
                 <option value="">Выберите вариант</option>
                 <option value="Да">Да</option>
@@ -253,19 +276,36 @@
                 <option value="Да">Да</option>
                 <option value="Нет">Нет</option>
             </select>
-            <label>Играет в сюжетно-ролевые игры?</label>
+            <label>Играет в сюжетно-ролевые игры? (Укладывает куклу спать, кормит игрушки, катает машинки и т.д)</label>
             <select name="rolePlay" required>
                 <option value="">Выберите вариант</option>
                 <option value="Да">Да</option>
                 <option value="Нет">Нет</option>
             </select>
-            <label>Имеет указательный жест?</label>
-            <select name="pointing" required>
+            <label>
+              <span class="question-text">Имеет указательный жест?</span>
+              <span class="hint">Показывает пальчиком на необходимый предмет или сторону</span>
+              <select name="pointing" required>
                 <option value="">Выберите вариант</option>
                 <option value="Да">Да</option>
                 <option value="Редко">Редко</option>
                 <option value="Нет">Нет</option>
-            </select>
+              </select>
+            </label>
+            
+            <style>
+            .question-text {
+              display: block;
+              margin-bottom: 2px;
+            }
+            
+            .hint {
+              display: block;
+              font-size: 0.8em;
+              color: #666;
+              margin-bottom: 8px;
+            }
+            </style>
             <label>Активный словарный запас:</label>
             <select name="vocabulary" required>
                 <option value="">Выберите вариант</option>
