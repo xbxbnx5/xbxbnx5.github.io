@@ -1,5 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
     
+    // --- НОВЫЙ КОД: Логика для мобильного меню ---
+    const burgerMenu = document.getElementById('burgerMenu');
+    const navigationMenu = document.getElementById('navigationMenu');
+    if (burgerMenu && navigationMenu) {
+        burgerMenu.addEventListener('click', () => {
+            navigationMenu.classList.toggle('active');
+        });
+    }
+
     // --- Логика для карусели команды ---
     const teamTrack = document.getElementById('teamTrack');
     if (teamTrack) {
@@ -11,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const totalCards = teamCards.length;
 
         function updateTeamCarousel() {
+            if (teamCards.length === 0) return; // Защита от ошибок, если карточек нет
             const cardWidth = teamCards[0].offsetWidth;
             const margin = parseInt(window.getComputedStyle(teamCards[0]).marginRight) * 2;
             const offset = - (teamCurrentIndex * (cardWidth + margin)) + (teamTrack.parentElement.offsetWidth / 2) - ((cardWidth + margin) / 2);
