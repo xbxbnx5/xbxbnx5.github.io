@@ -94,7 +94,6 @@ h1, h2, h3 { line-height: 1.2; font-weight: 800; }
     bottom: 50%; right: 50%;
     transform: translate(50%, 50%);
 }
-
 .hero-content {
     position: relative;
     z-index: 5;
@@ -102,8 +101,6 @@ h1, h2, h3 { line-height: 1.2; font-weight: 800; }
 }
 .hero h1 { font-size: 3.5rem; margin-bottom: 20px; }
 .hero p { font-size: 1.2rem; color: #555; max-width: 500px; margin-bottom: 30px; }
-
-/* --- ПЛАВНЫЙ ПЕРЕХОД-ВОЛНА --- */
 .hero-wave {
     position: absolute;
     bottom: -1px;
@@ -160,15 +157,11 @@ section {
     box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.15);
 }
 .studio-card h3 { color: var(--bash-green); margin-top: 15px; font-size: 1.3rem; }
-
 .specialist-photo {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover; /* Это свойство масштабирует фото, сохраняя пропорции */
-    object-position: center top; /* ИЗМЕНЕНИЕ ЗДЕСЬ: Выравнивает фото по верхнему краю */
-    margin-bottom: 15px;
-    border: 4px solid var(--bash-gold);
+    width: 120px; height: 120px; border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    margin-bottom: 15px; border: 4px solid var(--bash-gold);
 }
 .specialist .studio-card { background: linear-gradient(135deg, #fdfdfd, #fff); }
 .specialist-name { font-weight: 600; margin-top: 5px; }
@@ -267,19 +260,82 @@ section {
 .footer-flag .flag-white { flex: 1; background: #fff; border-left: 1px solid #eee; border-right: 1px solid #eee; }
 .footer-flag .flag-green { flex: 1; background: var(--bash-green); }
 
-/* --- Адаптивность --- */
+/* --- АДАПТИВНОСТЬ --- */
 @media (max-width: 992px) {
-    .navigation, .header .btn { display: none; }
-    .burger-menu { display: block; }
-    .hero { text-align: center; justify-content: center; }
-    .hero-content { max-width: 100%; padding: 0 15px; }
-    .hero-bg-circles { display: none; }
-    .contact-wrapper { grid-template-columns: 1fr; }
+    /* --- Стили для планшетов и мобильных --- */
+    .header .btn-small { display: none; }
+    
+    .burger-menu {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 30px;
+        height: 25px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        z-index: 1001;
+    }
+    .burger-menu span {
+        width: 100%;
+        height: 3px;
+        background-color: var(--text-dark);
+        border-radius: 10px;
+        transition: all 0.3s linear;
+        position: relative;
+        transform-origin: 1px;
+    }
+
+    .navigation {
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        width: 70%;
+        max-width: 300px;
+        background-color: var(--bash-white);
+        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
+    }
+    .navigation.active {
+        transform: translateX(0);
+    }
+    .navigation ul {
+        flex-direction: column;
+        text-align: center;
+    }
+    .navigation li {
+        padding: 15px 0;
+    }
+
+    .hero-content {
+        text-align: center;
+    }
+    .contact-wrapper {
+        grid-template-columns: 1fr;
+    }
 }
+
 @media (max-width: 768px) {
-    h1 { font-size: 2.5rem !important; }
-    h2 { font-size: 2.2rem !important; }
+    /* --- Стили только для мобильных телефонов --- */
+    section {
+        padding: 60px 0;
+    }
+    .title-block { margin-bottom: 40px; }
+    
+    h1, .hero h1 { font-size: 2.2rem !important; }
+    h2, .title-block h2 { font-size: 2rem !important; }
+    .hero p { font-size: 1.1rem; }
+
     .team-card { flex: 0 0 250px; margin: 0 10px; }
     .contact-wrapper { padding: 30px; }
     .studios-grid { grid-template-columns: 1fr; }
+
+    .circle-blue { width: 400px; height: 400px; }
+    .circle-green { width: 350px; height: 350px; }
 }
