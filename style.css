@@ -55,7 +55,7 @@ section {
 
 .section-description {
     max-width: 800px;
-    margin: -30px auto 0 auto;
+    margin: 30px auto 0 auto;
     text-align: center;
     font-size: 1.1rem;
 }
@@ -460,3 +460,4 @@ section {
   opacity: 1;
   transform: translateY(0);
 }
+
